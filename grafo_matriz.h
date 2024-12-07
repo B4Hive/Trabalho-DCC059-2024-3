@@ -5,12 +5,13 @@
 class grafo_matriz : public Grafo
 {
     public:
-        grafo_matriz(unsigned int ordem);
+        grafo_matriz();
         ~grafo_matriz();
+
+        int &operator()(unsigned int v, unsigned int w);
         
     private:
-        edge *m;
-        unsigned int ordem;
+        int *m;
 };
 
 #endif

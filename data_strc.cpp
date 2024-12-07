@@ -31,6 +31,11 @@ vertice *vertice::getProx()
     return prox;
 }
 
+void vertice::setProx(vertice *p)
+{
+    prox = p;
+}
+
 void vertice::insereAresta(edge *e)
 {
     if(aresta == NULL)
@@ -60,8 +65,10 @@ edge::~edge(){};
 
 edge::edge()
 {
+    id = 0;
     this->v = 0;
     this->w = 0;
+    peso = 0;
 }
 
 edge *edge::getProx()

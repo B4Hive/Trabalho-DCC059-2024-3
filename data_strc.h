@@ -4,28 +4,6 @@
 #include <iostream>
 
 
-
-class vertice
-{
-    public:
-    vertice(){}
-    ~vertice(){}
-
-    unsigned int &ID(){return id;}
-    unsigned int &Grau(){return grau;}
-    int &Peso(){return peso;}
-    vertice *getProx(){return prox;}
-    void setProx(vertice *p){prox = p;}
-    void insereAresta(edge *e);
-
-    private:
-    unsigned int id;
-    unsigned int grau;
-    int peso;
-    vertice *prox;
-    edge *aresta;
-};
-
 class edge
 {
     public:
@@ -47,5 +25,27 @@ class edge
     
     edge *prox;
 };
+
+class vertice
+{
+    public:
+    vertice();
+    ~vertice();
+
+    unsigned int &ID();
+    unsigned int &Grau();
+    int &Peso();
+    vertice *getProx();
+    void setProx(vertice *p);
+    void insereAresta(edge *e);
+
+    private:
+    unsigned int id;
+    unsigned int grau;
+    int peso;
+    vertice *prox;
+    edge *aresta;
+};
+
 
 #endif
