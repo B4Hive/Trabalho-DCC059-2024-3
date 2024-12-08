@@ -3,8 +3,7 @@
 
 #include "grafo.h"
 
-class grafo_lista : public Grafo
-{
+class grafo_lista : public Grafo {
     public:
         grafo_lista();
         ~grafo_lista();
@@ -12,12 +11,11 @@ class grafo_lista : public Grafo
         void insere(vertice *v);
         void remove();
         bool busca(unsigned int v);
-        vertice *getInicio(){return inicio;}
+        vertice *getInicio();
         vertice *getVertice(unsigned int v);
         
     private:
         vertice* inicio;
-        unsigned int ordem;
 };
 
 #endif

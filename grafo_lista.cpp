@@ -1,8 +1,7 @@
-#include <grafo_lista.h>
+#include "grafo_lista.h"
 
 grafo_lista::grafo_lista()
 {
-    this->ordem = 0;
     this->inicio = NULL;
 }
 
