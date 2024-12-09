@@ -2,7 +2,9 @@
 #include "grafo_lista.h"
 #include "grafo_matriz.h"
 
-Grafo::Grafo(std::string filename)
+using namespace std;
+
+Grafo::Grafo(string filename)
 {
     this->filename = filename;
 }
@@ -14,13 +16,13 @@ Grafo::~Grafo(){}
 
 void Grafo::readInfo( char *tipo)
 {
-    std::cout << "Lendo a lista" << std::endl;
-    std::ifstream file;
-    std::string line;
+    cout << "Lendo a lista" << endl;
+    ifstream file;
+    string line;
     file.open(filename.c_str());
     if(!file.is_open())
     {
-        std::cout << "Erro ao abrir arquivo" << std::endl;
+        cout << "Erro ao abrir arquivo" << endl;
         return;
     }
 
@@ -105,12 +107,12 @@ void Grafo::readInfo( char *tipo)
 
 void Grafo::exportDesc()
 {
-    std::cout << "Exportando descritor" << std::endl;
-    std::ofstream file;
-    file.open("grafo_out.txt", std::ofstream::out);
+    cout << "Exportando descritor" << endl;
+    ofstream file;
+    file.open("grafo_out.txt", ofstream::out);
     if(!file.is_open())
     {
-        std::cout << "Erro ao abrir arquivo" << std::endl;
+        cout << "Erro ao abrir arquivo" << endl;
         return;
     }
 
@@ -195,3 +197,22 @@ void Grafo::exportDesc()
     file.close();
 }
 
+/*----------B4Hive----------*/
+bool &Grafo::Aresta_Ponte(){
+    //for(aresta e : grafo){
+    //    create subgraph - e;
+    //    if(subgraph is not connected)
+    //        return true;
+    //}
+    //return false;
+}
+bool &Grafo::Vertice_de_Articulacao(){
+    //for(vertice v : grafo){
+    //    create subgraph - v;
+    //    if(subgraph is not connected)
+    //        return true;
+    //}
+    //return false;
+}
+//complexidade tá O(n^3), depois eu pego um método mais rápido
+/*----------B4Hive----------*/

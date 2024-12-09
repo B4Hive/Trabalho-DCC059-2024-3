@@ -1,28 +1,31 @@
 #include <iostream>
 #include "grafo.h"
-
+using namespace std;
 
 int main(int argc, char *argv[])
 {
-
-    std::cout << "Programa iniciado " << std::endl;
-    std::cout << "argc: " << argc << std::endl;
+    if(argc < 3 || argc > 4){
+        cout << "Error: invalid argument(s)" << endl;
+        return 4;
+    }
+    cout << "Programa iniciado " << endl;
+    cout << "argc: " << argc << endl;
     for(int i = 0; i < argc; i++)
     {
-        std::cout << "argv[" << i << "]: " << argv[i] << std::endl;
+        cout << "argv[" << i << "]: " << argv[i] << endl;
     }
-    std::string filename;
-    std::string parametro1 = argv[1];
-    std::string parametro2 = argv[2];
-    std::cout << "Parametro1: " << parametro1 << std::endl;
-    std::cout << "Parametro2: " << parametro2 << std::endl;
+    string filename;
+    string parametro1 = argv[1];
+    string parametro2 = argv[2];
+    cout << "Parametro1: " << parametro1 << endl;
+    cout << "Parametro2: " << parametro2 << endl;
     filename = argv[3];
-    std::cout << "Filename: " << filename << std::endl;
+    cout << "Filename: " << filename << endl;
     Grafo *g = new Grafo(filename);
 
     if(parametro1 == "-d")
     {
-        std::cout << "Entrou no if que eu pedi" << std::endl;
+        cout << "Entrou no if que eu pedi" << endl;
         g->readInfo(argv[2]);
         g->exportDesc();
     }
@@ -31,9 +34,7 @@ int main(int argc, char *argv[])
         //g->readDesc(argv[2]);
         //g->exportInfo();
     }
-    
 
-    
     delete g;
     return 0;
 }

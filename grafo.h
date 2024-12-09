@@ -10,14 +10,14 @@
 
 #include "data_strc.h"
 
-
+using namespace std;
 
 
 
 class Grafo
 {
     public:
-    Grafo(std::string filename);
+    Grafo(string filename);
     Grafo();
     ~Grafo();
 
@@ -48,12 +48,12 @@ class Grafo
     bool &Completo()                    {return dpp[3]; }
     bool &Bipartido()                   {return dpp[4]; }
     bool &Arvore()                      {return dpp[5]; }
-    bool &Aresta_Ponte()                {return dpp[6]; }
-    bool &Vertice_de_Articulacao()      {return dpp[7]; }
+    bool &Aresta_Ponte();
+    bool &Vertice_de_Articulacao();
 
     private:
 
-    std::string filename;
+    string filename;
 
     //unsigned int n_vertices;
     unsigned int info[3]{1,2,3}; //[Grau, Ordem, Componentes_conexas]
