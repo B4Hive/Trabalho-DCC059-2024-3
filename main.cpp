@@ -14,12 +14,11 @@ int main(int argc, char *argv[])
     {
         cout << "argv[" << i << "]: " << argv[i] << endl;
     }
-    string filename;
     string parametro1 = argv[1];
     string parametro2 = argv[2];
+    string filename = argv[3];
     cout << "Parametro1: " << parametro1 << endl;
     cout << "Parametro2: " << parametro2 << endl;
-    filename = argv[3];
     cout << "Filename: " << filename << endl;
     Grafo *g = new Grafo(filename);
 
