@@ -1,6 +1,5 @@
 #include "data_strc.h"
 
-
 /*-------------------------- Vertice -----------------------------*/
 
 vertice::vertice()
