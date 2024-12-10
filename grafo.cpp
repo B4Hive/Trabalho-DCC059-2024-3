@@ -27,10 +27,10 @@ void Grafo::readInfo( char *tipo)
     }
 
     file >> Ordem();
-        file >> Direcionado();
-        file >> Vertices_ponderados();
-        file >> Arestas_ponderadas();
-        getline(file, line);
+    file >> Direcionado();
+    file >> Vertices_ponderados();
+    file >> Arestas_ponderadas();
+    getline(file, line);
 
     /*------------------------------------ Tipo Lista ------------------------------------*/
 
@@ -99,8 +99,6 @@ void Grafo::readInfo( char *tipo)
 
 
     }
-    
-
 
     file.close();
 }
@@ -116,85 +114,24 @@ void Grafo::exportDesc()
         return;
     }
 
-    file << filename << '\n' << '\n';
-    
-    file << "Grau: " << Grau() << '\n';
-    file << "Ordem: " << Ordem() << '\n';
-    if(Direcionado())
-    {
-        file << "Direcionado: Sim" << '\n';
-    }
-    else
-    {
-        file << "Direcionado: Não" << '\n';
-    }
-
-    file << "Componentes conexas: " << Componentes_conexas() << '\n';
-
-    if(Vertices_ponderados())
-    {
-        file << "Vertices ponderados: Sim" << '\n';
-    }
-    else
-    {
-        file << "Vertices ponderados: Não" << '\n';
-    }
-
-    if(Arestas_ponderadas())
-    {
-        file << "Arestas ponderadas: Sim" << '\n';
-    }
-    else
-    {
-        file << "Arestas ponderadas: Não" << '\n';
-    }
-
-    if(Completo())
-    {
-        file << "Completo: Sim" << '\n';
-    }
-    else
-    {
-        file << "Completo: Não" << '\n';
-    }
-
-    if(Bipartido())
-    {
-        file << "Bipartido: Sim" << '\n';
-    }
-    else
-    {
-        file << "Bipartido: Não" << '\n';
-    }
-
-    if(Arvore())
-    {
-        file << "Arvore: Sim" << '\n';
-    }
-    else
-    {
-        file << "Arvore: Não" << '\n';
-    }
-
-    if(Aresta_Ponte())
-    {
-        file << "Aresta Ponte: Sim" << '\n';
-    }
-    else
-    {
-        file << "Aresta Ponte: Não" << '\n';
-    }
-
-    if(Vertice_de_Articulacao())
-    {
-        file << "Vertice de Articulação: Sim" << '\n';
-    }
-    else
-    {
-        file << "Vertice de Articulação: Não" << '\n';
-    }
+    writeGraphProperties(file);
 
     file.close();
+}
+
+void Grafo::writeGraphProperties(ofstream &file) {
+    file << filename << '\n' << '\n';
+    file << "Grau: " << Grau() << '\n';
+    file << "Ordem: " << Ordem() << '\n';
+    file << "Direcionado: " << (Direcionado() ? "Sim" : "Não") << '\n';
+    file << "Componentes conexas: " << Componentes_conexas() << '\n';
+    file << "Vertices ponderados: " << (Vertices_ponderados() ? "Sim" : "Não") << '\n';
+    file << "Arestas ponderadas: " << (Arestas_ponderadas() ? "Sim" : "Não") << '\n';
+    file << "Completo: " << (Completo() ? "Sim" : "Não") << '\n';
+    file << "Bipartido: " << (Bipartido() ? "Sim" : "Não") << '\n';
+    file << "Arvore: " << (Arvore() ? "Sim" : "Não") << '\n';
+    file << "Aresta Ponte: " << (Aresta_Ponte() ? "Sim" : "Não") << '\n';
+    file << "Vertice de Articulação: " << (Vertice_de_Articulacao() ? "Sim" : "Não") << '\n';
 }
 
 /*----------B4Hive----------*/

@@ -5,7 +5,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     if(argc < 3 || argc > 4){
-        cout << "Error: invalid argument(s)" << endl;
+        cout << "Error: missing/too many arguments" << endl;
         return 4;
     }
     cout << "Programa iniciado " << endl;

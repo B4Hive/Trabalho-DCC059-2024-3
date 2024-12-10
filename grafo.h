@@ -26,8 +26,6 @@ class Grafo
     //void exportInfo();
     void exportDesc();
 
-    
-
 
     int pesoAresta_lista(unsigned int v, unsigned int w);
     int pesoAresta_lista(unsigned int idAresta);
@@ -48,8 +46,6 @@ class Grafo
     bool &Completo()                    {return dpp[3]; }
     bool &Bipartido()                   {return dpp[4]; }
     bool &Arvore()                      {return dpp[5]; }
-    bool &Aresta_Ponte();
-    bool &Vertice_de_Articulacao();
 
     private:
 
@@ -66,7 +62,10 @@ class Grafo
                 // Arvore                  [5]
                 // Aresta Ponte            [6]
                 // Vertice de Articulação  [7]
-    
+
+    bool &Aresta_Ponte();
+    bool &Vertice_de_Articulacao();
+    void writeGraphProperties(ofstream &file);
 };
 
 #endif
