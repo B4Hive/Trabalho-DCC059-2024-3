@@ -35,6 +35,7 @@ class vertice
     unsigned int &ID();
     unsigned int &Grau();
     int &Peso();
+    edge *getAresta() {return aresta;}
     vertice *getProx();
     void setProx(vertice *p);
     void insereAresta(edge *e);

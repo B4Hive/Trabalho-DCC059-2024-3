@@ -34,34 +34,36 @@ void Grafo::readInfo( char *tipo)
 
     if(tipo == "-l")
     {
-        grafo_lista* gl = new grafo_lista;
-
+        this->grafo = new grafo_lista;
+    }
+    else if(tipo == "-m")
+    {
+        this->grafo = new grafo_matriz;
+    }
         for(int i = 1; i <= Ordem(); i++)
         {
-            vertice *v = new vertice;
-            v->ID() = i;
+            int peso;
             if(Vertices_ponderados())
             {
-                file >> v->Peso();
+                file >> peso;
             }
-            gl->insere(v);
+            grafo->insere_vertice(i, peso);
         }
         getline(file, line);
         while(!file.eof())
         {
-            edge *e = new edge;
-            file >> e->V(); // vertice orígem
-            file >> e->W(); // vertice destino
+            unsigned int v,w;
+            int peso=0;
+            file >> v; // vertice orígem
+            file >> w; // vertice destino
             if(Arestas_ponderadas())
             {
-                file >> e->Peso();
+                file >> peso;
             }
-            gl->getVertice(e->V())->insereAresta(e);
-            //gl->getVertice(e->W())->insereAresta(e);
+            grafo->insere_aresta(v,w,peso);
 
             getline(file, line);
         }
-    }
 
     /*------------------------------------ Tipo Matriz ------------------------------------*/
 

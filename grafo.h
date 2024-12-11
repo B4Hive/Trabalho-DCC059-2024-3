@@ -12,8 +12,6 @@
 
 
 
-
-
 class Grafo
 {
     public:
@@ -26,17 +24,17 @@ class Grafo
     //void exportInfo();
     void exportDesc();
 
-    
+    virtual void insere_vertice(unsigned int id, int peso) = 0;
+    //virtual void remove_vertice(unsigned int id) = 0; calma que vamos impelementar aindaa
+
+    virtual void insere_aresta(unsigned int v, unsigned int w, int peso) = 0;
+    //virtual void remove_aresta(unsigned int v, unsigned int w) = 0; esse tambem, talvez....
 
 
-    int pesoAresta_lista(unsigned int v, unsigned int w);
-    int pesoAresta_lista(unsigned int idAresta);
-
-    int pesoAresta_matriz(unsigned int v, unsigned int w);
-    int pesoAresta_matriz(unsigned int idAresta);
-
-    unsigned int pesoVertice_lista(unsigned int idVertice);
-    unsigned int pesoVertice_matriz(unsigned int idVertice);
+    virtual int  pesoAresta(unsigned int v, unsigned int w) = 0;
+    virtual int  pesoVertice(unsigned int idVertice) = 0;
+    virtual bool buscaVertice(unsigned int idVertice) = 0;
+    virtual bool buscaAresta(unsigned int v, unsigned int w) = 0;
 
 
     unsigned int &Grau()                {return info[0];}
@@ -52,6 +50,8 @@ class Grafo
     bool &Vertice_de_Articulacao()      {return dpp[7]; }
 
     private:
+
+    Grafo *grafo; // grafo_lista ou grafo_matriz
 
     std::string filename;
 
