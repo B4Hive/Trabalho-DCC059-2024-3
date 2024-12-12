@@ -19,6 +19,8 @@ class grafo_lista : public Grafo {
         bool buscaVertice(unsigned int idVertice);
         bool buscaAresta(unsigned int v, unsigned int w);
 
+        edge *getAresta(unsigned int idAresta);
+
 
         vertice *getInicio();
         vertice *getVertice(unsigned int v);

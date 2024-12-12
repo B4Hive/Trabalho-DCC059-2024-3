@@ -21,86 +21,110 @@ void Grafo::readInfo( char *tipo)
     if(!file.is_open())
     {
         std::cout << "Erro ao abrir arquivo" << std::endl;
-        return;
+        return ;
     }
 
     file >> Ordem();
-        file >> Direcionado();
-        file >> Vertices_ponderados();
-        file >> Arestas_ponderadas();
-        getline(file, line);
+    file >> Direcionado();
+    file >> Vertices_ponderados();
+    file >> Arestas_ponderadas();
+    getline(file, line);
 
-    /*------------------------------------ Tipo Lista ------------------------------------*/
-
-    if(tipo == "-l")
+    if (tipo == "-l")
     {
         this->grafo = new grafo_lista;
     }
-    else if(tipo == "-m")
+    else if (tipo == "-m")
     {
         this->grafo = new grafo_matriz;
     }
+    for (int i = 1; i <= Ordem(); i++)
+    {
+        int peso;
+        if (Vertices_ponderados())
+        {
+            file >> peso;
+        }
+        grafo->insere_vertice(i, peso);
+    }
+    getline(file, line);
+    while (!file.eof())
+    {
+        unsigned int v, w;
+        int peso = 0;
+        file >> v; // vertice orígem
+        file >> w; // vertice destino
+        if (Arestas_ponderadas())
+        {
+            file >> peso;
+        }
+        grafo->insere_aresta(v, w, peso);
+
+        getline(file, line);
+    }   
+
+    file.close();
+
+}
+
+void Grafo::exportInfo()
+{
+    std::cout << "Exportando Info" << std::endl;
+    std::ofstream file;
+    file.open("Grafo.txt", std::ofstream::out);
+    if(!file.is_open())
+    {
+        std::cout << "Erro ao abrir arquivo" << std::endl;
+        return;
+    }
+    file << Ordem() << " " << Direcionado() << " " << Vertices_ponderados() << " " << Arestas_ponderadas() << '\n';
+    if(Vertices_ponderados())
+    {
         for(int i = 1; i <= Ordem(); i++)
         {
-            int peso;
-            if(Vertices_ponderados())
-            {
-                file >> peso;
-            }
-            grafo->insere_vertice(i, peso);
+            file << grafo->pesoVertice(i) << " ";
         }
-        getline(file, line);
-        while(!file.eof())
-        {
-            unsigned int v,w;
-            int peso=0;
-            file >> v; // vertice orígem
-            file >> w; // vertice destino
-            if(Arestas_ponderadas())
-            {
-                file >> peso;
-            }
-            grafo->insere_aresta(v,w,peso);
-
-            getline(file, line);
-        }
-
-    /*------------------------------------ Tipo Matriz ------------------------------------*/
-
-    if(tipo == "-m")
-    {  
-        grafo_matriz gm;
-
-        if(Vertices_ponderados())
-        {
-            for(int i = 0; i< Ordem(); i++)
-            {
-                file >> gm(i,i);
-            }
-        }
-        getline(file, line);
-
-        while(!file.eof())
-        {
-            unsigned int v, w;
-            file >> v;
-            file >> w;
-            if(Arestas_ponderadas())
-            {
-                file >> gm(v,w);
-            }
-            else
-            {
-                gm(v,w) = 1;
-            }
-            getline(file, line);
-        }
-
-
-
+        file << '\n';
     }
-    
 
+
+    for(int i = 1; i<=this->Tamanho(); i++)
+    {
+        edge *e = new edge(); 
+        e =grafo->getAresta(i);
+        file << e->V() << " " << e->W() << " ";
+        if(Arestas_ponderadas())
+        {
+            file << e->Peso() << " ";
+        }
+        file << '\n';
+    }
+
+}
+
+void Grafo::readDesc()
+{
+    std::cout << "Lendo Decrição" << std::endl;
+    std::ifstream file;
+    std::string line;
+    file.open("Descricao.txt");
+    if(!file.is_open())
+    {
+        std::cout << "Erro ao abrir arquivo" << std::endl;
+        return;
+    }
+
+    file >> Grau();                   getline(file, line);
+    file >> Ordem();                  getline(file, line);
+    file >> Direcionado();            getline(file, line);
+    file >> Componentes_conexas();    getline(file, line);
+    file >> Vertices_ponderados();    getline(file, line);
+    file >> Arestas_ponderadas();     getline(file, line);
+    file >> Completo();               getline(file, line);
+    file >> Bipartido();              getline(file, line);
+    file >> Arvore();                 getline(file, line);
+    file >> Aresta_Ponte();           getline(file, line);
+    file >> Vertice_de_Articulacao(); getline(file, line);
 
     file.close();
 }

@@ -19,6 +19,8 @@ public:
     bool buscaVertice(unsigned int idVertice);
     bool buscaAresta(unsigned int v, unsigned int w);
 
+    edge *getAresta(unsigned int idAresta);
+
     int &operator()(unsigned int v, unsigned int w);
 
 private:

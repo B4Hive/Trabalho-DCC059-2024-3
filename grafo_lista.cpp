@@ -38,7 +38,9 @@ void grafo_lista::insere_aresta(unsigned int v, unsigned int w, int peso)
         if(p->ID() == v)
         {
             edge *e = new edge(v, w);
+            this->Tamanho()++;
             e->Peso() = peso;
+            e->ID() = this->Tamanho();
             p->insereAresta(e);
             break;
         }
@@ -101,6 +103,26 @@ vertice* grafo_lista::getVertice(unsigned int v)
         }
         p = p->getProx();
     }
+    return NULL;
+}
+
+edge* grafo_lista::getAresta(unsigned int idAresta)
+{
+    vertice *p = inicio;
+    while(p != NULL)
+    {
+        edge *e = p->getAresta();
+        while(e != NULL)
+        {
+            if(e->ID() == idAresta)
+            {
+                return e;
+            }
+            e = e->getProx();
+        }
+        p = p->getProx();
+    }
+    std::cout << "Aresta nao encontrada" << std::endl;
     return NULL;
 }
 

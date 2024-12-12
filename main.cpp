@@ -28,8 +28,8 @@ int main(int argc, char *argv[])
     }
     if(parametro2 == "-i")
     {
-        //g->readDesc(argv[2]);
-        //g->exportInfo();
+        g->readDesc();
+        g->exportInfo();
     }
     
 

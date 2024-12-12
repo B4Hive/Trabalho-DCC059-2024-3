@@ -20,21 +20,23 @@ class Grafo
     ~Grafo();
 
     void readInfo(char *tipo);
-    //void readDesc(char *tipo);
-    //void exportInfo();
+    void readDesc();
+    void exportInfo();
     void exportDesc();
+    void criaGrafo(char *tipo);
 
-    virtual void insere_vertice(unsigned int id, int peso) = 0;
+    virtual void insere_vertice(unsigned int id, int peso);
     //virtual void remove_vertice(unsigned int id) = 0; calma que vamos impelementar aindaa
 
-    virtual void insere_aresta(unsigned int v, unsigned int w, int peso) = 0;
+    virtual void insere_aresta(unsigned int v, unsigned int w, int peso);
     //virtual void remove_aresta(unsigned int v, unsigned int w) = 0; esse tambem, talvez....
 
 
-    virtual int  pesoAresta(unsigned int v, unsigned int w) = 0;
-    virtual int  pesoVertice(unsigned int idVertice) = 0;
-    virtual bool buscaVertice(unsigned int idVertice) = 0;
-    virtual bool buscaAresta(unsigned int v, unsigned int w) = 0;
+    virtual int  pesoAresta(unsigned int v, unsigned int w) ;
+    virtual int  pesoVertice(unsigned int idVertice) ;
+    virtual edge *getAresta(unsigned int idAresta) ;
+    virtual bool buscaVertice(unsigned int idVertice) ;
+    virtual bool buscaAresta(unsigned int v, unsigned int w) ;
 
 
     unsigned int &Grau()                {return info[0];}
@@ -49,6 +51,8 @@ class Grafo
     bool &Aresta_Ponte()                {return dpp[6]; }
     bool &Vertice_de_Articulacao()      {return dpp[7]; }
 
+    unsigned int &Tamanho()             {return info[3];} // Quantidade de arestas que possúi o grafo
+
     private:
 
     Grafo *grafo; // grafo_lista ou grafo_matriz
@@ -56,8 +60,8 @@ class Grafo
     std::string filename;
 
     //unsigned int n_vertices;
-    unsigned int info[3]{1,2,3}; //[Grau, Ordem, Componentes_conexas]
-    bool dpp[8] = {0,1,0,1,0,1,0,1};
+    unsigned int info[4]{0,0,0,0}; //[Grau, Ordem, Componentes_conexas, Tamanho]
+    bool dpp[8] = {0,0,0,0,0,0,0,0};
                 // direcionado             [0]
                 // vertices ponderados     [1]
                 // arestas ponderadas      [2]
