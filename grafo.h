@@ -23,6 +23,7 @@ class Grafo
     void readDesc();
     void exportInfo();
     void exportDesc();
+    
     void criaGrafo(char *tipo);
 
     virtual void insere_vertice(unsigned int id, int peso);

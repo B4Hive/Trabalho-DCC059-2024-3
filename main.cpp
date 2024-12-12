@@ -22,13 +22,16 @@ int main(int argc, char *argv[])
 
     if(parametro1 == "-d")
     {
-        std::cout << "Entrou no if que eu pedi" << std::endl;
         g->readInfo(argv[2]);
+        //-- chamada da funçoes de verificação--//
+        
+        // -------------------------------------//
         g->exportDesc();
     }
-    if(parametro2 == "-i")
+    if(parametro2 == "-c") 
     {
         g->readDesc();
+        g->criaGrafo(argv[2]);
         g->exportInfo();
     }
     
