@@ -21,6 +21,10 @@ public:
 
     int &operator()(unsigned int v, unsigned int w);
 
+    //B4Hive
+    void auxArestaPonte(bool *result);
+    void auxVerticeArticulacao(bool *result);
+
 private:
     int *m;
 };

@@ -60,7 +60,42 @@ int grafo_lista::pesoVertice(unsigned int idVertice)
     std::cout << "Vertice nao encontrado" << std::endl;
     return 0;
 }
+// B4Hive-begin
+void grafo_lista::auxArestaPonte(bool *result) {
+    vertice *p = inicio;
+    while(p != NULL)
+    {
+        edge *e = p->getAresta();
+        while(e != NULL)
+        {
+            // Remove aresta
+            // if (!conexo){
+            //     *result = true;
+            //     return;
+            // }
+            // Restaura aresta
+            e = e->getProx();
+        }
+        p = p->getProx();
+    }
+    *result = false;
+}
 
+void grafo_lista::auxVerticeArticulacao(bool *result) {
+    vertice *p = inicio;
+    while(p != NULL)
+    {
+        // Remove vertice
+        // if (!conexo){
+        //     *result = true;
+        //     return;
+        // }
+        // Restaura vertice
+        p = p->getProx();
+    }
+    *result = false;
+}
+// B4Hive-end
 int grafo_lista::pesoAresta(unsigned int v, unsigned int w)
 {
     vertice *p = inicio;

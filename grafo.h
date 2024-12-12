@@ -49,6 +49,10 @@ class Grafo
     bool &Aresta_Ponte()                {return dpp[6]; }
     bool &Vertice_de_Articulacao()      {return dpp[7]; }
 
+    //B4Hive
+    virtual void auxArestaPonte(bool *result) = 0;
+    virtual void auxVerticeArticulacao(bool *result) = 0;
+
     private:
 
     Grafo *grafo; // grafo_lista ou grafo_matriz

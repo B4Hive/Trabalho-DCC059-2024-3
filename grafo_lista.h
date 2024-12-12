@@ -19,12 +19,14 @@ class grafo_lista : public Grafo {
         bool buscaVertice(unsigned int idVertice);
         bool buscaAresta(unsigned int v, unsigned int w);
 
-
-        vertice *getInicio();
-        vertice *getVertice(unsigned int v);
+        //B4Hive
+        void auxArestaPonte(bool *result);
+        void auxVerticeArticulacao(bool *result);
         
     private:
         vertice* inicio;
+        vertice *getInicio();
+        vertice *getVertice(unsigned int v);
 };
 
 #endif
