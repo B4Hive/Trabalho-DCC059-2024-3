@@ -7,18 +7,17 @@ Grafo::Grafo(std::string filename)
     this->filename = filename;
 }
 
+Grafo::Grafo() {}
 
-Grafo::Grafo(){}
+Grafo::~Grafo() {}
 
-Grafo::~Grafo(){}
-
-void Grafo::readInfo( char *tipo)
+void Grafo::readInfo(char *tipo)
 {
     std::cout << "Lendo a lista" << std::endl;
     std::ifstream file;
     std::string line;
     file.open(filename.c_str());
-    if(!file.is_open())
+    if (!file.is_open())
     {
         std::cout << "Erro ao abrir arquivo" << std::endl;
         return ;
@@ -134,17 +133,18 @@ void Grafo::exportDesc()
     std::cout << "Exportando descritor" << std::endl;
     std::ofstream file;
     file.open("grafo_out.txt", std::ofstream::out);
-    if(!file.is_open())
+    if (!file.is_open())
     {
         std::cout << "Erro ao abrir arquivo" << std::endl;
         return;
     }
 
-    file << filename << '\n' << '\n';
-    
+    file << filename << '\n'
+         << '\n';
+
     file << "Grau: " << Grau() << '\n';
     file << "Ordem: " << Ordem() << '\n';
-    if(Direcionado())
+    if (Direcionado())
     {
         file << "Direcionado: Sim" << '\n';
     }
@@ -155,7 +155,7 @@ void Grafo::exportDesc()
 
     file << "Componentes conexas: " << Componentes_conexas() << '\n';
 
-    if(Vertices_ponderados())
+    if (Vertices_ponderados())
     {
         file << "Vertices ponderados: Sim" << '\n';
     }
@@ -164,7 +164,7 @@ void Grafo::exportDesc()
         file << "Vertices ponderados: Não" << '\n';
     }
 
-    if(Arestas_ponderadas())
+    if (Arestas_ponderadas())
     {
         file << "Arestas ponderadas: Sim" << '\n';
     }
@@ -173,7 +173,7 @@ void Grafo::exportDesc()
         file << "Arestas ponderadas: Não" << '\n';
     }
 
-    if(Completo())
+    if (Completo())
     {
         file << "Completo: Sim" << '\n';
     }
@@ -182,7 +182,7 @@ void Grafo::exportDesc()
         file << "Completo: Não" << '\n';
     }
 
-    if(Bipartido())
+    if (Bipartido())
     {
         file << "Bipartido: Sim" << '\n';
     }
@@ -191,7 +191,7 @@ void Grafo::exportDesc()
         file << "Bipartido: Não" << '\n';
     }
 
-    if(Arvore())
+    if (Arvore())
     {
         file << "Arvore: Sim" << '\n';
     }
@@ -200,7 +200,7 @@ void Grafo::exportDesc()
         file << "Arvore: Não" << '\n';
     }
 
-    if(Aresta_Ponte())
+    if (Aresta_Ponte())
     {
         file << "Aresta Ponte: Sim" << '\n';
     }
@@ -209,7 +209,7 @@ void Grafo::exportDesc()
         file << "Aresta Ponte: Não" << '\n';
     }
 
-    if(Vertice_de_Articulacao())
+    if (Vertice_de_Articulacao())
     {
         file << "Vertice de Articulação: Sim" << '\n';
     }
@@ -220,4 +220,3 @@ void Grafo::exportDesc()
 
     file.close();
 }
-
