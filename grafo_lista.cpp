@@ -62,38 +62,71 @@ int grafo_lista::pesoVertice(unsigned int idVertice)
 }
 // B4Hive-begin
 void grafo_lista::auxArestaPonte(bool *result) {
+    *result = false;
     vertice *p = inicio;
-    while(p != NULL)
-    {
-        edge *e = p->getAresta();
-        while(e != NULL)
-        {
-            // Remove aresta
-            // if (!conexo){
-            //     *result = true;
-            //     return;
-            // }
-            // Restaura aresta
-            e = e->getProx();
+    int *visitado = new int[Ordem()];
+    int *desc = new int[Ordem()];
+    int *low = new int[Ordem()];
+    int *pai = new int[Ordem()];
+    int *tempo = new int;
+    *tempo = 0;
+    for(int i = 0; i < Ordem(); i++) {
+        visitado[i] = 0;
+        desc[i] = 0;
+        low[i] = 0;
+        pai[i] = -1;
+    }
+    while(p != NULL) {
+        if(visitado[p->ID()-1] == 0) {
+            BPPonte(p, visitado, desc, low, pai, tempo, result);
         }
         p = p->getProx();
     }
-    *result = false;
+}
+
+void grafo_lista::BPPonte(vertice *v, int *visitado, int *desc, int *low, int *pai, int *tempo, bool *result) {
+    visitado[v->ID()-1] = 1;
+    *tempo++;
+    desc[v->ID()-1] = *tempo;
+    low[v->ID()-1] = desc[v->ID()-1];
+    edge *e = v->getAresta();
+    while(e != NULL) {
+        if(visitado[e->W()] == 0) {
+            pai[e->W()] = v->ID();
+            BPPonte(getVertice(e->W()), visitado, desc, low, pai, tempo, result);
+            low[v->ID()-1] = std::min(low[v->ID()-1], low[e->W()]);
+            if(low[e->W()] > desc[v->ID()-1]) {
+                *result = true;
+            }
+        }
+        else if(e->W() != pai[v->ID()-1]) {
+            low[v->ID()-1] = std::min(low[v->ID()-1], desc[e->W()]);
+        }
+        e = e->getProx();
+    }
 }
 
 void grafo_lista::auxVerticeArticulacao(bool *result) {
+    *result = false;
     vertice *p = inicio;
-    while(p != NULL)
-    {
-        // Remove vertice
-        // if (!conexo){
-        //     *result = true;
-        //     return;
-        // }
-        // Restaura vertice
+    int *visitado = new int[Ordem()];
+    int *desc = new int[Ordem()];
+    int *low = new int[Ordem()];
+    int *pai = new int[Ordem()];
+    int *tempo = new int;
+    *tempo = 0;
+    for(int i = 0; i < Ordem(); i++) {
+        visitado[i] = 0;
+        desc[i] = 0;
+        low[i] = 0;
+        pai[i] = -1;
+    }
+    while(p != NULL) {
+        if(visitado[p->ID()-1] == 0) {
+            //BPArticulacao(p, visitado, desc, low, pai, tempo, result);
+        }
         p = p->getProx();
     }
-    *result = false;
 }
 // B4Hive-end
 int grafo_lista::pesoAresta(unsigned int v, unsigned int w)

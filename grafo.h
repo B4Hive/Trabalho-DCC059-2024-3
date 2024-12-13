@@ -50,8 +50,8 @@ class Grafo
     bool &Vertice_de_Articulacao()      {return dpp[7]; }
 
     //B4Hive
-    virtual void auxArestaPonte(bool *result) = 0;
-    virtual void auxVerticeArticulacao(bool *result) = 0;
+    virtual void auxArestaPonte(bool *result) = 0; // dpp[6]
+    virtual void auxVerticeArticulacao(bool *result) = 0; // dpp[7]
 
     private:
 
