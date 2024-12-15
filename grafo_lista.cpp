@@ -126,3 +126,39 @@ edge* grafo_lista::getAresta(unsigned int idAresta)
     return NULL;
 }
 
+bool grafo_lista::buscaVertice(unsigned int idVertice)
+{
+    vertice *p = inicio;
+    while(p != NULL)
+    {
+        if(p->ID() == idVertice)
+        {
+            return true;
+        }
+        p = p->getProx();
+    }
+    return false;
+}
+
+bool grafo_lista::buscaAresta(unsigned int v, unsigned int w)
+{
+    vertice *p = inicio;
+    while(p != NULL)
+    {
+        if(p->ID() == v)
+        {
+            edge *e = p->getAresta();
+            while(e != NULL)
+            {
+                if(e->W() == w)
+                {
+                    return true;
+                }
+                e = e->getProx();
+            }
+        }
+        p = p->getProx();
+    }
+    return false;
+}
+

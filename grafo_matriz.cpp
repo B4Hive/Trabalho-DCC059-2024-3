@@ -3,13 +3,15 @@
 grafo_matriz::grafo_matriz()
 {
 
-    if(this->Direcionado() == 0) // matriz  triangular superior 
+    if(this->Direcionado() == 0) // matriz  triangular infeiror 
     {
-        this->m = new int [this->Ordem()];
-            for(int i = 0; i < this->Ordem(); i++)
+        int tamanho = (this->Ordem() * (this->Ordem() + 1)) / 2;
+        this->m = new int [tamanho];
+            for(int i = 0; i < tamanho; i++)
             {
                 m[i] = 0;
             }
+        std::cout << std::size_t(m) << std::endl;
     }
     
     if( this->Direcionado() == 1)
@@ -32,67 +34,49 @@ grafo_matriz::~grafo_matriz()
 
 int &grafo_matriz::operator()(unsigned int v, unsigned int w)
 {
+    int i = v-1;
+    int j = w-1;
     if(this->Direcionado() == 0)
-    {
-        if(v > w)
-        {
-            return m[w * Grafo::Ordem() + v];
-        }
+    {   if(i < j)
+            return m[i * (i - 1) / 2 + j];
         else
-        {
-            return m[v * Grafo::Ordem() + w];
-        }
+            return m[j * (j - 1) / 2 + i];
     }
     else
     {
-        return m[v * Grafo::Ordem() + w];
+        return m[i * Grafo::Ordem() + j];
     }
 }
 
 void grafo_matriz::insere_vertice(unsigned int id, int peso)
 {
-    if(Vertices_ponderados())
-    {
-        this->operator()(id, id) = peso;
-    }
+    
+    this->operator()(id, id) = peso;
+    
+    std::cout << "Vertice inserido" << std::endl;
 }
 
 void grafo_matriz::insere_aresta(unsigned int v, unsigned int w, int peso)
 {
-    if(Arestas_ponderadas())
-    {
-        this->operator()(v,w) = peso;
-        this->Tamanho()++;
-    }
-    else
-    {
-        this->operator()(v,w) = 1;
-        this->Tamanho()++;
-    }
+
+    this->operator()(v,w) = peso;
+    this->Tamanho()++;
+    
+    std::cout << "Aresta inserida" << std::endl;
+    std::cout << "valor: " << this->operator()(v,w) << std::endl;
 }
 
 int grafo_matriz::pesoAresta(unsigned int v, unsigned int w)
 {
-    if(Arestas_ponderadas())
-    {
-        return this->operator()(v,w);
-    }
-    else
-    {
-        return 0;
-    }
+    
+    return this->operator()(v,w);
+    
 }
 
 int grafo_matriz::pesoVertice(unsigned int idVertice)
 {
-    if(Vertices_ponderados())
-    {
-        return this->operator()(idVertice, idVertice);
-    }
-    else
-    {
-        return 0;
-    }
+    
+    return this->operator()(idVertice, idVertice);
 }
 
 bool grafo_matriz::buscaVertice(unsigned int idVertice)

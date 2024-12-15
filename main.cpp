@@ -1,5 +1,7 @@
 #include <iostream>
 #include "grafo.h"
+#include "grafo_lista.h"
+#include "grafo_matriz.h"
 
 
 int main(int argc, char *argv[])
@@ -18,25 +20,41 @@ int main(int argc, char *argv[])
     std::cout << "Parametro2: " << parametro2 << std::endl;
     filename = argv[3];
     std::cout << "Filename: " << filename << std::endl;
-    Grafo *g = new Grafo(filename);
+
+    grafo_lista *gl;
+    grafo_matriz *gm;
 
     if(parametro1 == "-d")
     {
-        g->readInfo(argv[2]);
-        //-- chamada da funçoes de verificação--//
-        
-        // -------------------------------------//
-        g->exportDesc();
+        if(parametro2 == "-l")
+        {
+            gl = new grafo_lista;
+            gl->carrega_grafo(argv[2], filename);
+            gl->exportDesc();
+            gl->exportInfo();
+        }
+        if(parametro2 == "-m")
+        {
+            gm = new grafo_matriz; // com poblema, não use!!
+            gm->carrega_grafo(argv[2], filename);
+            gm->exportDesc();
+        }
     }
     if(parametro2 == "-c") 
     {
-        g->readDesc();
-        g->criaGrafo(argv[2]);
-        g->exportInfo();
+        if(parametro1 == "-l")
+        {
+            gl = new grafo_lista;
+            gl->carrega_grafo(argv[1], filename);
+            gl->exportInfo();
+        }
+        if(parametro1 == "-m")
+        {
+            gm = new grafo_matriz; // Com problema, não use!!
+            gm->carrega_grafo(argv[1], filename);
+            gm->exportInfo();
+        }
     }
     
-
-    
-    delete g;
     return 0;
 }

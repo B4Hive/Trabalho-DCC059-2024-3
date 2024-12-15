@@ -11,33 +11,31 @@
 #include "data_strc.h"
 
 
-
 class Grafo
 {
     public:
-    Grafo(std::string filename);
-    Grafo();
-    ~Grafo();
 
-    void readInfo(char *tipo);
-    void readDesc();
+    Grafo() {/*grafo = NULL;*/}
+    ~Grafo(){/* delete g; */}
+
+    void carrega_grafo(char *tipo, std::string dataFileName); // carrega grafo
+    void novo_grafo(char *tipo, std::string descFileName); // novo grafo
     void exportInfo();
     void exportDesc();
     
-    void criaGrafo(char *tipo);
 
-    virtual void insere_vertice(unsigned int id, int peso);
+    virtual void insere_vertice(unsigned int id, int peso){}
     //virtual void remove_vertice(unsigned int id) = 0; calma que vamos impelementar aindaa
 
-    virtual void insere_aresta(unsigned int v, unsigned int w, int peso);
+    virtual void insere_aresta(unsigned int v, unsigned int w, int peso){}
     //virtual void remove_aresta(unsigned int v, unsigned int w) = 0; esse tambem, talvez....
 
 
-    virtual int  pesoAresta(unsigned int v, unsigned int w) ;
-    virtual int  pesoVertice(unsigned int idVertice) ;
-    virtual edge *getAresta(unsigned int idAresta) ;
-    virtual bool buscaVertice(unsigned int idVertice) ;
-    virtual bool buscaAresta(unsigned int v, unsigned int w) ;
+    virtual int  pesoAresta(unsigned int v, unsigned int w) = 0;
+    virtual int  pesoVertice(unsigned int idVertice) = 0;
+    virtual edge *getAresta(unsigned int idAresta) = 0;
+    virtual bool buscaVertice(unsigned int idVertice) = 0;
+    virtual bool buscaAresta(unsigned int v, unsigned int w) = 0;
 
 
     unsigned int &Grau()                {return info[0];}
@@ -56,7 +54,7 @@ class Grafo
 
     private:
 
-    Grafo *grafo; // grafo_lista ou grafo_matriz
+    //Grafo *grafo; // grafo_lista ou grafo_matriz
 
     std::string filename;
 
