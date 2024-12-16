@@ -115,8 +115,7 @@ void grafo_lista::auxVerticeArticulacao(bool *result) {
     int *desc = new int[Ordem()];
     int *low = new int[Ordem()];
     int *pai = new int[Ordem()];
-    int *tempo = new int;
-    *tempo = 0;
+    int tempo = 0;
     for(int i = 0; i < Ordem(); i++) {
         visitado[i] = 0;
         desc[i] = 0;
@@ -125,9 +124,40 @@ void grafo_lista::auxVerticeArticulacao(bool *result) {
     }
     while(p != NULL) {
         if(visitado[p->ID()-1] == 0) {
-            //BPArticulacao(p, visitado, desc, low, pai, tempo, result);
+            BPArticulacao(p, visitado, desc, low, pai, &tempo, result);
         }
         p = p->getProx();
+    }
+    delete[] visitado;
+    delete[] desc;
+    delete[] low;
+    delete[] pai;
+}
+
+void grafo_lista::BPArticulacao(vertice *v, int *visitado, int *desc, int *low, int *pai, int *tempo, bool *result) {
+    visitado[v->ID()-1] = 1;
+    (*tempo)++;
+    desc[v->ID()-1] = *tempo;
+    low[v->ID()-1] = desc[v->ID()-1];
+    edge *e = v->getAresta();
+    int filhos = 0;
+    while(e != NULL) {
+        if(visitado[e->W()] == 0) {
+            filhos++;
+            pai[e->W()] = v->ID();
+            BPArticulacao(getVertice(e->W()), visitado, desc, low, pai, tempo, result);
+            low[v->ID()-1] = std::min(low[v->ID()-1], low[e->W()]);
+            if(pai[v->ID()-1] == -1 && filhos > 1) {
+                *result = true;
+            }
+            if(pai[v->ID()-1] != -1 && low[e->W()] >= desc[v->ID()-1]) {
+                *result = true;
+            }
+        }
+        else if(e->W() != pai[v->ID()-1]) {
+            low[v->ID()-1] = std::min(low[v->ID()-1], desc[e->W()]);
+        }
+        e = e->getProx();
     }
 }
 // B4Hive-end
