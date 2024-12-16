@@ -11,9 +11,10 @@ class edge
     edge();
     ~edge();
 
-    unsigned int &V(){return v;}
-    unsigned int &W(){return w;}
-    int &Peso(){return peso;}
+    unsigned int &V() {return v;}
+    unsigned int &W() {return w;}
+    unsigned int &ID(){return id;}
+    int &Peso()       {return peso;}
 
     edge *getProx();
     void setProx(edge *p){prox = p;}
