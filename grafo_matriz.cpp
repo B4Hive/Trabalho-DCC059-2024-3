@@ -47,7 +47,6 @@ int &grafo_matriz::operator()(unsigned int v, unsigned int w)
         return m[i * Grafo::Ordem() + j];
     }
 }
-
 void grafo_matriz::insere_vertice(unsigned int id, int peso)
 {
     
@@ -132,3 +131,29 @@ edge *grafo_matriz::getAresta(unsigned int idAresta)
     delete e;
     return NULL;
 }
+
+// B4Hive-begin
+void grafo_matriz::auxArestaPonte(bool *result) {
+    *result = false;
+    int *visitado = new int[Ordem()];
+    int *desc = new int[Ordem()];
+    int *low = new int[Ordem()];
+    int *pai = new int[Ordem()];
+    int tempo = 0;
+    for(int i = 0; i < Ordem(); i++) {
+        visitado[i] = 0;
+        desc[i] = 0;
+        low[i] = 0;
+        pai[i] = -1;
+    }
+    for(int i = 0; i < Ordem(); i++) {
+        if(visitado[i] == 0) {
+            BPPonte(i, visitado, desc, low, pai, &tempo, result);
+        }
+    }
+    delete[] visitado;
+    delete[] desc;
+    delete[] low;
+    delete[] pai;
+}
+// B4Hive-end
