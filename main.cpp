@@ -35,9 +35,10 @@ int main(int argc, char *argv[])
         }
         if(parametro2 == "-m")
         {
-            gm = new grafo_matriz; // com poblema, não use!!
+            gm = new grafo_matriz; 
             gm->carrega_grafo(argv[2], filename);
             gm->exportDesc();
+            //gm->exportInfo();  // com problema
         }
     }
     if(parametro2 == "-c") 
@@ -50,7 +51,7 @@ int main(int argc, char *argv[])
         }
         if(parametro1 == "-m")
         {
-            gm = new grafo_matriz; // Com problema, não use!!
+            gm = new grafo_matriz; 
             gm->carrega_grafo(argv[1], filename);
             gm->exportInfo();
         }

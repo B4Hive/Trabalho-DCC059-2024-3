@@ -7,7 +7,20 @@ grafo_lista::grafo_lista()
 
 grafo_lista::~grafo_lista()
 {
-    delete inicio;
+    vertice *p = inicio;
+    while(p != NULL)
+    {
+        edge *e = p->getAresta();
+        while(e != NULL)
+        {
+            edge *aux = e;
+            e = e->getProx();
+            delete aux;
+        }
+        vertice *aux = p;
+        p = p->getProx();
+        delete aux;
+    }
 }
 
 void grafo_lista::insere_vertice(unsigned int id, int peso)
