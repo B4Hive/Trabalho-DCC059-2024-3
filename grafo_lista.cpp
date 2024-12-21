@@ -177,12 +177,12 @@ bool grafo_lista::buscaAresta(unsigned int v, unsigned int w)
 void grafo_lista::auxArestaPonte(bool *result) {
     *result = false;
     vertice *p = inicio;
-    int *visitado = new int[Ordem()];
-    int *desc = new int[Ordem()];
-    int *low = new int[Ordem()];
-    int *pai = new int[Ordem()];
+    int *visitado = new int[getOrdem()];
+    int *desc = new int[getOrdem()];
+    int *low = new int[getOrdem()];
+    int *pai = new int[getOrdem()];
     int tempo = 0;
-    for(int i = 0; i < Ordem(); i++) {
+    for(int i = 0; i < getOrdem(); i++) {
         visitado[i] = 0;
         desc[i] = 0;
         low[i] = 0;
@@ -225,12 +225,12 @@ void grafo_lista::BPPonte(vertice *v, int *visitado, int *desc, int *low, int *p
 void grafo_lista::auxVerticeArticulacao(bool *result) {
     *result = false;
     vertice *p = inicio;
-    int *visitado = new int[Ordem()];
-    int *desc = new int[Ordem()];
-    int *low = new int[Ordem()];
-    int *pai = new int[Ordem()];
+    int *visitado = new int[getOrdem()];
+    int *desc = new int[getOrdem()];
+    int *low = new int[getOrdem()];
+    int *pai = new int[getOrdem()];
     int tempo = 0;
-    for(int i = 0; i < Ordem(); i++) {
+    for(int i = 0; i < getOrdem(); i++) {
         visitado[i] = 0;
         desc[i] = 0;
         low[i] = 0;
