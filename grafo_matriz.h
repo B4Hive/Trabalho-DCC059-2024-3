@@ -8,6 +8,9 @@ public:
     grafo_matriz();
     ~grafo_matriz();
 
+    void carrega_grafo(char *tipo, std::string dataFileName);
+    void inicializa_matriz();
+
     void insere_vertice(unsigned int id, int peso);
     // void remove_vertice(unsigned int id);
 
@@ -31,6 +34,7 @@ public:
 
 private:
     int *m;
+    unsigned int tamanho;
 };
 
 #endif

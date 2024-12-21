@@ -17,7 +17,7 @@ class edge
     int &Peso()       {return peso;}
 
     edge *getProx();
-    void setProx(edge *p){prox = p;}
+    void setProx(edge *ep){prox = ep;}
 
     private:
     unsigned int id;
@@ -36,7 +36,7 @@ class vertice
     unsigned int &ID();
     unsigned int &Grau();
     int &Peso();
-    edge *getAresta() {return aresta;}
+    edge *getAresta() {return init_aresta;}
     vertice *getProx();
     void setProx(vertice *p);
     void insereAresta(edge *e);
@@ -46,7 +46,7 @@ class vertice
     unsigned int grau;
     int peso;
     vertice *prox;
-    edge *aresta;
+    edge *init_aresta;
 };
 
 
