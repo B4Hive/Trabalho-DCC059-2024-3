@@ -237,11 +237,11 @@ unsigned int Grafo::getTamanho()
 
 void Grafo::carrega_grafo(char *tipo, std::string dataFileName)
 {
-    std::cout << "Lendo Grafo" << std::endl;
+    std::cout << "Carregando Grafo..." << std::endl;
     std::ifstream file;
     std::string line;
     this->filename = dataFileName;
-    file.open(filename.c_str());
+    file.open(filename, std::ios::in);
     if (!file.is_open())
     {
         std::cout << "Erro ao abrir arquivo" << std::endl;
@@ -268,7 +268,7 @@ void Grafo::carrega_grafo(char *tipo, std::string dataFileName)
     std::cout << "Ordem: " << getOrdem() << std::endl;
     std::cout << "Direcionado: " << getDirecionado() << std::endl;
     std::cout << "Vertices ponderados: " << getVertices_ponderados() << std::endl;
-    std::cout << "Arestas ponderadas: " << getArestas_ponderadas() << std::endl;
+    std::cout << "Arestas ponderadas: " << getArestas_ponderadas() << std::endl<< std::endl;
      
 
     
@@ -292,12 +292,17 @@ void Grafo::carrega_grafo(char *tipo, std::string dataFileName)
         {
             file >> peso;
         }
+        Tamanho()++;
+        std::cout << "Inserindo Aresta "<< Tamanho() <<": "<<std::endl;
+        std::cout << "V: " << v << " W: " << w << " Peso: " << peso << std::endl;
         insere_aresta(v, w, peso);
 
         getline(file, line);
     }   
 
     file.close();
+
+    std::cout << "Grafo carregado!" << std::endl<<std::endl;
 
 }
 

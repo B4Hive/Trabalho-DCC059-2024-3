@@ -42,7 +42,7 @@ void grafo_matriz::carrega_grafo(char *tipo, std::string dataFileName)
     std::ifstream file;
     std::string line;
     this->filename = dataFileName;
-    file.open(filename.c_str());
+    file.open(filename, std::ios::in);
     if (!file.is_open())
     {
         std::cout << "Erro ao abrir arquivo" << std::endl;

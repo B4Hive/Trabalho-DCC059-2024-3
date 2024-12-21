@@ -35,28 +35,29 @@ void grafo_lista::insere_vertice(unsigned int id, int peso)
     else
     {
         vertice *p = inicio;
-        while(p->getProx() != NULL)
+        while (p->getProx() != NULL)
         {
             p = p->getProx();
         }
-        p->setProx(v);
+        p->setProx(v);        
     }
 }
 
 void grafo_lista::insere_aresta(unsigned int v, unsigned int w, int peso)
 {
     vertice *p = inicio;
+    edge *e = new edge(v, w);
+    e->Peso() = peso;
+    e->ID() = this->Tamanho();    
     while(p != NULL)
     {
         if(p->ID() == v)
         {
-            edge *e = new edge(v, w);
-            this->Tamanho()++;
-            e->Peso() = peso;
-            e->ID() = this->Tamanho();
             p->insereAresta(e);
+            std::cout << "Aresta inserida!" << std::endl<< std::endl;
             break;
         }
+
         p = p->getProx();
     }
 }
@@ -83,14 +84,14 @@ int grafo_lista::pesoAresta(unsigned int v, unsigned int w)
     {
         if(p->ID() == v)
         {
-            edge *e = p->getAresta();
-            while(e != NULL)
+            edge *ep = p->getAresta();
+            while(ep != NULL)
             {
-                if(e->W() == w)
+                if(ep->W() == w)
                 {
-                    return e->Peso();
+                    return ep->Peso();
                 }
-                e = e->getProx();
+                ep = ep->getProx();
             }
         }
         p = p->getProx();

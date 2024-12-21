@@ -13,13 +13,14 @@ int main(int argc, char *argv[])
     {
         std::cout << "argv[" << i << "]: " << argv[i] << std::endl;
     }
+    std::cout << std::endl;
     std::string filename;
     std::string parametro1 = argv[1];
     std::string parametro2 = argv[2];
     std::cout << "Parametro1: " << parametro1 << std::endl;
     std::cout << "Parametro2: " << parametro2 << std::endl;
     filename = argv[3];
-    std::cout << "Filename: " << filename << std::endl;
+    std::cout << "Filename: " << filename << std::endl << std::endl;
 
     grafo_lista *gl;
     grafo_matriz *gm;

@@ -7,6 +7,9 @@ vertice::vertice()
 {
     this->id = 0;
     this->grau = 0;
+    this->peso = 0;
+    this->prox = NULL;
+    this->init_aresta = NULL;
 }
 
 vertice::~vertice(){};
@@ -38,18 +41,18 @@ void vertice::setProx(vertice *p)
 
 void vertice::insereAresta(edge *e)
 {
-    if(aresta == NULL)
+    if(init_aresta == NULL)
     {
-        aresta = e;
+        init_aresta = e;
     }
     else
     {
-        edge *p = aresta;
-        while(p->getProx() != NULL)
+        edge *ep = init_aresta;
+        while(ep->getProx() != NULL)
         {
-            p = p->getProx();
+            ep = ep->getProx();
         }
-        p->setProx(e);
+        ep->setProx(e);
     }
 }
 
@@ -59,6 +62,8 @@ edge::edge(unsigned int v, unsigned int w)
 {
     this->v = v;
     this->w = w;
+    this->peso = 0;
+    this->prox = NULL;
 }
 
 edge::~edge(){};
@@ -66,9 +71,10 @@ edge::~edge(){};
 edge::edge()
 {
     id = 0;
-    this->v = 0;
-    this->w = 0;
+    v = 0;
+    w = 0;
     peso = 0;
+    prox = NULL;
 }
 
 edge *edge::getProx()
