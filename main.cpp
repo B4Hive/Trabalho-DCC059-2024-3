@@ -38,8 +38,9 @@ int main(int argc, char *argv[])
         {
             gm = new grafo_matriz; 
             gm->carrega_grafo(argv[2], filename);
+            gm->imprime_matriz();
             gm->exportDesc();
-            //gm->exportInfo();  // com problema
+            gm->exportInfo(); 
         }
     }
     if(parametro2 == "-c") 

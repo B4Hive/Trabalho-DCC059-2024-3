@@ -26,9 +26,11 @@ public:
 
     int &operator()(unsigned int v, unsigned int w);
 
+    void imprime_matriz();
+
 private:
     int *m;
-    unsigned int tamanho;
+    unsigned int tamanho_vetor;
 };
 
 #endif
