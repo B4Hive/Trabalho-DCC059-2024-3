@@ -218,11 +218,13 @@ bool Grafo::getArvore()
 
 bool Grafo::getAresta_Ponte()
 {
+    auxArestaPonte(&dpp[6]);
     return dpp[6];
 }
 
 bool Grafo::getVertice_de_Articulacao()
 {
+    auxVerticeArticulacao(&dpp[7]);
     return dpp[7];
 }
 

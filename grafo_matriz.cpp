@@ -204,18 +204,18 @@ edge *grafo_matriz::getAresta(unsigned int idAresta)
 // B4Hive-begin
 void grafo_matriz::auxArestaPonte(bool *result) {
     *result = false;
-    int *visitado = new int[Ordem()];
-    int *desc = new int[Ordem()];
-    int *low = new int[Ordem()];
-    int *pai = new int[Ordem()];
+    int *visitado = new int[getOrdem()];
+    int *desc = new int[getOrdem()];
+    int *low = new int[getOrdem()];
+    int *pai = new int[getOrdem()];
     int tempo = 0;
-    for(int i = 0; i < Ordem(); i++) {
+    for(int i = 0; i < getOrdem(); i++) {
         visitado[i] = 0;
         desc[i] = 0;
         low[i] = 0;
         pai[i] = -1;
     }
-    for(int i = 0; i < Ordem(); i++) {
+    for(int i = 0; i < getOrdem(); i++) {
         if(visitado[i] == 0) {
             BPPonte(i, visitado, desc, low, pai, &tempo, result);
         }
@@ -224,5 +224,14 @@ void grafo_matriz::auxArestaPonte(bool *result) {
     delete[] desc;
     delete[] low;
     delete[] pai;
+}
+void grafo_matriz::BPPonte(int i, int *visitado, int *desc, int *low, int *pai, int *tempo, bool *result)
+{
+}
+void grafo_matriz::auxVerticeArticulacao(bool *result)
+{
+}
+void grafo_matriz::BPArticulacao(int i, int *visitado, int *desc, int *low, int *pai, int *tempo, bool *result)
+{
 }
 // B4Hive-end
