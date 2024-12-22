@@ -23,9 +23,9 @@ class grafo_lista : public Grafo {
 
         //B4Hive
         void auxArestaPonte(bool *result);
-        void BPPonte(vertice *v, int *visitado, int *desc, int *low, int *pai, int *tempo, bool *result);
+        void BPPonte(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW);
         void auxVerticeArticulacao(bool *result);
-        void BPArticulacao(vertice *v, int *visitado, int *desc, int *low, int *pai, int *tempo, bool *result);
+        void BPArticulacao(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV);
         
     private:
         vertice* inicio;
