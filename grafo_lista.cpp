@@ -175,11 +175,67 @@ bool grafo_lista::buscaAresta(unsigned int v, unsigned int w)
 }
 // B4Hive-begin
 void grafo_lista::auxArestaPonte(bool *result) {
-    
+    *result = false;
+    int tag[getOrdem()];
+    for (int &t : tag) {
+        t = -1;
+    }
+    bool visitado[getOrdem()];
+    for (bool &vis : visitado) {
+        vis = false;
+    }
+    vertice *v = getInicio();
+    int count = 0;
+    int tagCount = 0;
+    while (v != NULL){
+        if (!visitado[v->ID()-1]){
+            count++;
+            tagCount++;
+            BPPonte(v, tag, visitado, tagCount, -1, -1);
+        }    
+        v = v->getProx();
+    }
+
+    for(int i = 1; i <= getOrdem(); i++){
+        for(int j = 1; j <= getOrdem(); j++){
+            for (int &t : tag) {
+                t = -1;
+            }
+            for (bool &vis : visitado) {
+                vis = false;
+            }
+            int counter = 0;
+            int tagCounter = 0;
+            v = getInicio();
+            while (v != NULL){
+                if (!visitado[v->ID()-1]){
+                    counter++;
+                    tagCounter++;
+                    BPPonte(v, tag, visitado, tagCounter, i, j);
+                }
+                v = v->getProx();
+            }
+            if (counter > count) {
+                *result = true;
+                return;
+            }
+        }
+    }
 }
 
 void grafo_lista::BPPonte(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW) {
-    
+    visitado[v->ID()-1] = true;
+    tag[v->ID()-1] = currentTag;
+    edge *e = v->getAresta();
+    while (e != NULL){
+        if ((e->V() != ignoredV && e->W() != ignoredW) || (!getDirecionado() && e->V() != ignoredW && e->W() != ignoredV)){
+            vertice *w = getVertice(e->W());
+            if (!visitado[w->ID()-1] && w->ID() != ignoredV){
+                BPPonte(w, tag, visitado, currentTag, ignoredV, ignoredW);
+            }
+        }
+        e = e->getProx();
+    }
 }
 
 void grafo_lista::auxVerticeArticulacao(bool *result) {
@@ -203,8 +259,8 @@ void grafo_lista::auxVerticeArticulacao(bool *result) {
         }    
         v = v->getProx();
     }
-    vertice *w = getInicio();
-    while (w != NULL) {
+    
+    for (int w = 1; w <= getOrdem(); w++) {
         for (int &t : tag) {
             t = -1;
         }
@@ -218,7 +274,7 @@ void grafo_lista::auxVerticeArticulacao(bool *result) {
             if (!visitado[v->ID()-1]){
                 counter++;
                 tagCounter++;
-                BPArticulacao(v, tag, visitado, tagCounter, w->ID());
+                BPArticulacao(v, tag, visitado, tagCounter, w);
             }
             v = v->getProx();
         }
@@ -226,7 +282,6 @@ void grafo_lista::auxVerticeArticulacao(bool *result) {
             *result = true;
             return;
         }
-        w = w->getProx();
     }
 }
 
