@@ -204,34 +204,130 @@ edge *grafo_matriz::getAresta(unsigned int idAresta)
 // B4Hive-begin
 void grafo_matriz::auxArestaPonte(bool *result) {
     *result = false;
-    int *visitado = new int[getOrdem()];
-    int *desc = new int[getOrdem()];
-    int *low = new int[getOrdem()];
-    int *pai = new int[getOrdem()];
-    int tempo = 0;
-    for(int i = 0; i < getOrdem(); i++) {
-        visitado[i] = 0;
-        desc[i] = 0;
-        low[i] = 0;
-        pai[i] = -1;
+    int tag[getOrdem()];
+    for (int &t : tag) {
+        t = -1;
     }
-    for(int i = 0; i < getOrdem(); i++) {
-        if(visitado[i] == 0) {
-            BPPonte(i, visitado, desc, low, pai, &tempo, result);
+    bool visitado[getOrdem()];
+    for (bool &vis : visitado) {
+        vis = false;
+    }
+    int v = 0;
+    int count = 0;
+    int tagCount = 0;
+    while (v < getOrdem()){
+        if (!visitado[v]){
+            count++;
+            tagCount++;
+            BPPonte(v, tag, visitado, tagCount, -1, -1);
+        }    
+        v++;
+    }
+
+    for(int i = 0; i < getOrdem(); i++){
+        for(int j = 0; j < getOrdem(); j++){
+            for (int &t : tag) {
+                t = -1;
+            }
+            for (bool &vis : visitado) {
+                vis = false;
+            }
+            int counter = 0;
+            int tagCounter = 0;
+            v = 0;
+            while (v < getOrdem()){
+                if (!visitado[v]){
+                    counter++;
+                    tagCounter++;
+                    BPPonte(v, tag, visitado, tagCounter, i, j);
+                }
+                v++;
+            }
+            if (counter > count) {
+                *result = true;
+                return;
+            }
         }
     }
-    delete[] visitado;
-    delete[] desc;
-    delete[] low;
-    delete[] pai;
 }
-void grafo_matriz::BPPonte(int i, int *visitado, int *desc, int *low, int *pai, int *tempo, bool *result)
-{
+
+void grafo_matriz::BPPonte(int v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW) {
+    visitado[v] = true;
+    tag[v] = currentTag;
+    int e = 0;
+    while (e < getOrdem()){
+        if (this->operator()(v, e) != 0){
+            if ((v != ignoredV && e != ignoredW) || (!getDirecionado() && v != ignoredW && e != ignoredV)){
+                if (!visitado[e] && e != ignoredV){
+                    BPPonte(e, tag, visitado, currentTag, ignoredV, ignoredW);
+                }
+            }
+        }
+        e++;
+    }
 }
-void grafo_matriz::auxVerticeArticulacao(bool *result)
-{
+
+void grafo_matriz::auxVerticeArticulacao(bool *result) {
+    *result = false;
+    int tag[getOrdem()];
+    for (int &t : tag) {
+        t = -1;
+    }
+    bool visitado[getOrdem()];
+    for (bool &vis : visitado) {
+        vis = false;
+    }
+    int v = 0;
+    int count = 0;
+    int tagCount = 0;
+    while (v < getOrdem()){
+        if (!visitado[v]){
+            count++;
+            tagCount++;
+            BPArticulacao(v, tag, visitado, tagCount, -1);
+        }    
+        v++;
+    }
+    
+    for (int w = 0; w < getOrdem(); w++) {
+        for (int &t : tag) {
+            t = -1;
+        }
+        for (bool &vis : visitado) {
+            vis = false;
+        }
+        int counter = 0;
+        int tagCounter = 0;
+        v = 0;
+        while (v < getOrdem()){
+            if (!visitado[v]){
+                counter++;
+                tagCounter++;
+                BPArticulacao(v, tag, visitado, tagCounter, w);
+            }
+            v++;
+        }
+        if (counter > count) {
+            *result = true;
+            return;
+        }
+    }
 }
-void grafo_matriz::BPArticulacao(int i, int *visitado, int *desc, int *low, int *pai, int *tempo, bool *result)
-{
+
+void grafo_matriz::BPArticulacao(int v, int tag[], bool visitado[], int currentTag, int ignoredV) {
+    if (visitado[v] || v == ignoredV){
+        return;
+    }
+    visitado[v] = true;
+    tag[v] = currentTag;
+    int e = 0;
+    while (e < getOrdem()){
+        if (this->operator()(v, e) != 0){
+            if (!visitado[e] && e != ignoredV){
+                BPArticulacao(e, tag, visitado, currentTag, ignoredV);
+            }
+        }
+        e++;
+    }
 }
 // B4Hive-end

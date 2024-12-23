@@ -28,9 +28,9 @@ public:
 
     //B4Hive
     void auxArestaPonte(bool *result);
-    void BPPonte(int i, int *visitado, int *desc, int *low, int *pai, int *tempo, bool *result);
+    void BPPonte(int v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW);
     void auxVerticeArticulacao(bool *result);
-    void BPArticulacao(int i, int *visitado, int *desc, int *low, int *pai, int *tempo, bool *result);
+    void BPArticulacao(int v, int tag[], bool visitado[], int currentTag, int ignoredV);
 
 private:
     int *m;
