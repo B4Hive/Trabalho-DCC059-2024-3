@@ -380,12 +380,11 @@ void Grafo::novo_grafo(char *tipo, std::string descFileName)
     file >> aresta_ponte;           getline(file, line);
     file >> vertice_de_articulacao; getline(file, line);
 
-
-    
+    // criação do grafo aleatório entra aqui
 
     file.close();
 }
-
+// tem que tirar esse texto extras do exportDesc
 void Grafo::exportDesc()
 {
     std::cout << "Exportando descritor" << std::endl;
