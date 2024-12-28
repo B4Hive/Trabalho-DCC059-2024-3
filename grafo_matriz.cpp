@@ -14,22 +14,21 @@ void grafo_matriz::inicializa_matriz()
 {
     if(getDirecionado() == 0) // matriz  triangular infeiror 
     {
-        unsigned int tamanho = (getOrdem() * (getOrdem() + 1)) / 2;
-        std::cout << "Tamanho: " << tamanho << std::endl;
-        m = new int [tamanho];
-            for(int i = 0; i < tamanho; i++)
+        tamanho_vetor = (getOrdem() * (getOrdem() + 1)) / 2;
+        std::cout << "Tamanho: " << tamanho_vetor << std::endl;
+        m = new int [tamanho_vetor];
+            for(int i = 0; i < tamanho_vetor; i++)
             {
                 m[i] = 0;
             }
-        std::cout << std::size_t(m) << std::endl;
     }
     
     if( getDirecionado() == 1)
     {
-        unsigned int tamanho = getOrdem() * getOrdem();
-        m = new int [tamanho];
-        std::cout << "Tamanho: " << tamanho << std::endl;
-            for(int i = 0; i < (this->getOrdem() * this->getOrdem()); i++)
+        tamanho_vetor = getOrdem() * getOrdem();
+        m = new int [tamanho_vetor];
+        std::cout << "Tamanho: " << tamanho_vetor << std::endl;
+            for(int i = 0; i < tamanho_vetor; i++)
             {
                 m[i] = 0;
             }
@@ -97,6 +96,9 @@ void grafo_matriz::carrega_grafo(char *tipo, std::string dataFileName)
         {
             file >> peso;
         }
+        Tamanho()++;
+        std::cout << "Inserindo Aresta "<< Tamanho() <<": "<<std::endl;
+        std::cout << "V: " << v << " W: " << w << " Peso: " << peso << std::endl<< std::endl;
         insere_aresta(v, w, peso);
 
         getline(file, line);
@@ -110,8 +112,8 @@ void grafo_matriz::carrega_grafo(char *tipo, std::string dataFileName)
 
 int &grafo_matriz::operator()(unsigned int v, unsigned int w)
 {
-    int i = v-1;
-    int j = w-1;
+    int i = v;
+    int j = w;
     if(getDirecionado() == 0)
     {   if(i < j)
             return m[i * (i - 1) / 2 + j];
@@ -126,37 +128,35 @@ int &grafo_matriz::operator()(unsigned int v, unsigned int w)
 void grafo_matriz::insere_vertice(unsigned int id, int peso)
 {
     
-    this->operator()(id, id) = peso;
+    this->operator()(id-1, id-1) = peso;
     
-    std::cout << "Vertice inserido" << std::endl;
+    //std::cout << "Vertice inserido" << std::endl;
 }
 
 void grafo_matriz::insere_aresta(unsigned int v, unsigned int w, int peso)
 {
 
-    this->operator()(v,w) = peso;
-    this->Tamanho()++;
+    this->operator()(v-1,w-1) = peso;
     
     std::cout << "Aresta inserida" << std::endl;
-    std::cout << "valor: " << this->operator()(v,w) << std::endl;
 }
 
 int grafo_matriz::pesoAresta(unsigned int v, unsigned int w)
 {
     
-    return this->operator()(v,w);
+    return this->operator()(v-1,w-1);
     
 }
 
 int grafo_matriz::pesoVertice(unsigned int idVertice)
 {
     
-    return this->operator()(idVertice, idVertice);
+    return this->operator()(idVertice-1, idVertice-1);
 }
 
 bool grafo_matriz::buscaVertice(unsigned int idVertice)
 {
-    if(this->operator()(idVertice, idVertice) != 0)
+    if(this->operator()(idVertice-1, idVertice-1) != 0)
     {
         return true;
     }
@@ -168,7 +168,7 @@ bool grafo_matriz::buscaVertice(unsigned int idVertice)
 
 bool grafo_matriz::buscaAresta(unsigned int v, unsigned int w)
 {
-    if(this->operator()(v,w) != 0)
+    if(this->operator()(v-1,w-1) != 0)
     {
         return true;
     }
@@ -178,19 +178,22 @@ bool grafo_matriz::buscaAresta(unsigned int v, unsigned int w)
     }
 }
 
+
 edge *grafo_matriz::getAresta(unsigned int idAresta)
 {
     int aux = 0;
+    edge *e = new edge();
     for(int i = 0; i<getOrdem(); i++)
     {
         for(int j = 0; j<getOrdem(); j++)
-        {
-            if(this->operator()(i,j) != 0)
+        {  
+            if(this->operator()(i,j) != 0 && i != j)
             {
                 aux++;
                 if(aux == idAresta)
                 {
-                    edge *e = new edge(i,j);
+                    e->V() = i+1;
+                    e->W() = j+1;
                     e->Peso() = this->operator()(i,j);
                     return e;
                 }
@@ -331,3 +334,37 @@ void grafo_matriz::BPArticulacao(int v, int tag[], bool visitado[], int currentT
     }
 }
 // B4Hive-end
+
+void grafo_matriz::imprime_matriz()
+{
+    std::cout << "Imprimindo matriz" << std::endl;
+    if(getDirecionado() == 0)
+    {
+        for(int i = 0; i < getOrdem(); i++)
+        {
+            for(int j = 0; j < getOrdem(); j++)
+            {
+                if(i < j)
+                {
+                    std::cout << m[i * (i - 1) / 2 + j] << " ";
+                }
+                else
+                {
+                    std::cout << m[j * (j - 1) / 2 + i] << " ";
+                }
+            }
+            std::cout << std::endl;
+        }
+    }
+    else
+    {
+        for(int i = 0; i < getOrdem(); i++)
+        {
+            for(int j = 0; j < getOrdem(); j++)
+            {
+                std::cout << m[i * getOrdem() + j] << " ";
+            }
+            std::cout << std::endl;
+        }
+    }
+}

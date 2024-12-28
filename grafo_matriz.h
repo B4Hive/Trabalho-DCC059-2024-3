@@ -25,16 +25,18 @@ public:
     edge *getAresta(unsigned int idAresta);
 
     int &operator()(unsigned int v, unsigned int w);
-
+    
     //B4Hive
     void auxArestaPonte(bool *result);
     void BPPonte(int v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW);
     void auxVerticeArticulacao(bool *result);
     void BPArticulacao(int v, int tag[], bool visitado[], int currentTag, int ignoredV);
 
+    void imprime_matriz();
+
 private:
     int *m;
-    unsigned int tamanho;
+    unsigned int tamanho_vetor;
 };
 
 #endif

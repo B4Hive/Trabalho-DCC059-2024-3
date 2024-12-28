@@ -15,5 +15,5 @@ O executavel vai estar dentro da pasta build. O arquivo que será lido pelo prog
 Se não quiser instalar o Cmake ai é só rodar pele terminal na mão msm 
 
 ```bash
-  $ g++ main.cpp grafo.cpp data_strc.cpp grafo_lista.cpp grafo_matriz.cpp -o main.o
+  $ g++ *.cpp -o main.exe
 ```
