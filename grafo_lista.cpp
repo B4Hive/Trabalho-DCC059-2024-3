@@ -76,7 +76,6 @@ int grafo_lista::pesoVertice(unsigned int idVertice)
     std::cout << "Vertice nao encontrado" << std::endl;
     return 0;
 }
-
 int grafo_lista::pesoAresta(unsigned int v, unsigned int w)
 {
     vertice *p = inicio;
@@ -99,7 +98,6 @@ int grafo_lista::pesoAresta(unsigned int v, unsigned int w)
     std::cout << "Aresta nao encontrada" << std::endl;
     return 0;
 }
-
 
 vertice* grafo_lista::getInicio()
 {
@@ -175,4 +173,131 @@ bool grafo_lista::buscaAresta(unsigned int v, unsigned int w)
     }
     return false;
 }
+// B4Hive-begin
+void grafo_lista::auxArestaPonte(bool *result) {
+    *result = false;
+    int tag[getOrdem()];
+    for (int &t : tag) {
+        t = -1;
+    }
+    bool visitado[getOrdem()];
+    for (bool &vis : visitado) {
+        vis = false;
+    }
+    vertice *v = getInicio();
+    int count = 0;
+    int tagCount = 0;
+    while (v != NULL){
+        if (!visitado[v->ID()-1]){
+            count++;
+            tagCount++;
+            BPPonte(v, tag, visitado, tagCount, -1, -1);
+        }    
+        v = v->getProx();
+    }
 
+    for(int i = 1; i <= getOrdem(); i++){
+        for(int j = 1; j <= getOrdem(); j++){
+            for (int &t : tag) {
+                t = -1;
+            }
+            for (bool &vis : visitado) {
+                vis = false;
+            }
+            int counter = 0;
+            int tagCounter = 0;
+            v = getInicio();
+            while (v != NULL){
+                if (!visitado[v->ID()-1]){
+                    counter++;
+                    tagCounter++;
+                    BPPonte(v, tag, visitado, tagCounter, i, j);
+                }
+                v = v->getProx();
+            }
+            if (counter > count) {
+                *result = true;
+                return;
+            }
+        }
+    }
+}
+
+void grafo_lista::BPPonte(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW) {
+    visitado[v->ID()-1] = true;
+    tag[v->ID()-1] = currentTag;
+    edge *e = v->getAresta();
+    while (e != NULL){
+        if ((e->V() != ignoredV && e->W() != ignoredW) || (!getDirecionado() && e->V() != ignoredW && e->W() != ignoredV)){
+            vertice *w = getVertice(e->W());
+            if (!visitado[w->ID()-1] && w->ID() != ignoredV){
+                BPPonte(w, tag, visitado, currentTag, ignoredV, ignoredW);
+            }
+        }
+        e = e->getProx();
+    }
+}
+
+void grafo_lista::auxVerticeArticulacao(bool *result) {
+    *result = false;
+    int tag[getOrdem()];
+    for (int &t : tag) {
+        t = -1;
+    }
+    bool visitado[getOrdem()];
+    for (bool &vis : visitado) {
+        vis = false;
+    }
+    vertice *v = getInicio();
+    int count = 0;
+    int tagCount = 0;
+    while (v != NULL){
+        if (!visitado[v->ID()-1]){
+            count++;
+            tagCount++;
+            BPArticulacao(v, tag, visitado, tagCount, -1);
+        }    
+        v = v->getProx();
+    }
+    
+    for (int w = 1; w <= getOrdem(); w++) {
+        for (int &t : tag) {
+            t = -1;
+        }
+        for (bool &vis : visitado) {
+            vis = false;
+        }
+        int counter = 0;
+        int tagCounter = 0;
+        v = getInicio();
+        while (v != NULL){
+            if (!visitado[v->ID()-1]){
+                counter++;
+                tagCounter++;
+                BPArticulacao(v, tag, visitado, tagCounter, w);
+            }
+            v = v->getProx();
+        }
+        if (counter > count) {
+            *result = true;
+            return;
+        }
+    }
+}
+
+void grafo_lista::BPArticulacao(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV) {
+    if(visitado[v->ID()-1] || v->ID() == ignoredV){
+        return;
+    }
+    visitado[v->ID()-1] = true;
+    tag[v->ID()-1] = currentTag;
+    edge *e = v->getAresta();
+    while (e != NULL){
+        vertice *w = getVertice(e->W());
+        if (!visitado[w->ID()-1] && w->ID() != ignoredV){
+            BPArticulacao(w, tag, visitado, currentTag, ignoredV);
+        }
+        e = e->getProx();
+    }
+}
+// B4Hive-end

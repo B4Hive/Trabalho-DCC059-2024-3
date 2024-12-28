@@ -32,7 +32,7 @@ int main(int argc, char *argv[])
             gl = new grafo_lista;
             gl->carrega_grafo(argv[2], filename);
             gl->exportDesc();
-            gl->exportInfo();
+            // gl->exportInfo(); // @bhive não precisa dessa função
         }
         if(parametro2 == "-m")
         {
@@ -40,7 +40,9 @@ int main(int argc, char *argv[])
             gm->carrega_grafo(argv[2], filename);
             gm->imprime_matriz();
             gm->exportDesc();
-            gm->exportInfo(); 
+
+            // gm->exportInfo();  // @bhive não precisa dessa função
+
         }
     }
     if(parametro2 == "-c") 
@@ -48,13 +50,13 @@ int main(int argc, char *argv[])
         if(parametro1 == "-l")
         {
             gl = new grafo_lista;
-            gl->carrega_grafo(argv[1], filename);
+            // gl->carrega_grafo(argv[1], filename); // @bhive aqui é novo_grafo
             gl->exportInfo();
         }
         if(parametro1 == "-m")
         {
             gm = new grafo_matriz; 
-            gm->carrega_grafo(argv[1], filename);
+            // gm->carrega_grafo(argv[1], filename); // @bhive aqui é novo_grafo
             gm->exportInfo();
         }
     }

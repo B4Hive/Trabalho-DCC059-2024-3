@@ -7,3 +7,7 @@
 #Diretorios
 build/*
 .vscode/*
+.idea/*
+cmake-build-debug/*
+Grafo_infoOut.txt
+grafo_out.txt

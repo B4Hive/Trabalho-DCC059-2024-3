@@ -218,11 +218,13 @@ bool Grafo::getArvore()
 
 bool Grafo::getAresta_Ponte()
 {
+    auxArestaPonte(&dpp[6]);
     return dpp[6];
 }
 
 bool Grafo::getVertice_de_Articulacao()
 {
+    auxVerticeArticulacao(&dpp[7]);
     return dpp[7];
 }
 
@@ -378,12 +380,11 @@ void Grafo::novo_grafo(char *tipo, std::string descFileName)
     file >> aresta_ponte;           getline(file, line);
     file >> vertice_de_articulacao; getline(file, line);
 
-
-    
+    // @bhive criação do grafo aleatório entra aqui
 
     file.close();
 }
-
+// @bhive tem que tirar esse texto extras do exportDesc
 void Grafo::exportDesc()
 {
     std::cout << "Exportando descritor" << std::endl;

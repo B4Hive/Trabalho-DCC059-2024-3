@@ -82,8 +82,11 @@ class Grafo
     //bool &Vertice_de_Articulacao()      {return dpp[7]; }
     unsigned int &Tamanho()             {return info[3];} // Quantidade de arestas que possúi o grafo
 
-
-    //Variavis internas
+    //B4Hive
+    virtual void auxArestaPonte(bool *result) = 0; // dpp[6]
+    virtual void auxVerticeArticulacao(bool *result) = 0; // dpp[7]
+    
+    //Variaveis internas
     std::string filename;
     unsigned int info[4]{0,0,0,0}; //[Grau, Ordem, Componentes_conexas, Tamanho]
     bool dpp[8] = {0,0,0,0,0,0,0,0};

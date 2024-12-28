@@ -21,12 +21,16 @@ class grafo_lista : public Grafo {
 
         edge *getAresta(unsigned int idAresta);
 
-
-        vertice *getInicio();
-        vertice *getVertice(unsigned int v);
+        //B4Hive
+        void auxArestaPonte(bool *result);
+        void BPPonte(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW);
+        void auxVerticeArticulacao(bool *result);
+        void BPArticulacao(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV);
         
     private:
         vertice* inicio;
+        vertice *getInicio();
+        vertice *getVertice(unsigned int v);
 };
 
 #endif
