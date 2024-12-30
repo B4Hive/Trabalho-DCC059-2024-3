@@ -373,7 +373,70 @@ void Grafo::novo_grafo(char *tipo, std::string descFileName)
     file >> aresta_ponte;           getline(file, line);
     file >> vertice_de_articulacao; getline(file, line);
 
-    // @bhive criação do grafo aleatório entra aqui
+    // from here
+    Grafo *g;
+    
+    g->setGrau(grau);
+    g->setOrdem(ordem);
+    g->setDirecionado(direcionado);
+    g->setComponentes_conexas(componentes_conexas);
+    g->setVertices_ponderados(vertices_ponderados);
+    g->setArestas_ponderadas(arestas_ponderadas);
+    g->setCompleto(completo);
+    g->setBipartido(bipartido);
+    g->setArvore(arvore);
+    g->setAresta_Ponte(aresta_ponte);
+    g->setVertice_de_Articulacao(vertice_de_articulacao);
+
+    switch (*tipo) {
+    case 'l':
+        g = new grafo_lista;
+        for(int i = 1; i <= ordem; i++) {
+            int peso = 1;
+            if (vertices_ponderados)
+                peso = rand() % 100;
+            g->insere_vertice(i, peso);
+        }
+        break;
+    case 'm':
+        grafo_matriz *gm = new grafo_matriz;
+        gm->inicializa_matriz();
+        g = gm;
+        for (int i = 1; i <= ordem; i++) {
+            int peso = 1;
+            if (vertices_ponderados)
+                peso = rand() % 100;
+            gm->insere_vertice(i, peso);
+        }
+        break;
+    default:
+        break;
+    }
+    // agora gambiarra com 300 ifs
+    if(completo) {
+        for(int i = 1; i <= ordem; i++){
+            for(int j = 1; j <= ordem; j++){
+                if(i != j){
+                    int peso = 1;
+                    if(arestas_ponderadas)
+                        peso = rand() % 100;
+                    g->insere_aresta(i, j, peso);
+                }
+            }
+        }
+    } else if (bipartido) {
+        // cria 2 conjuntos de vertices ordem/2
+        // insere arestas entre os conjuntos
+    } else if (arvore) {
+        // cria uma arvore
+    } else if (aresta_ponte) {
+        // cria 2 grafos conexos ordem/2
+        // insere uma aresta ponte
+    } else if (vertice_de_articulacao) {
+        // cria 2 grafos conexos (ordem-1)/2
+        // insere um vertice de articulacao
+    }
+    // until here
 
     file.close();
 }
