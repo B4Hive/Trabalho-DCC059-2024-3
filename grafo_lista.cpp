@@ -76,6 +76,7 @@ int grafo_lista::pesoVertice(unsigned int idVertice)
     std::cout << "Vertice nao encontrado" << std::endl;
     return 0;
 }
+
 int grafo_lista::pesoAresta(unsigned int v, unsigned int w)
 {
     vertice *p = inicio;
@@ -173,6 +174,7 @@ bool grafo_lista::buscaAresta(unsigned int v, unsigned int w)
     }
     return false;
 }
+
 // B4Hive-begin
 bool grafo_lista::auxArestaPonte() {
     int tag[getOrdem()];

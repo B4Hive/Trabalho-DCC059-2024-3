@@ -231,10 +231,6 @@ unsigned int Grafo::getTamanho()
     return info[3];
 }
 
-
-
-
-
 void Grafo::carrega_grafo(char *tipo, std::string dataFileName)
 {
     std::cout << "Carregando Grafo..." << std::endl;
@@ -247,7 +243,7 @@ void Grafo::carrega_grafo(char *tipo, std::string dataFileName)
         std::cout << "Erro ao abrir arquivo" << std::endl;
         return ;
     }
-    
+
     unsigned int ordem;
     bool direcionado;
     bool vertices_ponderados;
@@ -264,14 +260,12 @@ void Grafo::carrega_grafo(char *tipo, std::string dataFileName)
     setArestas_ponderadas(arestas_ponderadas);
 
     getline(file, line);
-    
+
     std::cout << "Ordem: " << getOrdem() << std::endl;
     std::cout << "Direcionado: " << getDirecionado() << std::endl;
     std::cout << "Vertices ponderados: " << getVertices_ponderados() << std::endl;
     std::cout << "Arestas ponderadas: " << getArestas_ponderadas() << std::endl<< std::endl;
-     
 
-    
     for (int i = 1; i <= getOrdem(); i++)
     {
         int peso;
@@ -299,13 +293,12 @@ void Grafo::carrega_grafo(char *tipo, std::string dataFileName)
 
         getline(file, line);
     }
-    
+
     setGrau(auxSetGrau());
 
     file.close();
 
     std::cout << "Grafo carregado!" << std::endl<<std::endl;
-
 }
 
 void Grafo::exportInfo()

@@ -3,7 +3,6 @@
 
 #include <iostream>
 
-
 class edge
 {
     public:
@@ -48,6 +47,5 @@ class vertice
     vertice *prox;
     edge *init_aresta;
 };
-
 
 #endif

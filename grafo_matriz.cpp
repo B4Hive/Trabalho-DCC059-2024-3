@@ -110,8 +110,6 @@ void grafo_matriz::carrega_grafo(char *tipo, std::string dataFileName)
 
 }
 
-
-
 int &grafo_matriz::operator()(unsigned int v, unsigned int w)
 {
     int i = v;
@@ -127,6 +125,7 @@ int &grafo_matriz::operator()(unsigned int v, unsigned int w)
         return m[i * getOrdem() + j];
     }
 }
+
 void grafo_matriz::insere_vertice(unsigned int id, int peso)
 {
     
@@ -179,7 +178,6 @@ bool grafo_matriz::buscaAresta(unsigned int v, unsigned int w)
         return false;
     }
 }
-
 
 edge *grafo_matriz::getAresta(unsigned int idAresta)
 {
