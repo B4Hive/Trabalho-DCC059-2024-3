@@ -22,10 +22,11 @@ class grafo_lista : public Grafo {
         edge *getAresta(unsigned int idAresta);
 
         //B4Hive
-        void auxArestaPonte(bool *result);
+        bool auxArestaPonte();
         void BPPonte(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW);
-        void auxVerticeArticulacao(bool *result);
+        bool auxVerticeArticulacao();
         void BPArticulacao(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV);
+        int auxSetGrau();
         
     private:
         vertice* inicio;

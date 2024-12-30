@@ -218,14 +218,12 @@ bool Grafo::getArvore()
 
 bool Grafo::getAresta_Ponte()
 {
-    auxArestaPonte(&dpp[6]);
-    return dpp[6];
+    return auxArestaPonte();
 }
 
 bool Grafo::getVertice_de_Articulacao()
 {
-    auxVerticeArticulacao(&dpp[7]);
-    return dpp[7];
+    return auxVerticeArticulacao();
 }
 
 unsigned int Grafo::getTamanho()
@@ -300,7 +298,9 @@ void Grafo::carrega_grafo(char *tipo, std::string dataFileName)
         insere_aresta(v, w, peso);
 
         getline(file, line);
-    }   
+    }
+    
+    setGrau(auxSetGrau());
 
     file.close();
 

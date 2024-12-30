@@ -83,8 +83,9 @@ class Grafo
     unsigned int &Tamanho()             {return info[3];} // Quantidade de arestas que possúi o grafo
 
     //B4Hive
-    virtual void auxArestaPonte(bool *result) = 0; // dpp[6]
-    virtual void auxVerticeArticulacao(bool *result) = 0; // dpp[7]
+    virtual bool auxArestaPonte() = 0;
+    virtual bool auxVerticeArticulacao() = 0;
+    virtual int auxSetGrau() = 0;
     
     //Variaveis internas
     std::string filename;

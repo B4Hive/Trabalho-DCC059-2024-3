@@ -27,10 +27,11 @@ public:
     int &operator()(unsigned int v, unsigned int w);
     
     //B4Hive
-    void auxArestaPonte(bool *result);
+    bool auxArestaPonte();
     void BPPonte(int v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW);
-    void auxVerticeArticulacao(bool *result);
+    bool auxVerticeArticulacao();
     void BPArticulacao(int v, int tag[], bool visitado[], int currentTag, int ignoredV);
+    int auxSetGrau();
 
     void imprime_matriz();
 

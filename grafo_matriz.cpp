@@ -205,8 +205,7 @@ edge *grafo_matriz::getAresta(unsigned int idAresta)
 }
 
 // B4Hive-begin
-void grafo_matriz::auxArestaPonte(bool *result) {
-    *result = false;
+bool grafo_matriz::auxArestaPonte() {
     int tag[getOrdem()];
     for (int &t : tag) {
         t = -1;
@@ -247,11 +246,11 @@ void grafo_matriz::auxArestaPonte(bool *result) {
                 v++;
             }
             if (counter > count) {
-                *result = true;
-                return;
+                return true;
             }
         }
     }
+    return false;
 }
 
 void grafo_matriz::BPPonte(int v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW) {
@@ -270,8 +269,7 @@ void grafo_matriz::BPPonte(int v, int tag[], bool visitado[], int currentTag, in
     }
 }
 
-void grafo_matriz::auxVerticeArticulacao(bool *result) {
-    *result = false;
+bool grafo_matriz::auxVerticeArticulacao() {
     int tag[getOrdem()];
     for (int &t : tag) {
         t = -1;
@@ -311,10 +309,10 @@ void grafo_matriz::auxVerticeArticulacao(bool *result) {
             v++;
         }
         if (counter > count) {
-            *result = true;
-            return;
+            return true;
         }
     }
+    return false;
 }
 
 void grafo_matriz::BPArticulacao(int v, int tag[], bool visitado[], int currentTag, int ignoredV) {
@@ -332,6 +330,26 @@ void grafo_matriz::BPArticulacao(int v, int tag[], bool visitado[], int currentT
         }
         e++;
     }
+}
+
+int grafo_matriz::auxSetGrau(){
+    int grau = 0;
+    int v = 1;
+    while (v <= getOrdem()){
+        int g = 0;
+        int e = 1;
+        while (e <= getOrdem()){
+            if(this->operator()(v, e) != 0 && v != e){
+                g++;
+            }
+            e++;
+        }
+        if (g > grau){
+            grau = g;
+        }
+        v++;
+    }
+    return grau;
 }
 // B4Hive-end
 

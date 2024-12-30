@@ -174,8 +174,7 @@ bool grafo_lista::buscaAresta(unsigned int v, unsigned int w)
     return false;
 }
 // B4Hive-begin
-void grafo_lista::auxArestaPonte(bool *result) {
-    *result = false;
+bool grafo_lista::auxArestaPonte() {
     int tag[getOrdem()];
     for (int &t : tag) {
         t = -1;
@@ -216,11 +215,11 @@ void grafo_lista::auxArestaPonte(bool *result) {
                 v = v->getProx();
             }
             if (counter > count) {
-                *result = true;
-                return;
+                return true;
             }
         }
     }
+    return false;
 }
 
 void grafo_lista::BPPonte(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW) {
@@ -238,8 +237,7 @@ void grafo_lista::BPPonte(vertice *v, int tag[], bool visitado[], int currentTag
     }
 }
 
-void grafo_lista::auxVerticeArticulacao(bool *result) {
-    *result = false;
+bool grafo_lista::auxVerticeArticulacao() {
     int tag[getOrdem()];
     for (int &t : tag) {
         t = -1;
@@ -279,10 +277,10 @@ void grafo_lista::auxVerticeArticulacao(bool *result) {
             v = v->getProx();
         }
         if (counter > count) {
-            *result = true;
-            return;
+            return true;
         }
     }
+    return false;
 }
 
 void grafo_lista::BPArticulacao(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV) {
@@ -299,5 +297,23 @@ void grafo_lista::BPArticulacao(vertice *v, int tag[], bool visitado[], int curr
         }
         e = e->getProx();
     }
+}
+
+int grafo_lista::auxSetGrau(){
+    int grau = 0;
+    vertice *v = getInicio();
+    while (v != NULL){
+        int g = 0;
+        edge *e = v->getAresta();
+        while (e != NULL){
+            g++;
+            e = e->getProx();
+        }
+        if (g > grau){
+            grau = g;
+        }
+        v = v->getProx();
+    }
+    return grau;
 }
 // B4Hive-end
