@@ -188,6 +188,7 @@ bool Grafo::getDirecionado()
 
 unsigned int Grafo::getComponentes_conexas()
 {
+    info[2] = BPConexos();
     return info[2];
 }
 

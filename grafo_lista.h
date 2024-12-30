@@ -26,6 +26,13 @@ class grafo_lista : public Grafo {
         void BPPonte(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW);
         void auxVerticeArticulacao(bool *result);
         void BPArticulacao(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV);
+
+        //ufjoao
+        void auxBPConexo(vertice *v, bool visitado[]);
+        unsigned int BPConexos();
+
+
+      
         
     private:
         vertice* inicio;

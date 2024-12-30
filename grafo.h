@@ -85,6 +85,9 @@ class Grafo
     //B4Hive
     virtual void auxArestaPonte(bool *result) = 0; // dpp[6]
     virtual void auxVerticeArticulacao(bool *result) = 0; // dpp[7]
+
+    //ufjoao
+    virtual unsigned int BPConexos() = 0; // info[2]
     
     //Variaveis internas
     std::string filename;

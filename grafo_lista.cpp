@@ -301,3 +301,37 @@ void grafo_lista::BPArticulacao(vertice *v, int tag[], bool visitado[], int curr
     }
 }
 // B4Hive-end
+
+
+
+// ufjoao-init
+void grafo_lista::auxBPConexo(vertice *v, bool visitado[]) {
+    visitado[v->ID()] = true;
+    edge *e = v->getAresta();
+    while (e != NULL) {
+        vertice *w = getVertice(e->W());
+        if (visitado[w->ID() - 1]) {
+            auxBPConexo(w, visitado);
+            
+        }
+        e = e->getProx();
+    }
+}
+
+unsigned int grafo_lista::BPConexos() {
+    unsigned int Conexos = 0;
+    bool visitado[getOrdem()] = {false};
+    
+    vertice *v = getInicio();
+    
+    while (v != NULL) {
+        if (!visitado[v->ID() - 1]) {
+            auxBPConexo(v, visitado);
+            Conexos++;
+        }
+        v = v->getProx();
+    }
+    return Conexos;
+}
+
+// ufjoao-final
