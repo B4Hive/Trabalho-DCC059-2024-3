@@ -104,6 +104,8 @@ void grafo_matriz::carrega_grafo(char *tipo, std::string dataFileName)
         getline(file, line);
     }   
 
+    setGrau(auxSetGrau()); // @bhive isso aqui me quebrou...
+
     file.close();
 
 }
