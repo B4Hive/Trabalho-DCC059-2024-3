@@ -78,7 +78,7 @@ void grafo_matriz::carrega_grafo(char *tipo, std::string dataFileName)
     
     for (int i = 1; i <= getOrdem(); i++)
     {
-        int peso;
+        int peso = 1;
         if (getVertices_ponderados())
         {
             file >> peso;
@@ -89,7 +89,7 @@ void grafo_matriz::carrega_grafo(char *tipo, std::string dataFileName)
     while (!file.eof())
     {
         unsigned int v, w;
-        int peso = 0;
+        int peso = 1;
         file >> v; // vertice orígem
         file >> w; // vertice destino
         if (getArestas_ponderadas())
