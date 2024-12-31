@@ -1,4 +1,5 @@
 #include "grafo_matriz.h"
+using namespace std;
 
 grafo_matriz::grafo_matriz()
 {
@@ -15,7 +16,7 @@ void grafo_matriz::inicializa()
     if(getDirecionado() == 0) // matriz  triangular infeiror 
     {
         tamanho_vetor = (getOrdem() * (getOrdem() + 1)) / 2;
-        std::cout << "Tamanho: " << tamanho_vetor << std::endl;
+        cout << "Tamanho: " << tamanho_vetor << endl;
         m = new int [tamanho_vetor];
             for(int i = 0; i < tamanho_vetor; i++)
             {
@@ -27,7 +28,7 @@ void grafo_matriz::inicializa()
     {
         tamanho_vetor = getOrdem() * getOrdem();
         m = new int [tamanho_vetor];
-        std::cout << "Tamanho: " << tamanho_vetor << std::endl;
+        cout << "Tamanho: " << tamanho_vetor << endl;
             for(int i = 0; i < tamanho_vetor; i++)
             {
                 m[i] = 0;
@@ -56,7 +57,7 @@ void grafo_matriz::insere_vertice(unsigned int id, int peso)
     
     this->operator()(id-1, id-1) = peso;
     
-    //std::cout << "Vertice inserido" << std::endl;
+    //cout << "Vertice inserido" << endl;
 }
 
 void grafo_matriz::insere_aresta(unsigned int v, unsigned int w, int peso)
@@ -64,7 +65,7 @@ void grafo_matriz::insere_aresta(unsigned int v, unsigned int w, int peso)
 
     this->operator()(v-1,w-1) = peso;
     
-    std::cout << "Aresta inserida" << std::endl;
+    cout << "Aresta inserida" << endl;
 }
 
 int grafo_matriz::pesoAresta(unsigned int v, unsigned int w)
@@ -125,7 +126,7 @@ edge *grafo_matriz::getAresta(unsigned int idAresta)
             }
         }
     }
-    std::cout << "Aresta nao encontrada" << std::endl;
+    cout << "Aresta nao encontrada" << endl;
     return 0;
 }
 
@@ -280,7 +281,7 @@ int grafo_matriz::auxSetGrau(){
 
 void grafo_matriz::imprime()
 {
-    std::cout << "Imprimindo matriz" << std::endl;
+    cout << "Imprimindo matriz" << endl;
     if(!getDirecionado())
     {
         for(int i = 0; i < getOrdem(); i++)
@@ -289,14 +290,14 @@ void grafo_matriz::imprime()
             {
                 if(i < j)
                 {
-                    std::cout << m[i * (i - 1) / 2 + j] << " ";
+                    cout << m[i * (i - 1) / 2 + j] << " ";
                 }
                 else
                 {
-                    std::cout << m[j * (j - 1) / 2 + i] << " ";
+                    cout << m[j * (j - 1) / 2 + i] << " ";
                 }
             }
-            std::cout << std::endl;
+            cout << endl;
         }
     }
     else
@@ -305,9 +306,9 @@ void grafo_matriz::imprime()
         {
             for(int j = 0; j < getOrdem(); j++)
             {
-                std::cout << m[i * getOrdem() + j] << " ";
+                cout << m[i * getOrdem() + j] << " ";
             }
-            std::cout << std::endl;
+            cout << endl;
         }
     }
 }

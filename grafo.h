@@ -7,8 +7,8 @@
 #include <cstdlib>
 #include <cstdarg>
 #include <ctime>
-
 #include "data_strc.h"
+using namespace std;
 
 class Grafo
 {
@@ -17,15 +17,15 @@ class Grafo
     Grafo() {}
     ~Grafo(){}
 
-    void carrega_grafo(char *tipo, std::string dataFileName);
-    void novo_grafo(char *tipo, std::string descFileName);
+    void carrega_grafo(char *tipo, string dataFileName);
+    void novo_grafo(char *tipo, string descFileName);
     void exportInfo();
     void exportDesc();
 
     virtual void inicializa() = 0;
     virtual void imprime() = 0;
 
-    virtual void insere_vertice(unsigned int id, int peso) =0;
+    virtual void insere_vertice(unsigned int id, int peso) = 0;
     //virtual void remove_vertice(unsigned int id) = 0; calma que vamos impelementar aindaa
 
     virtual void insere_aresta(unsigned int v, unsigned int w, int peso) = 0;
@@ -76,7 +76,7 @@ class Grafo
     virtual int auxSetGrau() = 0;
     
     //Variaveis internas
-    std::string filename;
+    string filename;
     unsigned int info[4]{0,0,0,0}; //[Grau, Ordem, Componentes_conexas, Tamanho]
     bool dpp[8] = {0,0,0,0,0,0,0,0};
                 // direcionado             [0]

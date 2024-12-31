@@ -1,4 +1,5 @@
 #include "grafo_lista.h"
+using namespace std;
 
 grafo_lista::grafo_lista()
 {
@@ -54,7 +55,7 @@ void grafo_lista::insere_aresta(unsigned int v, unsigned int w, int peso)
         if(p->ID() == v)
         {
             p->insereAresta(e);
-            std::cout << "Aresta inserida!" << std::endl<< std::endl;
+            cout << "Aresta inserida!" << endl<< endl;
             break;
         }
 
@@ -73,7 +74,7 @@ int grafo_lista::pesoVertice(unsigned int idVertice)
         }
         p = p->getProx();
     }
-    std::cout << "Vertice nao encontrado" << std::endl;
+    cout << "Vertice nao encontrado" << endl;
     return 0;
 }
 
@@ -96,7 +97,7 @@ int grafo_lista::pesoAresta(unsigned int v, unsigned int w)
         }
         p = p->getProx();
     }
-    std::cout << "Aresta nao encontrada" << std::endl;
+    cout << "Aresta nao encontrada" << endl;
     return 0;
 }
 
@@ -135,7 +136,7 @@ edge* grafo_lista::getAresta(unsigned int idAresta)
         }
         p = p->getProx();
     }
-    std::cout << "Aresta nao encontrada" << std::endl;
+    cout << "Aresta nao encontrada" << endl;
     return NULL;
 }
 
@@ -324,16 +325,16 @@ void grafo_lista::inicializa() {
 }
 
 void grafo_lista::imprime() {
-    std::cout << "Imprimindo lista" << std::endl;
+    cout << "Imprimindo lista" << endl;
     vertice *v = getInicio();
     while (v != NULL){
-        std::cout << v->ID() << "(" << v->Peso() << ") -> ";
+        cout << v->ID() << "(" << v->Peso() << ") -> ";
         edge *e = v->getAresta();
         while (e != NULL){
-            std::cout << e->W() << "(" << e->Peso() << ") - ";
+            cout << e->W() << "(" << e->Peso() << ") - ";
             e = e->getProx();
         }
-        std::cout << std::endl;
+        cout << endl;
         v = v->getProx();
     }
 }

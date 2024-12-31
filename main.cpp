@@ -2,25 +2,25 @@
 #include "grafo.h"
 #include "grafo_lista.h"
 #include "grafo_matriz.h"
-
+using namespace std;
 
 int main(int argc, char *argv[])
 {
 
-    std::cout << "Programa iniciado " << std::endl;
-    std::cout << "argc: " << argc << std::endl;
+    cout << "Programa iniciado " << endl;
+    cout << "argc: " << argc << endl;
     for(int i = 0; i < argc; i++)
     {
-        std::cout << "argv[" << i << "]: " << argv[i] << std::endl;
+        cout << "argv[" << i << "]: " << argv[i] << endl;
     }
-    std::cout << std::endl;
-    std::string filename;
-    std::string parametro1 = argv[1];
-    std::string parametro2 = argv[2];
-    std::cout << "Parametro1: " << parametro1 << std::endl;
-    std::cout << "Parametro2: " << parametro2 << std::endl;
+    cout << endl;
+    string filename;
+    string parametro1 = argv[1];
+    string parametro2 = argv[2];
+    cout << "Parametro1: " << parametro1 << endl;
+    cout << "Parametro2: " << parametro2 << endl;
     filename = argv[3];
-    std::cout << "Filename: " << filename << std::endl << std::endl;
+    cout << "Filename: " << filename << endl << endl;
 
     Grafo *g;
 
@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
         if(parametro1 == "-m") {
             g = new grafo_matriz; 
         }
-        // g->novo_grafo(argv[1], filename);
+        g->novo_grafo(argv[1], filename);
         g->imprime();
         g->exportInfo();
     }

@@ -1,14 +1,14 @@
 #include "grafo.h"
-
 #include "grafo_lista.h"
 #include "grafo_matriz.h"
+using namespace std;
 
 void Grafo::setGrau(unsigned int grau)
 {
     if(grau < 0)
     {
-        std::cout << "Grau invalido!" << std::endl;
-        std::cout << "Encerrando programa..." << std::endl;
+        cout << "Grau invalido!" << endl;
+        cout << "Encerrando programa..." << endl;
         exit(1);
     }
     else
@@ -21,8 +21,8 @@ void Grafo::setOrdem(unsigned int ordem)
 {
     if(ordem < 0)
     {
-        std::cout << "Ordem invalida!" << std::endl;
-        std::cout << "Encerrando programa..." << std::endl;
+        cout << "Ordem invalida!" << endl;
+        cout << "Encerrando programa..." << endl;
         exit(1);
     }
     else
@@ -35,8 +35,8 @@ void Grafo::setDirecionado(bool direcionado)
 {
     if(direcionado != 0 && direcionado != 1)
     {
-        std::cout << "Direcionado invalido!" << std::endl;
-        std::cout << "Encerrando programa..." << std::endl;
+        cout << "Direcionado invalido!" << endl;
+        cout << "Encerrando programa..." << endl;
         exit(1);
     }
     else
@@ -49,8 +49,8 @@ void Grafo::setComponentes_conexas(unsigned int componentes_conexas)
 {
     if(componentes_conexas < 0)
     {
-        std::cout << "Componentes conexas invalido!" << std::endl;
-        std::cout << "Encerrando programa..." << std::endl;
+        cout << "Componentes conexas invalido!" << endl;
+        cout << "Encerrando programa..." << endl;
         exit(1);
     }
     else
@@ -63,8 +63,8 @@ void Grafo::setVertices_ponderados(bool vertices_ponderados)
 {
     if(vertices_ponderados != 0 && vertices_ponderados != 1)
     {
-        std::cout << "Vertices ponderados invalido!" << std::endl;
-        std::cout << "Encerrando programa..." << std::endl;
+        cout << "Vertices ponderados invalido!" << endl;
+        cout << "Encerrando programa..." << endl;
         exit(1);
     }
     else
@@ -77,8 +77,8 @@ void Grafo::setArestas_ponderadas(bool arestas_ponderadas)
 {
     if(arestas_ponderadas != 0 && arestas_ponderadas != 1)
     {
-        std::cout << "Arestas ponderadas invalido!" << std::endl;
-        std::cout << "Encerrando programa..." << std::endl;
+        cout << "Arestas ponderadas invalido!" << endl;
+        cout << "Encerrando programa..." << endl;
         exit(1);
     }
     else
@@ -91,8 +91,8 @@ void Grafo::setCompleto(bool completo)
 {
     if(completo != 0 && completo != 1)
     {
-        std::cout << "Completo invalido!" << std::endl;
-        std::cout << "Encerrando programa..." << std::endl;
+        cout << "Completo invalido!" << endl;
+        cout << "Encerrando programa..." << endl;
         exit(1);
     }
     else
@@ -105,8 +105,8 @@ void Grafo::setBipartido(bool bipartido)
 {
     if(bipartido != 0 && bipartido != 1)
     {
-        std::cout << "Bipartido invalido!" << std::endl;
-        std::cout << "Encerrando programa..." << std::endl;
+        cout << "Bipartido invalido!" << endl;
+        cout << "Encerrando programa..." << endl;
         exit(1);
     }
     else
@@ -119,8 +119,8 @@ void Grafo::setArvore(bool arvore)
 {
     if(arvore != 0 && arvore != 1)
     {
-        std::cout << "Arvore invalido!" << std::endl;
-        std::cout << "Encerrando programa..." << std::endl;
+        cout << "Arvore invalido!" << endl;
+        cout << "Encerrando programa..." << endl;
         exit(1);
     }
     else
@@ -133,8 +133,8 @@ void Grafo::setAresta_Ponte(bool aresta_ponte)
 {
     if(aresta_ponte != 0 && aresta_ponte != 1)
     {
-        std::cout << "Aresta ponte invalido!" << std::endl;
-        std::cout << "Encerrando programa..." << std::endl;
+        cout << "Aresta ponte invalido!" << endl;
+        cout << "Encerrando programa..." << endl;
         exit(1);
     }
     else
@@ -147,8 +147,8 @@ void Grafo::setVertice_de_Articulacao(bool vertice_de_articulacao)
 {
     if(vertice_de_articulacao != 0 && vertice_de_articulacao != 1)
     {
-        std::cout << "Vertice de articulacao invalido!" << std::endl;
-        std::cout << "Encerrando programa..." << std::endl;
+        cout << "Vertice de articulacao invalido!" << endl;
+        cout << "Encerrando programa..." << endl;
         exit(1);
     }
     else
@@ -161,8 +161,8 @@ void Grafo::setTamanho(unsigned int tamanho)
 {
     if(tamanho < 0)
     {
-        std::cout << "Tamanho invalido!" << std::endl;
-        std::cout << "Encerrando programa..." << std::endl;
+        cout << "Tamanho invalido!" << endl;
+        cout << "Encerrando programa..." << endl;
         exit(1);
     }
     else
@@ -231,16 +231,16 @@ unsigned int Grafo::getTamanho()
     return info[3];
 }
 
-void Grafo::carrega_grafo(char *tipo, std::string dataFileName)
+void Grafo::carrega_grafo(char *tipo, string dataFileName)
 {
-    std::cout << "Carregando Grafo..." << std::endl;
-    std::ifstream file;
-    std::string line;
+    cout << "Carregando Grafo..." << endl;
+    ifstream file;
+    string line;
     this->filename = dataFileName;
-    file.open(filename, std::ios::in);
+    file.open(filename, ios::in);
     if (!file.is_open())
     {
-        std::cout << "Erro ao abrir arquivo" << std::endl;
+        cout << "Erro ao abrir arquivo" << endl;
         return ;
     }
 
@@ -261,10 +261,10 @@ void Grafo::carrega_grafo(char *tipo, std::string dataFileName)
 
     getline(file, line);
 
-    std::cout << "Ordem: " << getOrdem() << std::endl;
-    std::cout << "Direcionado: " << getDirecionado() << std::endl;
-    std::cout << "Vertices ponderados: " << getVertices_ponderados() << std::endl;
-    std::cout << "Arestas ponderadas: " << getArestas_ponderadas() << std::endl<< std::endl;
+    cout << "Ordem: " << getOrdem() << endl;
+    cout << "Direcionado: " << getDirecionado() << endl;
+    cout << "Vertices ponderados: " << getVertices_ponderados() << endl;
+    cout << "Arestas ponderadas: " << getArestas_ponderadas() << endl<< endl;
 
     inicializa();
 
@@ -289,8 +289,8 @@ void Grafo::carrega_grafo(char *tipo, std::string dataFileName)
             file >> peso;
         }
         Tamanho()++;
-        std::cout << "Inserindo Aresta "<< Tamanho() <<": "<<std::endl;
-        std::cout << "V: " << v << " W: " << w << " Peso: " << peso << std::endl;
+        cout << "Inserindo Aresta "<< Tamanho() <<": "<<endl;
+        cout << "V: " << v << " W: " << w << " Peso: " << peso << endl;
         insere_aresta(v, w, peso);
 
         getline(file, line);
@@ -300,17 +300,17 @@ void Grafo::carrega_grafo(char *tipo, std::string dataFileName)
 
     file.close();
 
-    std::cout << "Grafo carregado!" << std::endl<<std::endl;
+    cout << "Grafo carregado!" << endl<<endl;
 }
 
 void Grafo::exportInfo()
 {
-    std::cout << "Exportando Info" << std::endl;
-    std::ofstream file;
-    file.open("Grafo_infoOut.txt", std::ofstream::out);
+    cout << "Exportando Info" << endl;
+    ofstream file;
+    file.open("Grafo_infoOut.txt", ofstream::out);
     if(!file.is_open())
     {
-        std::cout << "Erro ao abrir arquivo" << std::endl;
+        cout << "Erro ao abrir arquivo" << endl;
         return;
     }
     file << getOrdem() << " " << getDirecionado() << " " << getVertices_ponderados() << " " << getArestas_ponderadas() << '\n';
@@ -338,16 +338,16 @@ void Grafo::exportInfo()
 
 }
 
-void Grafo::novo_grafo(char *tipo, std::string descFileName)
+void Grafo::novo_grafo(char *tipo, string descFileName)
 {
-    std::cout << "Lendo Decrição" << std::endl;
-    std::ifstream file;
-    std::string line;
+    cout << "Lendo Decrição" << endl;
+    ifstream file;
+    string line;
     this->filename = descFileName;
     file.open(filename.c_str());
     if(!file.is_open())
     {
-        std::cout << "Erro ao abrir arquivo" << std::endl;
+        cout << "Erro ao abrir arquivo" << endl;
         exit(1);
     }
 
@@ -433,12 +433,12 @@ void Grafo::novo_grafo(char *tipo, std::string descFileName)
 // @bhive tem que tirar esse texto extras do exportDesc
 void Grafo::exportDesc()
 {
-    std::cout << "Exportando descritor" << std::endl;
-    std::ofstream file;
-    file.open("grafo_out.txt", std::ofstream::out);
+    cout << "Exportando descritor" << endl;
+    ofstream file;
+    file.open("grafo_out.txt", ofstream::out);
     if (!file.is_open())
     {
-        std::cout << "Erro ao abrir arquivo" << std::endl;
+        cout << "Erro ao abrir arquivo" << endl;
         exit(1);
     }
 
