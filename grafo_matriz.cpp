@@ -10,7 +10,7 @@ grafo_matriz::~grafo_matriz()
     delete m;
 }
 
-void grafo_matriz::inicializa_matriz()
+void grafo_matriz::inicializa()
 {
     if(getDirecionado() == 0) // matriz  triangular infeiror 
     {
@@ -33,81 +33,6 @@ void grafo_matriz::inicializa_matriz()
                 m[i] = 0;
             }
     }
-}
-
-void grafo_matriz::carrega_grafo(char *tipo, std::string dataFileName)
-{
-    std::cout << "Lendo Grafo" << std::endl;
-    std::ifstream file;
-    std::string line;
-    this->filename = dataFileName;
-    file.open(filename, std::ios::in);
-    if (!file.is_open())
-    {
-        std::cout << "Erro ao abrir arquivo" << std::endl;
-        return ;
-    }
-    
-    
-    unsigned int ordem;
-    bool direcionado;
-    bool vertices_ponderados;
-    bool arestas_ponderadas;
-
-    file >>  ordem;
-    file >> direcionado;
-    file >> vertices_ponderados;
-    file >> arestas_ponderadas;
-
-    setOrdem(ordem);
-    setDirecionado(direcionado);
-    setVertices_ponderados(vertices_ponderados);
-    setArestas_ponderadas(arestas_ponderadas);
-
-    getline(file, line);
-    
-    std::cout << "Ordem: " << getOrdem() << std::endl;
-    std::cout << "Direcionado: " << getDirecionado() << std::endl;
-    std::cout << "Vertices ponderados: " << getVertices_ponderados() << std::endl;
-    std::cout << "Arestas ponderadas: " << getArestas_ponderadas() << std::endl;
-
-    std::cout << "Iniciando matriz" << std::endl; 
-    inicializa_matriz();
-    std::cout << std::size_t(m) << std::endl;
-
-    
-    for (int i = 1; i <= getOrdem(); i++)
-    {
-        int peso;
-        if (getVertices_ponderados())
-        {
-            file >> peso;
-        }
-        insere_vertice(i, peso);
-    }
-    getline(file, line);
-    while (!file.eof())
-    {
-        unsigned int v, w;
-        int peso = 0;
-        file >> v; // vertice orígem
-        file >> w; // vertice destino
-        if (getArestas_ponderadas())
-        {
-            file >> peso;
-        }
-        Tamanho()++;
-        std::cout << "Inserindo Aresta "<< Tamanho() <<": "<<std::endl;
-        std::cout << "V: " << v << " W: " << w << " Peso: " << peso << std::endl<< std::endl;
-        insere_aresta(v, w, peso);
-
-        getline(file, line);
-    }   
-
-    setGrau(auxSetGrau()); // @bhive isso aqui me quebrou...
-
-    file.close();
-
 }
 
 int &grafo_matriz::operator()(unsigned int v, unsigned int w)

@@ -318,4 +318,8 @@ int grafo_lista::auxSetGrau(){
     }
     return grau;
 }
+
+void grafo_lista::inicializa() {
+    // gambiarra, eu sei
+}
 // B4Hive-end

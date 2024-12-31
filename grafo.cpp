@@ -266,6 +266,8 @@ void Grafo::carrega_grafo(char *tipo, std::string dataFileName)
     std::cout << "Vertices ponderados: " << getVertices_ponderados() << std::endl;
     std::cout << "Arestas ponderadas: " << getArestas_ponderadas() << std::endl<< std::endl;
 
+    inicializa();
+
     for (int i = 1; i <= getOrdem(); i++)
     {
         int peso;
@@ -388,8 +390,7 @@ void Grafo::novo_grafo(char *tipo, std::string descFileName)
     g->setAresta_Ponte(aresta_ponte);
     g->setVertice_de_Articulacao(vertice_de_articulacao);
 
-    switch (*tipo) {
-    case 'l':
+    if (*tipo == 'l') {
         g = new grafo_lista;
         for(int i = 1; i <= ordem; i++) {
             int peso = 1;
@@ -397,8 +398,8 @@ void Grafo::novo_grafo(char *tipo, std::string descFileName)
                 peso = rand() % 100;
             g->insere_vertice(i, peso);
         }
-        break;
-    case 'm':
+    } else if (*tipo == 'm') {
+        /*
         grafo_matriz *gm = new grafo_matriz;
         gm->inicializa_matriz();
         g = gm;
@@ -408,9 +409,7 @@ void Grafo::novo_grafo(char *tipo, std::string descFileName)
                 peso = rand() % 100;
             gm->insere_vertice(i, peso);
         }
-        break;
-    default:
-        break;
+        */
     }
     // agora gambiarra com 300 ifs
     if(completo) {

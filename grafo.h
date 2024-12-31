@@ -17,10 +17,12 @@ class Grafo
     Grafo() {}
     ~Grafo(){}
 
-    virtual void carrega_grafo(char *tipo, std::string dataFileName); 
+    void carrega_grafo(char *tipo, std::string dataFileName);
     void novo_grafo(char *tipo, std::string descFileName);
     void exportInfo();
     void exportDesc();
+
+    virtual void inicializa() = 0;
 
     virtual void insere_vertice(unsigned int id, int peso) =0;
     //virtual void remove_vertice(unsigned int id) = 0; calma que vamos impelementar aindaa

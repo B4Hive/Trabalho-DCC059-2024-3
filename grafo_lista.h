@@ -27,6 +27,8 @@ class grafo_lista : public Grafo {
         bool auxVerticeArticulacao();
         void BPArticulacao(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV);
         int auxSetGrau();
+
+        void inicializa();
         
     private:
         vertice* inicio;
