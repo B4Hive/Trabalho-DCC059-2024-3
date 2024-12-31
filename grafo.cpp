@@ -348,7 +348,7 @@ void Grafo::novo_grafo(char *tipo, std::string descFileName)
     if(!file.is_open())
     {
         std::cout << "Erro ao abrir arquivo" << std::endl;
-        return;
+        exit(1);
     }
 
     unsigned int grau;
@@ -392,24 +392,15 @@ void Grafo::novo_grafo(char *tipo, std::string descFileName)
 
     if (*tipo == 'l') {
         g = new grafo_lista;
-        for(int i = 1; i <= ordem; i++) {
-            int peso = 1;
-            if (vertices_ponderados)
-                peso = rand() % 100;
-            g->insere_vertice(i, peso);
-        }
     } else if (*tipo == 'm') {
-        /*
-        grafo_matriz *gm = new grafo_matriz;
-        gm->inicializa_matriz();
-        g = gm;
-        for (int i = 1; i <= ordem; i++) {
-            int peso = 1;
-            if (vertices_ponderados)
-                peso = rand() % 100;
-            gm->insere_vertice(i, peso);
-        }
-        */
+        g = new grafo_matriz;
+    }
+    g->inicializa();
+    for (int i = 1; i <= getOrdem(); i++) {
+        int peso = 1;
+        if (getVertices_ponderados())
+            peso = rand() % 100;
+        g->insere_vertice(i, peso);
     }
     // agora gambiarra com 300 ifs
     if(completo) {
@@ -448,7 +439,7 @@ void Grafo::exportDesc()
     if (!file.is_open())
     {
         std::cout << "Erro ao abrir arquivo" << std::endl;
-        return;
+        exit(1);
     }
 
     file << filename << '\n'
