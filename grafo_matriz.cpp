@@ -75,17 +75,20 @@ void grafo_matriz::carrega_grafo(char *tipo, std::string dataFileName)
     inicializa_matriz();
     std::cout << std::size_t(m) << std::endl;
 
-    
-    for (int i = 1; i <= getOrdem(); i++)
-    {
-        int peso = 1;
-        if (getVertices_ponderados())
-        {
-            file >> peso;
+    if(getVertices_ponderados()) {
+        for (int i = 1; i <= getOrdem(); i++) {
+            int peso = 1;
+            if (getVertices_ponderados()) {
+                file >> peso;
+            }
+            insere_vertice(i, peso);
         }
-        insere_vertice(i, peso);
+        getline(file, line);
+    } else {
+        for (int i = 1; i <= getOrdem(); i++) {
+            insere_vertice(i, 1);
+        }
     }
-    getline(file, line);
     while (!file.eof())
     {
         unsigned int v, w;
