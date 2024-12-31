@@ -278,10 +278,10 @@ int grafo_matriz::auxSetGrau(){
 }
 // B4Hive-end
 
-void grafo_matriz::imprime_matriz()
+void grafo_matriz::imprime()
 {
     std::cout << "Imprimindo matriz" << std::endl;
-    if(getDirecionado() == 0)
+    if(!getDirecionado())
     {
         for(int i = 0; i < getOrdem(); i++)
         {

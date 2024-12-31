@@ -29,6 +29,7 @@ class grafo_lista : public Grafo {
         int auxSetGrau();
 
         void inicializa();
+        void imprime();
         
     private:
         vertice* inicio;

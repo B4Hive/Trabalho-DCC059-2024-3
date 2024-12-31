@@ -31,7 +31,7 @@ public:
     int auxSetGrau();
 
     void inicializa();
-    void imprime_matriz();
+    void imprime();
 
 private:
     int *m;

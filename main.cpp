@@ -22,44 +22,34 @@ int main(int argc, char *argv[])
     filename = argv[3];
     std::cout << "Filename: " << filename << std::endl << std::endl;
 
-    grafo_lista *gl;
-    grafo_matriz *gm;
+    Grafo *g;
 
     if(parametro1 == "-d")
     {
-        if(parametro2 == "-l")
-        {
-            gl = new grafo_lista;
-            gl->carrega_grafo(argv[2], filename);
-            gl->exportDesc();
-            // gl->exportInfo(); // @bhive não precisa dessa função
+        if(parametro2 == "-l") {
+            g = new grafo_lista;
         }
-        if(parametro2 == "-m")
-        {
-            gm = new grafo_matriz; 
-            gm->carrega_grafo(argv[2], filename);
-            gm->imprime_matriz();
-            gm->exportDesc();
-
-            // gm->exportInfo();  // @bhive não precisa dessa função
-
+        if(parametro2 == "-m") {
+            g = new grafo_matriz; 
         }
+        g->carrega_grafo(argv[2], filename);
+        g->imprime();
+        g->exportDesc();
     }
     if(parametro2 == "-c") 
     {
-        if(parametro1 == "-l")
-        {
-            gl = new grafo_lista;
-            // gl->carrega_grafo(argv[1], filename); // @bhive aqui é novo_grafo
-            gl->exportInfo();
+        if(parametro1 == "-l") {
+            g = new grafo_lista;
         }
-        if(parametro1 == "-m")
-        {
-            gm = new grafo_matriz; 
-            // gm->carrega_grafo(argv[1], filename); // @bhive aqui é novo_grafo
-            gm->exportInfo();
+        if(parametro1 == "-m") {
+            g = new grafo_matriz; 
         }
+        // g->novo_grafo(argv[1], filename);
+        g->imprime();
+        g->exportInfo();
     }
+    
+    delete g;
     
     return 0;
 }

@@ -23,11 +23,12 @@ class Grafo
     void exportDesc();
 
     virtual void inicializa() = 0;
+    virtual void imprime() = 0;
 
     virtual void insere_vertice(unsigned int id, int peso) =0;
     //virtual void remove_vertice(unsigned int id) = 0; calma que vamos impelementar aindaa
 
-    virtual void insere_aresta(unsigned int v, unsigned int w, int peso) =0;
+    virtual void insere_aresta(unsigned int v, unsigned int w, int peso) = 0;
     //virtual void remove_aresta(unsigned int v, unsigned int w) = 0; esse tambem, talvez....
 
     virtual int  pesoAresta(unsigned int v, unsigned int w) = 0;

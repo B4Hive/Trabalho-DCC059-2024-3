@@ -322,4 +322,19 @@ int grafo_lista::auxSetGrau(){
 void grafo_lista::inicializa() {
     // gambiarra, eu sei
 }
+
+void grafo_lista::imprime() {
+    std::cout << "Imprimindo lista" << std::endl;
+    vertice *v = getInicio();
+    while (v != NULL){
+        std::cout << v->ID() << "(" << v->Peso() << ") -> ";
+        edge *e = v->getAresta();
+        while (e != NULL){
+            std::cout << e->W() << "(" << e->Peso() << ") - ";
+            e = e->getProx();
+        }
+        std::cout << std::endl;
+        v = v->getProx();
+    }
+}
 // B4Hive-end
