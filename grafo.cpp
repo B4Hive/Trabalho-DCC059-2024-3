@@ -425,70 +425,79 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
                 exit(3);
             }
         }
-        for(int i = 1; i <= ordem; i++){
-            for(int j = 1; j <= ordem; j++){
-                if(i == j){
+        for (int i = 1; i <= ordem; i++){
+            for (int j = 1; j <= ordem; j++){
+                if (i == j)
                     continue;
-                }
                 int peso = 1;
-                if(arestas_ponderadas)
+                if (arestas_ponderadas)
                     peso = rand() % 100 + 1;
                 g->insere_aresta(i, j, peso);
             }
         }
-    } else if (componentes_conexas == 1){
-        if (bipartido){
-            if(!arvore && ordem > 3){
-                gerarBipartidoNaoArvore(ordem, grau, arestas_ponderadas, g);
-            } else {
-                // cria uma arvore qualquer já que toda árvore é bipartida
+        return;
+    }
+    int auxCompCon[componentes_conexas+1];
+    for (int i = 0; i < componentes_conexas; i++){
+        auxCompCon[i] = (i*ordem/componentes_conexas)+1;
+    }
+    auxCompCon[componentes_conexas] = ordem+1;
+    if (bipartido){
+        // falta tratamento pra ponte/articulacao
+        /**
+        * se tiver articulação ou ponte eu faço uma componente conexa a mais
+        * se articulação eu ignoro um vertice
+        * depois de criar o grafo
+        * se ponte eu crio uma aresta entre as componentes 1 e 2
+        * se articulação eu crio uma aresta entre a componente 1 e o no ignorado e uma aresta entre o no ignorado e a componente 2
+        * depois verificar se deu problema no grau e retirar as arestas necessárias pra corrigir o grau
+        */
+        if(!arvore){
+            int auxGrau[ordem];
+            for (int a = 1; a <= ordem; a++)
+                auxGrau[a] = 0;
+            for (int c = 0; c < componentes_conexas; c++){
+                int i = auxCompCon[c];
+                while(i < auxCompCon[c+1]){
+                    int j = i+1;
+                    while(j <= auxCompCon[c+1]){
+                        if (auxGrau[j] >= grau)
+                            continue;
+                        if (auxGrau[i] >= grau)
+                            break;
+                        int peso = 1;
+                        if (arestas_ponderadas)
+                            peso = rand() % 100 + 1;
+                        g->insere_aresta(i, j, peso);
+                        auxGrau[i]++;
+                        auxGrau[j]++;
+                        j += 2;
+                    }
+                    i++;
+                }
             }
-        } else if (arvore){
-            if(!bipartido){
-                cout << "Grafo impossível" << endl;
-                cout << "Toda árvore é um grafo bipartido." << endl;
-                exit(3);
-            }
-            // cria uma arvore
-        } else if (aresta_ponte){
-            // cria 2 grafos conexos ordem/2
-            // insere uma aresta ponte
-        } else if (vertice_de_articulacao){
-            // cria 2 grafos conexos (ordem-1)/2
-            // insere um vertice de articulacao
+        } else {
+            // cria uma arvore qualquer já que toda árvore é bipartida
         }
+        return;
+    } else if (arvore){
+        if(!bipartido){
+            cout << "Grafo impossível" << endl;
+            cout << "Toda árvore é um grafo bipartido." << endl;
+            exit(3);
+        }
+    } else if (aresta_ponte){
+        // cria 2 grafos conexos ordem/2
+        // insere uma aresta ponte
+    } else if (vertice_de_articulacao){
+        // cria 2 grafos conexos (ordem-1)/2
+        // insere um vertice de articulacao
     }
     // until here
 
     file.close();
 }
 
-void Grafo::gerarBipartidoNaoArvore(unsigned int ordem, unsigned int grau, bool arestas_ponderadas, Grafo *g){
-    int auxGrau[ordem];
-    for (int a = 1; a <= ordem; a++){
-        auxGrau[a] = 0;
-    }
-    int i = 1;
-    while(i <= ordem){
-        int j = i+1;
-        while(j <= ordem){
-            if (auxGrau[j] >= grau){
-                continue;
-            }
-            if (auxGrau[i] >= grau){
-                break;
-            }
-            int peso = 1;
-            if (arestas_ponderadas)
-                peso = rand() % 100 + 1;
-            g->insere_aresta(i, j, peso);
-            auxGrau[i]++;
-            auxGrau[j]++;
-            j += 2;
-        }
-        i++;
-    }
-}
 // @bhive tem que tirar esse texto extras do exportDesc
 void Grafo::exportDesc()
 {

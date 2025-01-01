@@ -19,7 +19,6 @@ class Grafo
 
     void carrega_grafo(char *tipo, string dataFileName);
     void novo_grafo(char *tipo, string descFileName);
-    void gerarBipartidoNaoArvore(unsigned int ordem, unsigned int grau, bool arestas_ponderadas, Grafo *g);
     void exportInfo();
     void exportDesc();
 
