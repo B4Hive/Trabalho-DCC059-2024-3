@@ -46,19 +46,25 @@ void grafo_lista::insere_vertice(unsigned int id, int peso)
 
 void grafo_lista::insere_aresta(unsigned int v, unsigned int w, int peso)
 {
+    if(buscaAresta(v, w)){
+        return;
+    }
     vertice *p = inicio;
     edge *e = new edge(v, w);
     e->Peso() = peso;
     e->ID() = this->Tamanho();    
-    while(p != NULL)
-    {
-        if(p->ID() == v)
-        {
+    while(p != NULL){
+        if(p->ID() == v){
             p->insereAresta(e);
             cout << "Aresta inserida!" << endl<< endl;
-            break;
         }
-
+        if(p->ID() == w && !getDirecionado()){
+            edge *e2 = new edge(w, v);
+            e2->Peso() = peso;
+            e2->ID() = this->Tamanho();
+            p->insereAresta(e2);
+            cout << "Aresta inserida!" << endl<< endl;
+        }
         p = p->getProx();
     }
 }
@@ -321,7 +327,7 @@ int grafo_lista::auxSetGrau(){
 }
 
 void grafo_lista::inicializa() {
-    // gambiarra, eu sei
+    // eu sei como evitar essa função mas é mais fácil deixar por enquanto
 }
 
 void grafo_lista::imprime() {

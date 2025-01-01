@@ -343,7 +343,7 @@ void Grafo::exportInfo()
 
 void Grafo::novo_grafo(char *tipo, string descFileName)
 {
-    cout << "Lendo Decrição" << endl;
+    cout << "Lendo Descricao" << endl;
     ifstream file;
     string line;
     this->filename = descFileName;
@@ -379,33 +379,33 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
     file >> vertice_de_articulacao; getline(file, line);
 
     // from here
-    Grafo *g;
     
-    g->setOrdem(ordem);
-    g->setDirecionado(direcionado);
-    g->setVertices_ponderados(vertices_ponderados);
-    g->setArestas_ponderadas(arestas_ponderadas);
+    this->setOrdem(ordem);
+    this->setDirecionado(direcionado);
+    this->setVertices_ponderados(vertices_ponderados);
+    this->setArestas_ponderadas(arestas_ponderadas);
     /**
-    g->setGrau(grau);
-    g->setComponentes_conexas(componentes_conexas);
-    g->setCompleto(completo);
-    g->setBipartido(bipartido);
-    g->setArvore(arvore);
-    g->setAresta_Ponte(aresta_ponte);
-    g->setVertice_de_Articulacao(vertice_de_articulacao);
+    this->setGrau(grau);
+    this->setComponentes_conexas(componentes_conexas);
+    this->setCompleto(completo);
+    this->setBipartido(bipartido);
+    this->setArvore(arvore);
+    this->setAresta_Ponte(aresta_ponte);
+    this->setVertice_de_Articulacao(vertice_de_articulacao);
     */
-
+    /**
     if (*tipo == 'l'){
         g = new grafo_lista;
     } else if (*tipo == 'm'){
         g = new grafo_matriz;
     }
-    g->inicializa();
+     */
+    this->inicializa();
     for (int i = 1; i <= getOrdem(); i++){
         int peso = 1;
         if (getVertices_ponderados())
             peso = rand() % 100 + 1;
-        g->insere_vertice(i, peso);
+        this->insere_vertice(i, peso);
     }
     // agora gambiarra com 300 ifs
     if(completo){
@@ -416,10 +416,10 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
             || vertice_de_articulacao
             || componentes_conexas > 1
             || grau != ordem - 1){
-                cout << "Grafo impossível" << endl;
-                cout << "Um grafo completo de ordem > 2 não pode:" << endl <<
-                "ser árvore ou bipartido;" << endl <<
-                "conter aresta ponte ou vertice articulação;" << endl <<
+                cout << "Grafo impossivel" << endl;
+                cout << "Um grafo completo de ordem > 2 nao pode:" << endl <<
+                "ser arvore ou bipartido;" << endl <<
+                "conter aresta ponte ou vertice articulacao;" << endl <<
                 "ter mais de uma componente conexa;" << endl <<
                 "ter grau diferente de ordem - 1." << endl;
                 exit(3);
@@ -427,12 +427,13 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
         }
         for (int i = 1; i <= ordem; i++){
             for (int j = 1; j <= ordem; j++){
-                if (i == j)
-                    continue;
-                int peso = 1;
-                if (arestas_ponderadas)
-                    peso = rand() % 100 + 1;
-                g->insere_aresta(i, j, peso);
+                if (i != j){
+                    int peso = 1;
+                    if (arestas_ponderadas){
+                        peso = rand() % 100 + 1;
+                    }
+                    this->insere_aresta(i, j, peso);
+                }
             }
         }
         return;
@@ -468,10 +469,11 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
                         int peso = 1;
                         if (arestas_ponderadas)
                             peso = rand() % 100 + 1;
-                        g->insere_aresta(i, j, peso);
+                        this->insere_aresta(i, j, peso);
                         auxGrau[i]++;
                         auxGrau[j]++;
                         j += 2;
+cout<<"DEBUG"<<endl;
                     }
                     i++;
                 }
@@ -490,7 +492,7 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
                         int peso = 1;
                         if (arestas_ponderadas)
                             peso = rand() % 100 + 1;
-                        g->insere_aresta(i+1, j+1, peso);
+                        this->insere_aresta(i+1, j+1, peso);
                         auxGrau[i]++;
                         auxGrau[j]++;
                     }
@@ -499,24 +501,30 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
                 i++;
             }
         } else {
-            cout << "Grafo impossível" << endl;
-            cout << "Um grafo bipartido com mais de uma componente conexa não pode ser uma árvore." << endl;
+            cout << "Grafo impossivel" << endl;
+            cout << "Um grafo bipartido com mais de uma componente conexa nao pode ser uma arvore." << endl;
             exit(3);
         }
         return;
     } else if (arvore){
         if(!bipartido){
-            cout << "Grafo impossível" << endl;
-            cout << "Toda árvore é um grafo bipartido." << endl;
+            cout << "Grafo impossivel" << endl;
+            cout << "Toda arvore é um grafo bipartido." << endl;
             exit(3);
         }
-    } else if (aresta_ponte){ //se tem articulação não necessariamente tem ponte, mas se tem ponte com certeza tem articulação
+    } else if (aresta_ponte){
+        if(!vertice_de_articulacao){
+            cout << "Grafo impossivel" << endl;
+            cout << "Uma aresta ponte implica em dois vertices de articulacao." << endl;
+            exit(3);
+        }
         // cria 2 grafos conexos ordem/2
         // insere uma aresta ponte
-    }
-    else if (vertice_de_articulacao){
+    } else if (vertice_de_articulacao){
         // cria 2 grafos conexos (ordem-1)/2
         // insere um vertice de articulacao
+    } else {
+        // grafo geral aleatório
     }
     // until here
 
@@ -548,7 +556,7 @@ void Grafo::exportDesc()
     }
     else
     {
-        file << "Direcionado: Não" << '\n';
+        file << "Direcionado: nao" << '\n';
     }
 
     file << "Componentes conexas: " << getComponentes_conexas() << '\n';
@@ -559,7 +567,7 @@ void Grafo::exportDesc()
     }
     else
     {
-        file << "Vertices ponderados: Não" << '\n';
+        file << "Vertices ponderados: nao" << '\n';
     }
 
     if (getArestas_ponderadas())
@@ -568,7 +576,7 @@ void Grafo::exportDesc()
     }
     else
     {
-        file << "Arestas ponderadas: Não" << '\n';
+        file << "Arestas ponderadas: nao" << '\n';
     }
 
     if (getCompleto())
@@ -577,7 +585,7 @@ void Grafo::exportDesc()
     }
     else
     {
-        file << "Completo: Não" << '\n';
+        file << "Completo: nao" << '\n';
     }
 
     if (getBipartido())
@@ -586,7 +594,7 @@ void Grafo::exportDesc()
     }
     else
     {
-        file << "Bipartido: Não" << '\n';
+        file << "Bipartido: nao" << '\n';
     }
 
     if (getArvore())
@@ -595,7 +603,7 @@ void Grafo::exportDesc()
     }
     else
     {
-        file << "Arvore: Não" << '\n';
+        file << "Arvore: nao" << '\n';
     }
 
     if (getAresta_Ponte())
@@ -604,7 +612,7 @@ void Grafo::exportDesc()
     }
     else
     {
-        file << "Aresta Ponte: Não" << '\n';
+        file << "Aresta Ponte: nao" << '\n';
     }
 
     if (getVertice_de_Articulacao())
@@ -613,7 +621,7 @@ void Grafo::exportDesc()
     }
     else
     {
-        file << "Vertice de Articulação: Não" << '\n';
+        file << "Vertice de Articulação: nao" << '\n';
     }
 
     file.close();

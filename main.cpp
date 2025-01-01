@@ -29,19 +29,19 @@ int main(int argc, char *argv[])
         if(parametro2 == "-l") {
             g = new grafo_lista;
         }
-        if(parametro2 == "-m") {
+        else if(parametro2 == "-m") {
             g = new grafo_matriz; 
         }
         g->carrega_grafo(argv[2], filename);
         g->imprime();
         g->exportDesc();
     }
-    if(parametro2 == "-c") 
+    else if(parametro1 == "-c") 
     {
-        if(parametro1 == "-l") {
+        if(parametro2 == "-l") {
             g = new grafo_lista;
         }
-        if(parametro1 == "-m") {
+        else if(parametro2 == "-m") {
             g = new grafo_matriz; 
         }
         g->novo_grafo(argv[1], filename);
