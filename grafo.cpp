@@ -476,7 +476,7 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
                     i++;
                 }
             }
-        } else {
+        } else if(componentes_conexas == 1){
             int auxGrau[ordem];
             for (int a = 0; a < ordem; a++)
                 auxGrau[a] = 0;
@@ -498,6 +498,10 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
                 }
                 i++;
             }
+        } else {
+            cout << "Grafo impossível" << endl;
+            cout << "Um grafo bipartido com mais de uma componente conexa não pode ser uma árvore." << endl;
+            exit(3);
         }
         return;
     } else if (arvore){
@@ -506,10 +510,11 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
             cout << "Toda árvore é um grafo bipartido." << endl;
             exit(3);
         }
-    } else if (aresta_ponte){
+    } else if (aresta_ponte){ //se tem articulação não necessariamente tem ponte, mas se tem ponte com certeza tem articulação
         // cria 2 grafos conexos ordem/2
         // insere uma aresta ponte
-    } else if (vertice_de_articulacao){
+    }
+    else if (vertice_de_articulacao){
         // cria 2 grafos conexos (ordem-1)/2
         // insere um vertice de articulacao
     }
@@ -517,6 +522,8 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
 
     file.close();
 }
+
+
 
 // @bhive tem que tirar esse texto extras do exportDesc
 void Grafo::exportDesc()
