@@ -477,7 +477,27 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
                 }
             }
         } else {
-            // cria uma arvore qualquer já que toda árvore é bipartida
+            int auxGrau[ordem];
+            for (int a = 0; a < ordem; a++)
+                auxGrau[a] = 0;
+            int i = 0;
+            int j = i+1;
+            while(i < ordem){
+                while(auxGrau[i] <= grau){
+                    if(j == ordem)
+                        break;
+                    if(auxGrau[j] <= grau){
+                        int peso = 1;
+                        if (arestas_ponderadas)
+                            peso = rand() % 100 + 1;
+                        g->insere_aresta(i+1, j+1, peso);
+                        auxGrau[i]++;
+                        auxGrau[j]++;
+                    }
+                    j++;
+                }
+                i++;
+            }
         }
         return;
     } else if (arvore){
