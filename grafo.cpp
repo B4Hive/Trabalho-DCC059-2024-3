@@ -379,6 +379,10 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
             peso = rand() % 100 + 1;
         this->insere_vertice(i, peso);
     }
+    int auxGrau[ordem];
+    for (int a = 0; a < ordem; a++)
+        auxGrau[a] = 0;
+    
     if(completo){
         if(ordem > 2){
             if(bipartido
@@ -407,8 +411,7 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
                 }
             }
         }
-        return;
-    }
+    } else    
     if(arvore){
         if(!bipartido
         || componentes_conexas > 1
@@ -424,9 +427,6 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
             "ter grau diferente de ordem - 1." << endl;
             exit(3);
         }
-        int auxGrau[ordem];
-        for (int a = 0; a < ordem; a++)
-            auxGrau[a] = 0;
         int i = 0;
         int j = i+1;
         while(i < ordem){
@@ -445,42 +445,92 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
             }
             i++;
         }
-        return;
-    }
-    
-    // << Não completo e não arvore
-    if(aresta_ponte){
-        if(!vertice_de_articulacao){
-            cout << "Grafo impossivel" << endl;
-            cout << "Uma aresta ponte implica em um vertice de articulacao." << endl;
-            exit(3);
+    } else { // Não completo e não arvore
+        if(aresta_ponte){
+            if(!vertice_de_articulacao){
+                cout << "Grafo impossivel" << endl;
+                cout << "Uma aresta ponte implica em um vertice de articulacao." << endl;
+                exit(3);
+            }
+        }
+
+        if(vertice_de_articulacao){
+            componentes_conexas++;
+        }
+
+        int *subgrafo[2];// subgrafo[inicio==0||fim==1][componente]
+        subgrafo[0] = new int[componentes_conexas];
+        subgrafo[1] = new int[componentes_conexas];
+        subgrafo[0][0] = 1;
+        subgrafo[1][0] = grau + 2;
+        for (int i = 1; i < componentes_conexas; i++){
+            subgrafo[0][i] = subgrafo[1][0] + (i * (ordem - subgrafo[1][0]) / (componentes_conexas - 1)) + 1;
+            subgrafo[1][i] = subgrafo[1][0] + (i + 1) * (ordem - subgrafo[1][0]) / (componentes_conexas - 1);
+        }
+
+        if(vertice_de_articulacao && !aresta_ponte){
+            subgrafo[1][0]++;
+        }
+        subgrafo[1][componentes_conexas-1] = ordem;
+
+        if(bipartido){
+            if(grau >=2 && grau < subgrafo[1][0]-1){
+                for(int c = 0; c < componentes_conexas; c++){
+                    // cria 2 vetores de tamanho ordem-1
+                    // insere (grau) indices no primeiro vetor
+                    // insere (grau) indices no segundo vetor (até ordem)
+                    // se não tiver inserido todos os indices insere um indice em cada vetor até indice == ordem
+                    // 1o indice do vetor2 recebe aresta com vetor1 até grau==cheio
+                    // for (indice : vetor2)
+                    // insere aresta entre indice e o primeiro possível do vetor1 até indice->grau==2
+                    // fim for
+                    // for (indice : vetor1)
+                    // se indice->grau < 2
+                    // insere aresta entre indice e o primeiro possível do vetor2 até indice->grau==2
+                    // fim for
+                }
+            } else {
+                cout << "Erro logico" << endl;
+                exit(5);
+                /*
+                se grau menor que 2 ele ainda pode ser bipartido sem ser arvore
+                contanto que tenha multiplas componentes conexas
+                mas ainda não implementei isso
+                */
+            }
+        } else {
+            cout << "NYI" << endl;
+            exit(5);
+            for(int c = 0; c < componentes_conexas; c++){
+                // cria 2 vetores de tamanho ordem-1
+                // insere (grau) indices no primeiro vetor
+                // insere (grau) indices no segundo vetor (até ordem)
+                // se não tiver inserido todos os indices insere um indice em cada vetor até indice == ordem
+                // 1o indice do vetor2 recebe aresta com vetor1 até grau==cheio
+                // 1o indice do vetor1 recebe aresta com 2o indice do vetor1
+                // for (indice : vetor2)
+                // insere aresta entre indice e o primeiro possível do vetor1 até indice->grau==2
+                // fim for
+                // for (indice : vetor1)
+                // se indice->grau < 2
+                // insere aresta entre indice e o primeiro possível do vetor2 até indice->grau==2
+                // fim for
+            }
+        }
+
+        if(aresta_ponte){
+            int v = 0, w;
+            while(auxGrau[v] == grau && v < subgrafo[1][0])
+                v++;
+            w = subgrafo[0][1];
+            while(auxGrau[w] == grau && w < subgrafo[1][1])
+                w++;
+            int peso = 1;
+            if(arestas_ponderadas)
+                peso = rand() % 100 + 1;
+            this->insere_aresta(v+1, w+1, peso);
         }
     }
-    if(vertice_de_articulacao){
-        componentes_conexas++;
-    }
-    int *subgrafo[2]; // 2 vetores de tamanho (componentes_conexas), cada um indicando o indice de inicio e fim de cada subgrafo
-    subgrafo[0] = new int[componentes_conexas];
-    subgrafo[1] = new int[componentes_conexas];
-    for (int i = 0; i < componentes_conexas; i++){
-        subgrafo[0][i] = (i*ordem/componentes_conexas)+1; // inicio do subgrado i
-        subgrafo[1][i] = (i+1)*ordem/componentes_conexas; // fim do subgrafo i
-    }
-    subgrafo[1][componentes_conexas-1] = ordem; // ajuste para o ultimo subgrafo
-    if(vertice_de_articulacao && !aresta_ponte){
-        // considerar 1 vertice como interseção entre 2 componentes conexas
-    }
-    if(bipartido){
-        // cria um grafo bipartido pra cada componente conexa, obedecendo as condições de ponte e articulação
-    } else{
-        // cria um grafo não bipartido pra cada componente conexa, obedecendo as condições de ponte e articulação
-    }
-    if(aresta_ponte){
-        // incluir uma aresta ponte entre 2 componentes conexas
-    }
-    // else if(vertice_de_articulacao){ // já vai ter sido tratado corretamente se eu fizer direito
-    //considerando que já vai ter um vértice dentro de 2 comps conexas
-    // >>
     file.close();
 }
 
