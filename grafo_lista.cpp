@@ -56,14 +56,12 @@ void grafo_lista::insere_aresta(unsigned int v, unsigned int w, int peso)
     while(p != NULL){
         if(p->ID() == v){
             p->insereAresta(e);
-            cout << "Aresta inserida!" << endl<< endl;
         }
         if(p->ID() == w && !getDirecionado()){
             edge *e2 = new edge(w, v);
             e2->Peso() = peso;
             e2->ID() = this->Tamanho();
             p->insereAresta(e2);
-            cout << "Aresta inserida!" << endl<< endl;
         }
         p = p->getProx();
     }
@@ -331,7 +329,8 @@ void grafo_lista::inicializa() {
 }
 
 void grafo_lista::imprime() {
-    cout << "Imprimindo lista" << endl;
+    cout << endl << "Imprimindo lista" << endl;
+    cout << "vertice(peso do vertice) -> vizinho(peso da aresta) - vizinho(peso da aresta)..." << endl;
     vertice *v = getInicio();
     while (v != NULL){
         cout << v->ID() << "(" << v->Peso() << ") -> ";

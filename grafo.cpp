@@ -234,9 +234,7 @@ unsigned int Grafo::getTamanho()
 
 // >
 
-void Grafo::carrega_grafo(char *tipo, string dataFileName)
-{
-    cout << "Carregando Grafo..." << endl;
+void Grafo::carrega_grafo(char *tipo, string dataFileName){
     ifstream file;
     string line;
     this->filename = dataFileName;
@@ -244,7 +242,7 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName)
     if (!file.is_open())
     {
         cout << "Erro ao abrir arquivo" << endl;
-        return ;
+        exit(2);
     }
 
     unsigned int ordem;
@@ -263,11 +261,6 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName)
     setArestas_ponderadas(arestas_ponderadas);
 
     getline(file, line);
-
-    cout << "Ordem: " << getOrdem() << endl;
-    cout << "Direcionado: " << getDirecionado() << endl;
-    cout << "Vertices ponderados: " << getVertices_ponderados() << endl;
-    cout << "Arestas ponderadas: " << getArestas_ponderadas() << endl<< endl;
 
     inicializa();
 
@@ -292,8 +285,6 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName)
             file >> peso;
         }
         Tamanho()++;
-        cout << "Inserindo Aresta "<< Tamanho() <<": "<<endl;
-        cout << "V: " << v << " W: " << w << " Peso: " << peso << endl;
         insere_aresta(v, w, peso);
 
         getline(file, line);
@@ -302,10 +293,9 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName)
     setGrau(auxSetGrau());
 
     file.close();
-
-    cout << "Grafo carregado!" << endl<<endl;
 }
 
+//exportInfo precisa de parametro "filename" que vai estar em argv[4]
 void Grafo::exportInfo()
 {
     cout << "Exportando Info" << endl;
@@ -343,7 +333,6 @@ void Grafo::exportInfo()
 
 void Grafo::novo_grafo(char *tipo, string descFileName)
 {
-    cout << "Lendo Descricao" << endl;
     ifstream file;
     string line;
     this->filename = descFileName;
@@ -378,36 +367,18 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
     file >> aresta_ponte;           getline(file, line);
     file >> vertice_de_articulacao; getline(file, line);
 
-    // from here
-    
     this->setOrdem(ordem);
     this->setDirecionado(direcionado);
     this->setVertices_ponderados(vertices_ponderados);
     this->setArestas_ponderadas(arestas_ponderadas);
-    /**
-    this->setGrau(grau);
-    this->setComponentes_conexas(componentes_conexas);
-    this->setCompleto(completo);
-    this->setBipartido(bipartido);
-    this->setArvore(arvore);
-    this->setAresta_Ponte(aresta_ponte);
-    this->setVertice_de_Articulacao(vertice_de_articulacao);
-    */
-    /**
-    if (*tipo == 'l'){
-        g = new grafo_lista;
-    } else if (*tipo == 'm'){
-        g = new grafo_matriz;
-    }
-     */
     this->inicializa();
+
     for (int i = 1; i <= getOrdem(); i++){
         int peso = 1;
         if (getVertices_ponderados())
             peso = rand() % 100 + 1;
         this->insere_vertice(i, peso);
     }
-    // agora gambiarra com 300 ifs
     if(completo){
         if(ordem > 2){
             if(bipartido
@@ -438,191 +409,132 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
         }
         return;
     }
-    int auxCompCon[componentes_conexas+1];
-    for (int i = 0; i < componentes_conexas; i++){
-        auxCompCon[i] = (i*ordem/componentes_conexas)+1;
-    }
-    auxCompCon[componentes_conexas] = ordem+1;
-    if (bipartido){
-        // falta tratamento pra ponte/articulacao
-        /**
-        * se tiver articulação ou ponte eu faço uma componente conexa a mais
-        * se articulação eu ignoro um vertice
-        * depois de criar o grafo
-        * se ponte eu crio uma aresta entre as componentes 1 e 2
-        * se articulação eu crio uma aresta entre a componente 1 e o no ignorado e uma aresta entre o no ignorado e a componente 2
-        * depois verificar se deu problema no grau e retirar as arestas necessárias pra corrigir o grau
-        */
-        if(!arvore){
-            int auxGrau[ordem];
-            for (int a = 1; a <= ordem; a++)
-                auxGrau[a] = 0;
-            for (int c = 0; c < componentes_conexas; c++){
-                int i = auxCompCon[c];
-                while(i < auxCompCon[c+1]){
-                    int j = i+1;
-                    while(j <= auxCompCon[c+1]){
-                        if (auxGrau[j] >= grau)
-                            continue;
-                        if (auxGrau[i] >= grau)
-                            break;
-                        int peso = 1;
-                        if (arestas_ponderadas)
-                            peso = rand() % 100 + 1;
-                        this->insere_aresta(i, j, peso);
-                        auxGrau[i]++;
-                        auxGrau[j]++;
-                        j += 2;
-cout<<"DEBUG"<<endl;
-                    }
-                    i++;
-                }
-            }
-        } else if(componentes_conexas == 1){
-            int auxGrau[ordem];
-            for (int a = 0; a < ordem; a++)
-                auxGrau[a] = 0;
-            int i = 0;
-            int j = i+1;
-            while(i < ordem){
-                while(auxGrau[i] <= grau){
-                    if(j == ordem)
-                        break;
-                    if(auxGrau[j] <= grau){
-                        int peso = 1;
-                        if (arestas_ponderadas)
-                            peso = rand() % 100 + 1;
-                        this->insere_aresta(i+1, j+1, peso);
-                        auxGrau[i]++;
-                        auxGrau[j]++;
-                    }
-                    j++;
-                }
-                i++;
-            }
-        } else {
+    if(arvore){
+        if(!bipartido
+        || componentes_conexas > 1
+        || (ordem >= 2 && !aresta_ponte)
+        || (ordem > 2 && !vertice_de_articulacao)
+        || grau != ordem-1){
             cout << "Grafo impossivel" << endl;
-            cout << "Um grafo bipartido com mais de uma componente conexa nao pode ser uma arvore." << endl;
+            cout << "Uma arvore nao pode:" << endl <<
+            "ser bipartida;" << endl <<
+            "ter mais de uma componente conexa;" << endl <<
+            "ter aresta ponte;" << endl <<
+            "ter vertice de articulacao;" << endl <<
+            "ter grau diferente de ordem - 1." << endl;
             exit(3);
+        }
+        int auxGrau[ordem];
+        for (int a = 0; a < ordem; a++)
+            auxGrau[a] = 0;
+        int i = 0;
+        int j = i+1;
+        while(i < ordem){
+            while(auxGrau[i] <= grau){
+                if(j == ordem)
+                    break;
+                if(auxGrau[j] <= grau){
+                    int peso = 1;
+                    if (arestas_ponderadas)
+                        peso = rand() % 100 + 1;
+                    this->insere_aresta(i+1, j+1, peso);
+                    auxGrau[i]++;
+                    auxGrau[j]++;
+                }
+                j++;
+            }
+            i++;
         }
         return;
-    } else if (arvore){
-        if(!bipartido){
-            cout << "Grafo impossivel" << endl;
-            cout << "Toda arvore é um grafo bipartido." << endl;
-            exit(3);
-        }
-    } else if (aresta_ponte){
+    }
+    
+    // << Não completo e não arvore
+    if(aresta_ponte){
         if(!vertice_de_articulacao){
             cout << "Grafo impossivel" << endl;
-            cout << "Uma aresta ponte implica em dois vertices de articulacao." << endl;
+            cout << "Uma aresta ponte implica em um vertice de articulacao." << endl;
             exit(3);
         }
-        // cria 2 grafos conexos ordem/2
-        // insere uma aresta ponte
-    } else if (vertice_de_articulacao){
-        // cria 2 grafos conexos (ordem-1)/2
-        // insere um vertice de articulacao
-    } else {
-        // grafo geral aleatório
     }
-    // until here
-
+    if(vertice_de_articulacao){
+        componentes_conexas++;
+    }
+    int *subgrafo[2]; // 2 vetores de tamanho (componentes_conexas), cada um indicando o indice de inicio e fim de cada subgrafo
+    subgrafo[0] = new int[componentes_conexas];
+    subgrafo[1] = new int[componentes_conexas];
+    for (int i = 0; i < componentes_conexas; i++){
+        subgrafo[0][i] = (i*ordem/componentes_conexas)+1; // inicio do subgrado i
+        subgrafo[1][i] = (i+1)*ordem/componentes_conexas; // fim do subgrafo i
+    }
+    subgrafo[1][componentes_conexas-1] = ordem; // ajuste para o ultimo subgrafo
+    if(vertice_de_articulacao && !aresta_ponte){
+        // considerar 1 vertice como interseção entre 2 componentes conexas
+    }
+    if(bipartido){
+        // cria um grafo bipartido pra cada componente conexa, obedecendo as condições de ponte e articulação
+    } else{
+        // cria um grafo não bipartido pra cada componente conexa, obedecendo as condições de ponte e articulação
+    }
+    if(aresta_ponte){
+        // incluir uma aresta ponte entre 2 componentes conexas
+    }
+    // else if(vertice_de_articulacao){ // já vai ter sido tratado corretamente se eu fizer direito
+    //considerando que já vai ter um vértice dentro de 2 comps conexas
+    // >>
     file.close();
 }
 
-
-
-// @bhive tem que tirar esse texto extras do exportDesc
-void Grafo::exportDesc()
-{
-    cout << "Exportando descritor" << endl;
-    ofstream file;
-    file.open("grafo_out.txt", ofstream::out);
-    if (!file.is_open())
-    {
-        cout << "Erro ao abrir arquivo" << endl;
-        exit(2);
+void Grafo::exportDesc(){
+    cout << "Grau: " << getGrau() << endl;
+    cout << "Ordem: " << getOrdem() << endl;
+    cout << "Direcionado: ";
+    if (getDirecionado()){
+        cout << "Sim" << endl;
     }
-
-    file << filename << '\n'
-         << '\n';
-
-    file << "Grau: " << getGrau() << '\n';
-    file << "Ordem: " << getOrdem() << '\n';
-    if (getDirecionado())
-    {
-        file << "Direcionado: Sim" << '\n';
+    else{
+        cout << "Nao" << endl;
     }
-    else
-    {
-        file << "Direcionado: nao" << '\n';
+    cout << "Componentes conexas: " << getComponentes_conexas() << endl;
+    cout << "Vertices ponderados: ";
+    if (getVertices_ponderados()){
+        cout << "Sim" << endl;
+    }else{
+        cout << "Nao" << endl;
     }
-
-    file << "Componentes conexas: " << getComponentes_conexas() << '\n';
-
-    if (getVertices_ponderados())
-    {
-        file << "Vertices ponderados: Sim" << '\n';
+    cout << "Arestas ponderadas: ";
+    if (getArestas_ponderadas()){
+        cout << "Sim" << endl;
+    }else{
+        cout << "Nao" << endl;
     }
-    else
-    {
-        file << "Vertices ponderados: nao" << '\n';
+    cout << "Completo: ";
+    if (getCompleto()){
+        cout << "Sim" << endl;
+    }else{
+        cout << "Nao" << endl;
     }
-
-    if (getArestas_ponderadas())
-    {
-        file << "Arestas ponderadas: Sim" << '\n';
+    cout << "Bipartido: ";
+    if (getBipartido()){
+        cout << "Sim" << endl;
+    }else{
+        cout << "Nao" << endl;
     }
-    else
-    {
-        file << "Arestas ponderadas: nao" << '\n';
+    cout << "Arvore: ";
+    if (getArvore()){
+        cout << "Sim" << endl;
+    }else{
+        cout << "Nao" << endl;
     }
-
-    if (getCompleto())
-    {
-        file << "Completo: Sim" << '\n';
+    cout << "Aresta Ponte: ";
+    if (getAresta_Ponte()){
+        cout << "Sim" << endl;
+    }else{
+        cout << "Nao" << endl;
     }
-    else
-    {
-        file << "Completo: nao" << '\n';
+    cout << "Vertice de Articulacao: ";
+    if (getVertice_de_Articulacao()){
+        cout << "Sim" << endl;
+    }else{
+        cout << "Nao" << endl;
     }
-
-    if (getBipartido())
-    {
-        file << "Bipartido: Sim" << '\n';
-    }
-    else
-    {
-        file << "Bipartido: nao" << '\n';
-    }
-
-    if (getArvore())
-    {
-        file << "Arvore: Sim" << '\n';
-    }
-    else
-    {
-        file << "Arvore: nao" << '\n';
-    }
-
-    if (getAresta_Ponte())
-    {
-        file << "Aresta Ponte: Sim" << '\n';
-    }
-    else
-    {
-        file << "Aresta Ponte: nao" << '\n';
-    }
-
-    if (getVertice_de_Articulacao())
-    {
-        file << "Vertice de Articulação: Sim" << '\n';
-    }
-    else
-    {
-        file << "Vertice de Articulação: nao" << '\n';
-    }
-
-    file.close();
 }

@@ -54,30 +54,21 @@ int &grafo_matriz::operator()(unsigned int v, unsigned int w)
 
 void grafo_matriz::insere_vertice(unsigned int id, int peso)
 {
-    
     this->operator()(id-1, id-1) = peso;
-    
-    //cout << "Vertice inserido" << endl;
 }
 
 void grafo_matriz::insere_aresta(unsigned int v, unsigned int w, int peso)
 {
-
     this->operator()(v-1,w-1) = peso;
-    
-    cout << "Aresta inserida" << endl;
 }
 
 int grafo_matriz::pesoAresta(unsigned int v, unsigned int w)
 {
-    
     return this->operator()(v-1,w-1);
-    
 }
 
 int grafo_matriz::pesoVertice(unsigned int idVertice)
 {
-    
     return this->operator()(idVertice-1, idVertice-1);
 }
 
@@ -281,7 +272,7 @@ int grafo_matriz::auxSetGrau(){
 
 void grafo_matriz::imprime()
 {
-    cout << "Imprimindo matriz" << endl;
+    cout << endl << "Imprimindo matriz" << endl;
     if(!getDirecionado())
     {
         for(int i = 0; i < getOrdem(); i++)
