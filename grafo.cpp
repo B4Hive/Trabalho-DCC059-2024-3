@@ -445,7 +445,7 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
             }
             i++;
         }
-    } else { // Não completo e não arvore
+    } else {
         if(aresta_ponte){
             if(!vertice_de_articulacao){
                 cout << "Grafo impossivel" << endl;
@@ -458,46 +458,27 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
             componentes_conexas++;
         }
 
-        int *subgrafo[2];// subgrafo[inicio==0||fim==1][componente]
-        subgrafo[0] = new int[componentes_conexas];
-        subgrafo[1] = new int[componentes_conexas];
-        subgrafo[0][0] = 1;
-        subgrafo[1][0] = grau + 2;
-        for (int i = 1; i < componentes_conexas; i++){
-            subgrafo[0][i] = subgrafo[1][0] + (i * (ordem - subgrafo[1][0]) / (componentes_conexas - 1)) + 1;
-            subgrafo[1][i] = subgrafo[1][0] + (i + 1) * (ordem - subgrafo[1][0]) / (componentes_conexas - 1);
-        }
+        // criar (componentes_conexas) subgrafos
 
         if(vertice_de_articulacao && !aresta_ponte){
-            subgrafo[1][0]++;
+            // se tem articulação sem ponte, faz um vertice ser interseção entre 2 subgrafos
         }
-        subgrafo[1][componentes_conexas-1] = ordem;
 
         if(bipartido){
-            if(grau >=2 && grau < subgrafo[1][0]-1){
-                for(int c = 0; c < componentes_conexas; c++){
-                    // cria 2 vetores de tamanho ordem-1
-                    // insere (grau) indices no primeiro vetor
-                    // insere (grau) indices no segundo vetor (até ordem)
-                    // se não tiver inserido todos os indices insere um indice em cada vetor até indice == ordem
-                    // 1o indice do vetor2 recebe aresta com vetor1 até grau==cheio
-                    // for (indice : vetor2)
-                    // insere aresta entre indice e o primeiro possível do vetor1 até indice->grau==2
-                    // fim for
-                    // for (indice : vetor1)
+            //if(grau >=2 && grau < /*ordem do primeiro subgrafo*/){
+            //for(int c = 0; c < componentes_conexas; c++){
+                // cria 2 vetores de tamanho ordem-1
+                // insere (grau) indices no primeiro vetor
+                // insere (grau) indices no segundo vetor (até ordem)
+                // se não tiver inserido todos os indices insere um indice em cada vetor até indice == ordem
+                // 1o indice do vetor2 recebe aresta com vetor1 até grau==cheio
+                // for (indice : vetor2)
+                // insere aresta entre indice e o primeiro possível do vetor1 até indice->grau==2
+                // for (indice : vetor1)
                     // se indice->grau < 2
-                    // insere aresta entre indice e o primeiro possível do vetor2 até indice->grau==2
-                    // fim for
-                }
-            } else {
-                cout << "Erro logico" << endl;
-                exit(5);
-                /*
-                se grau menor que 2 ele ainda pode ser bipartido sem ser arvore
-                contanto que tenha multiplas componentes conexas
-                mas ainda não implementei isso
-                */
-            }
+                        // insere aresta entre indice e o primeiro possível do vetor2 até indice->grau==2
+                // fim for
+            //}
         } else {
             cout << "NYI" << endl;
             exit(5);
@@ -519,16 +500,7 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
         }
 
         if(aresta_ponte){
-            int v = 0, w;
-            while(auxGrau[v] == grau && v < subgrafo[1][0])
-                v++;
-            w = subgrafo[0][1];
-            while(auxGrau[w] == grau && w < subgrafo[1][1])
-                w++;
-            int peso = 1;
-            if(arestas_ponderadas)
-                peso = rand() % 100 + 1;
-            this->insere_aresta(v+1, w+1, peso);
+            // insere aresta entre 2 subgrafos
         }
     }
     file.close();
