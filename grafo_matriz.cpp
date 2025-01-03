@@ -335,6 +335,71 @@ void grafo_matriz::BPArticulacao(int v, int tag[], bool visitado[], int currentT
 }
 // B4Hive-end
 
+// ufjoao-init
+
+unsigned int grafo_matriz::BPConexo_Aresta_Ponderada() {
+    int ordem = getOrdem();
+    bool visitado[ordem];
+    for (int i = 0; i < ordem; i++) {
+        visitado[i] = false;
+    }
+
+    int componentes = 0;
+
+    for (int v = 0; v < ordem; v++) {
+        if (!visitado[v]) {
+            componentes++;
+            auxBPConexo_Aresta_Ponderada(v, visitado);
+        }
+    }
+
+    return componentes;
+}
+
+void grafo_matriz::auxBPConexo_Aresta_Ponderada(int v, bool visitado[]) {
+    visitado[v] = true;
+
+    for (int u = 0; u < getOrdem(); u++) {
+        if (this->operator()(v, u) != 0 && !visitado[u]) {
+            auxBPConexo_Aresta_Ponderada(u, visitado);
+        }
+    }
+}
+
+
+
+unsigned int grafo_matriz::BPConexo_Aresta_n_Ponderada() {
+    int ordem = getOrdem();
+    bool* visitado = new bool[ordem]; 
+
+    for (int i = 0; i < ordem; i++) {
+        visitado[i] = false;
+    }
+
+    int componentes = 0;
+
+    for (int v = 0; v < ordem; v++) {
+        if (!visitado[v]) {
+            componentes++;
+            auxBPConexo_Aresta_n_Ponderada(v, visitado);
+        }
+    }
+
+    delete[] visitado;
+    return componentes;
+}
+
+void grafo_matriz::auxBPConexo_Aresta_n_Ponderada(int v, bool* visitado) {
+    visitado[v] = true;
+    for (int u = 0; u < getOrdem(); u++) {
+        if (this->operator()(v, u) != 0 && !visitado[u]) {
+            auxBPConexo_Aresta_n_Ponderada(u, visitado); //
+        }
+    }
+}
+
+// ufjoao-final
+
 void grafo_matriz::imprime_matriz()
 {
     std::cout << "Imprimindo matriz" << std::endl;

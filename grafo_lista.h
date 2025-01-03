@@ -28,8 +28,9 @@ class grafo_lista : public Grafo {
         void BPArticulacao(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV);
 
         //ufjoao
-        void auxBPConexo(vertice *v, bool visitado[]);
-        unsigned int BPConexos();
+        void auxBPConexo_Aresta_Ponderada(vertice *v, bool visitado[]);
+        unsigned int BPConexo_Aresta_Ponderada();
+        unsigned int BPConexo_Aresta_n_Ponderada();
 
 
       

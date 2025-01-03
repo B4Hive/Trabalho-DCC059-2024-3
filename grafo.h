@@ -87,7 +87,8 @@ class Grafo
     virtual void auxVerticeArticulacao(bool *result) = 0; // dpp[7]
 
     //ufjoao
-    virtual unsigned int BPConexos() = 0; // info[2]
+    virtual unsigned int BPConexo_Aresta_Ponderada() = 0; // info[2]
+    virtual unsigned int BPConexo_Aresta_n_Ponderada() = 0;
     
     //Variaveis internas
     std::string filename;

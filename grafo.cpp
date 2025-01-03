@@ -188,8 +188,14 @@ bool Grafo::getDirecionado()
 
 unsigned int Grafo::getComponentes_conexas()
 {
-    info[2] = BPConexos();
-    return info[2];
+    if(dpp[2])
+    {
+        info[2] = BPConexo_Aresta_Ponderada();
+        return info[2];
+    }
+    else
+        info[2] = BPConexo_Aresta_n_Ponderada();
+        return info[2];
 }
 
 bool Grafo::getVertices_ponderados()

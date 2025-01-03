@@ -32,6 +32,12 @@ public:
     void auxVerticeArticulacao(bool *result);
     void BPArticulacao(int v, int tag[], bool visitado[], int currentTag, int ignoredV);
 
+    //ufjoao
+    unsigned int BPConexo_Aresta_Ponderada();
+    void auxBPConexo_Aresta_Ponderada(int v, bool visitado[]);
+    unsigned int BPConexo_Aresta_n_Ponderada();
+    void auxBPConexo_Aresta_n_Ponderada(int v, bool* visitado);
+
     void imprime_matriz();
 
 private:

@@ -303,22 +303,41 @@ void grafo_lista::BPArticulacao(vertice *v, int tag[], bool visitado[], int curr
 // B4Hive-end
 
 
-
 // ufjoao-init
-void grafo_lista::auxBPConexo(vertice *v, bool visitado[]) {
-    visitado[v->ID()] = true;
+void grafo_lista::auxBPConexo_Aresta_Ponderada(vertice *v, bool visitado[]) {
+    visitado[v->ID()-1] = true;
     edge *e = v->getAresta();
     while (e != NULL) {
         vertice *w = getVertice(e->W());
-        if (visitado[w->ID() - 1]) {
-            auxBPConexo(w, visitado);
+        if (!visitado[w->ID() - 1]) {
+            auxBPConexo_Aresta_Ponderada(w, visitado);
             
         }
         e = e->getProx();
     }
 }
 
-unsigned int grafo_lista::BPConexos() {
+unsigned int grafo_lista::BPConexo_Aresta_Ponderada() {
+    unsigned int Conexos = 0;
+    bool visitado[getOrdem()];
+    for (int i = 0; i < getOrdem(); i++) {
+        visitado[i] = false;
+    }
+    
+    vertice *v = getInicio();
+    
+    while (v != NULL) {
+        if (!visitado[v->ID() - 1]) {
+            auxBPConexo_Aresta_Ponderada(v, visitado);
+            Conexos++;
+        }
+        v = v->getProx();
+    }
+    return Conexos;
+}
+
+unsigned int grafo_lista::BPConexo_Aresta_n_Ponderada()
+{
     unsigned int Conexos = 0;
     bool visitado[getOrdem()] = {false};
     
@@ -326,7 +345,7 @@ unsigned int grafo_lista::BPConexos() {
     
     while (v != NULL) {
         if (!visitado[v->ID() - 1]) {
-            auxBPConexo(v, visitado);
+            auxBPConexo_Aresta_Ponderada(v, visitado);
             Conexos++;
         }
         v = v->getProx();
