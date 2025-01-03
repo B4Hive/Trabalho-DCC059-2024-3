@@ -446,6 +446,8 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
             i++;
         }
     } else {
+        cout << "NYI" << endl;
+        exit(5);
         if(aresta_ponte){
             if(!vertice_de_articulacao){
                 cout << "Grafo impossivel" << endl;
@@ -480,8 +482,6 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
                 // fim for
             //}
         } else {
-            cout << "NYI" << endl;
-            exit(5);
             for(int c = 0; c < componentes_conexas; c++){
                 // cria 2 vetores de tamanho ordem-1
                 // insere (grau) indices no primeiro vetor
