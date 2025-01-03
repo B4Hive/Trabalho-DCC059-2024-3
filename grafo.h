@@ -89,6 +89,7 @@ class Grafo
     //ufjoao
     virtual unsigned int BPConexo_Aresta_Ponderada() = 0; // info[2]
     virtual unsigned int BPConexo_Aresta_n_Ponderada() = 0;
+    virtual bool BipartidoFB() = 0;
     
     //Variaveis internas
     std::string filename;

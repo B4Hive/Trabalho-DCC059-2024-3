@@ -215,6 +215,7 @@ bool Grafo::getCompleto()
 
 bool Grafo::getBipartido()
 {
+    dpp[4] = BipartidoFB();
     return dpp[4];
 }
 

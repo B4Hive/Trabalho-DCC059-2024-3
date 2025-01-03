@@ -337,6 +337,17 @@ void grafo_matriz::BPArticulacao(int v, int tag[], bool visitado[], int currentT
 
 // ufjoao-init
 
+void grafo_matriz::auxBPConexo_Aresta_Ponderada(int v, bool visitado[]) {
+    visitado[v] = true;
+
+    for (int u = 0; u < getOrdem(); u++) {
+        if (this->operator()(v, u) != 0 && !visitado[u]) {
+            auxBPConexo_Aresta_Ponderada(u, visitado);
+        }
+    }
+}
+
+
 unsigned int grafo_matriz::BPConexo_Aresta_Ponderada() {
     int ordem = getOrdem();
     bool visitado[ordem];
@@ -356,16 +367,15 @@ unsigned int grafo_matriz::BPConexo_Aresta_Ponderada() {
     return componentes;
 }
 
-void grafo_matriz::auxBPConexo_Aresta_Ponderada(int v, bool visitado[]) {
-    visitado[v] = true;
 
+void grafo_matriz::auxBPConexo_Aresta_n_Ponderada(int v, bool* visitado) {
+    visitado[v] = true;
     for (int u = 0; u < getOrdem(); u++) {
         if (this->operator()(v, u) != 0 && !visitado[u]) {
-            auxBPConexo_Aresta_Ponderada(u, visitado);
+            auxBPConexo_Aresta_n_Ponderada(u, visitado); //
         }
     }
 }
-
 
 
 unsigned int grafo_matriz::BPConexo_Aresta_n_Ponderada() {
@@ -389,13 +399,63 @@ unsigned int grafo_matriz::BPConexo_Aresta_n_Ponderada() {
     return componentes;
 }
 
-void grafo_matriz::auxBPConexo_Aresta_n_Ponderada(int v, bool* visitado) {
-    visitado[v] = true;
-    for (int u = 0; u < getOrdem(); u++) {
-        if (this->operator()(v, u) != 0 && !visitado[u]) {
-            auxBPConexo_Aresta_n_Ponderada(u, visitado); //
+
+bool grafo_matriz::BipartidoFB()
+{
+    int ordem = getOrdem();
+    
+    int conjunto1[ordem], conjunto2[ordem];
+    int tamanho1, tamanho2;
+
+    int total_combinacoes = 1 << ordem; // 2^ordem combinações possíveis
+
+    for (int itera = 0; itera < total_combinacoes; itera++)
+    {
+        tamanho1 = 0;
+        tamanho2 = 0;
+
+        for (int v = 0; v < ordem; v++)
+        {
+            if (itera & (1 << v))
+                conjunto1[tamanho1++] = v;
+            else
+                conjunto2[tamanho2++] = v;
         }
+
+        // Verificar se há arestas dentro de cada conjunto (violação de bipartição)
+        bool valido = true;
+
+        for (int i = 0; i < tamanho1 && valido; i++)
+        {
+            for (int j = 0; j < tamanho1; j++)
+            {
+                if (i != j && this->operator()(conjunto1[i], conjunto1[j]) != 0)
+                {
+                    valido = false; // Há aresta dentro de conjunto1
+                    break;
+                }
+            }
+        }
+
+        for (int i = 0; i < tamanho2 && valido; i++)
+        {
+            for (int j = 0; j < tamanho2; j++)
+            {
+                if (i != j && this->operator()(conjunto2[i], conjunto2[j]) != 0)
+                {
+                    valido = false; // Há aresta dentro de conjunto2
+                    break;
+                }
+            }
+        }
+
+        // Se encontrar uma partição válida
+        if (valido)
+            return true;
     }
+
+    // Se nenhuma partição válida foi encontrada
+    return false;
 }
 
 // ufjoao-final

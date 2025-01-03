@@ -37,6 +37,7 @@ public:
     void auxBPConexo_Aresta_Ponderada(int v, bool visitado[]);
     unsigned int BPConexo_Aresta_n_Ponderada();
     void auxBPConexo_Aresta_n_Ponderada(int v, bool* visitado);
+    bool BipartidoFB();
 
     void imprime_matriz();
 

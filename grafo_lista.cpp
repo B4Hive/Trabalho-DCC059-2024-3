@@ -304,6 +304,7 @@ void grafo_lista::BPArticulacao(vertice *v, int tag[], bool visitado[], int curr
 
 
 // ufjoao-init
+
 void grafo_lista::auxBPConexo_Aresta_Ponderada(vertice *v, bool visitado[]) {
     visitado[v->ID()-1] = true;
     edge *e = v->getAresta();
@@ -351,6 +352,46 @@ unsigned int grafo_lista::BPConexo_Aresta_n_Ponderada()
         v = v->getProx();
     }
     return Conexos;
+}
+
+bool grafo_lista::BipartidoFB() {
+    int n = getOrdem(); 
+    if (n <= 1) {
+        return true;
+    }
+
+    for (int i = 0; i < (1 << n); ++i) { // Itera sobre todas as 2^n combinações de cores
+        bool bipartido = true;
+        bool cores[n] = {false};
+
+        // Atribui cores aos vértices de acordo com 'i'
+        for (int j = 0; j < n; ++j) {
+            cores[j] = (i & (1 << j)) != 0; 
+        }
+
+        // Verifica se a atribuição de cores é válida
+        vertice* v = getInicio();
+        while (v != NULL) {
+            edge* e = v->getAresta();
+            while (e != NULL) {
+                if (cores[v->ID() - 1] == cores[e->W() - 1]) { 
+                    bipartido = false; 
+                    break; 
+                }
+                e = e->getProx();
+            }
+            if (!bipartido) {
+                break; 
+            }
+            v = v->getProx();
+        }
+
+        if (bipartido) {
+            return true; 
+        }
+    }
+
+    return false; 
 }
 
 // ufjoao-final
