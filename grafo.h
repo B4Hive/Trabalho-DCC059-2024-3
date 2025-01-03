@@ -25,24 +25,24 @@ class Grafo
     virtual void inicializa() = 0;
     virtual void imprime() = 0;
 
-    virtual void insere_vertice(unsigned int id, int peso) = 0;
-    //virtual void remove_vertice(unsigned int id) = 0; calma que vamos impelementar aindaa
+    virtual void insere_vertice(int id, int peso) = 0;
+    //virtual void remove_vertice(int id) = 0; calma que vamos impelementar aindaa
 
-    virtual void insere_aresta(unsigned int v, unsigned int w, int peso) = 0;
-    //virtual void remove_aresta(unsigned int v, unsigned int w) = 0; esse tambem, talvez....
+    virtual void insere_aresta(int v, int w, int peso) = 0;
+    //virtual void remove_aresta(int v, int w) = 0; esse tambem, talvez....
 
-    virtual int  pesoAresta(unsigned int v, unsigned int w) = 0;
-    virtual int  pesoVertice(unsigned int idVertice) = 0;
-    virtual edge *getAresta(unsigned int idAresta) = 0; 
-    virtual bool buscaVertice(unsigned int idVertice) = 0;
-    virtual bool buscaAresta(unsigned int v, unsigned int w) = 0;
+    virtual int  pesoAresta(int v, int w) = 0;
+    virtual int  pesoVertice(int idVertice) = 0;
+    virtual edge *getAresta(int idAresta) = 0; 
+    virtual bool buscaVertice(int idVertice) = 0;
+    virtual bool buscaAresta(int v, int w) = 0;
 
     //Metodos pra acesso externo;
 
-    unsigned int getGrau();
-    unsigned int getOrdem();
-    unsigned int getComponentes_conexas();
-    unsigned int getTamanho();
+    int getGrau();
+    int getOrdem();
+    int getComponentes_conexas();
+    int getTamanho();
     bool getDirecionado();
     bool getVertices_ponderados();
     bool getArestas_ponderadas();
@@ -55,10 +55,10 @@ class Grafo
     protected:
 
     //Metodos pra acesso interno;
-    void setGrau(unsigned int);
-    void setOrdem(unsigned int);
+    void setGrau(int);
+    void setOrdem(int);
     void setDirecionado(bool);
-    void setComponentes_conexas(unsigned int);
+    void setComponentes_conexas(int);
     void setVertices_ponderados(bool);
     void setArestas_ponderadas(bool);
     void setCompleto(bool);
@@ -66,9 +66,9 @@ class Grafo
     void setArvore(bool);
     void setAresta_Ponte(bool);
     void setVertice_de_Articulacao(bool);
-    void setTamanho(unsigned int);
+    void setTamanho(int);
 
-    unsigned int &Tamanho()             {return info[3];} // Quantidade de arestas que o grafo tem
+    int &Tamanho()             {return info[3];} // Quantidade de arestas que o grafo tem
 
     //B4Hive
     virtual bool auxArestaPonte() = 0;
@@ -77,7 +77,7 @@ class Grafo
     
     //Variaveis internas
     string filename;
-    unsigned int info[4]{0,0,0,0}; //[Grau, Ordem, Componentes_conexas, Tamanho]
+    int info[4]{0,0,0,0}; //[Grau, Ordem, Componentes_conexas, Tamanho]
     bool dpp[8] = {0,0,0,0,0,0,0,0};
                 // direcionado             [0]
                 // vertices ponderados     [1]

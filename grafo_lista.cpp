@@ -24,7 +24,7 @@ grafo_lista::~grafo_lista()
     }
 }
 
-void grafo_lista::insere_vertice(unsigned int id, int peso)
+void grafo_lista::insere_vertice(int id, int peso)
 {
     vertice *v = new vertice();
     v->ID() = id;
@@ -44,7 +44,7 @@ void grafo_lista::insere_vertice(unsigned int id, int peso)
     }
 }
 
-void grafo_lista::insere_aresta(unsigned int v, unsigned int w, int peso)
+void grafo_lista::insere_aresta(int v, int w, int peso)
 {
     if(buscaAresta(v, w)){
         return;
@@ -67,7 +67,7 @@ void grafo_lista::insere_aresta(unsigned int v, unsigned int w, int peso)
     }
 }
 
-int grafo_lista::pesoVertice(unsigned int idVertice)
+int grafo_lista::pesoVertice(int idVertice)
 {
     vertice *p = inicio;
     while(p != NULL)
@@ -82,7 +82,7 @@ int grafo_lista::pesoVertice(unsigned int idVertice)
     return 0;
 }
 
-int grafo_lista::pesoAresta(unsigned int v, unsigned int w)
+int grafo_lista::pesoAresta(int v, int w)
 {
     vertice *p = inicio;
     while(p != NULL)
@@ -110,7 +110,7 @@ vertice* grafo_lista::getInicio()
     return inicio;
 }
 
-vertice* grafo_lista::getVertice(unsigned int v)
+vertice* grafo_lista::getVertice(int v)
 {
     vertice *p = inicio;
     while(p != NULL)
@@ -124,7 +124,7 @@ vertice* grafo_lista::getVertice(unsigned int v)
     return NULL;
 }
 
-edge* grafo_lista::getAresta(unsigned int idAresta)
+edge* grafo_lista::getAresta(int idAresta)
 {
     vertice *p = inicio;
     while(p != NULL)
@@ -144,7 +144,7 @@ edge* grafo_lista::getAresta(unsigned int idAresta)
     return NULL;
 }
 
-bool grafo_lista::buscaVertice(unsigned int idVertice)
+bool grafo_lista::buscaVertice(int idVertice)
 {
     vertice *p = inicio;
     while(p != NULL)
@@ -158,7 +158,7 @@ bool grafo_lista::buscaVertice(unsigned int idVertice)
     return false;
 }
 
-bool grafo_lista::buscaAresta(unsigned int v, unsigned int w)
+bool grafo_lista::buscaAresta(int v, int w)
 {
     vertice *p = inicio;
     while(p != NULL)

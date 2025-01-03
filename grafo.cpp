@@ -4,7 +4,7 @@
 using namespace std;
 // << Getters and Setters >>
 
-void Grafo::setGrau(unsigned int grau)
+void Grafo::setGrau(int grau)
 {
     if(grau < 0)
     {
@@ -18,7 +18,7 @@ void Grafo::setGrau(unsigned int grau)
     }
 }
 
-void Grafo::setOrdem(unsigned int ordem)
+void Grafo::setOrdem(int ordem)
 {
     if(ordem < 0)
     {
@@ -46,7 +46,7 @@ void Grafo::setDirecionado(bool direcionado)
     }
 }
 
-void Grafo::setComponentes_conexas(unsigned int componentes_conexas)
+void Grafo::setComponentes_conexas(int componentes_conexas)
 {
     if(componentes_conexas < 0)
     {
@@ -158,7 +158,7 @@ void Grafo::setVertice_de_Articulacao(bool vertice_de_articulacao)
     }
 }
 
-void Grafo::setTamanho(unsigned int tamanho)
+void Grafo::setTamanho(int tamanho)
 {
     if(tamanho < 0)
     {
@@ -172,12 +172,12 @@ void Grafo::setTamanho(unsigned int tamanho)
     }
 }
 
-unsigned int Grafo::getGrau()
+int Grafo::getGrau()
 {
     return info[0];
 }
 
-unsigned int Grafo::getOrdem()
+int Grafo::getOrdem()
 {
     return info[1];
 }
@@ -187,7 +187,7 @@ bool Grafo::getDirecionado()
     return dpp[0];
 }
 
-unsigned int Grafo::getComponentes_conexas()
+int Grafo::getComponentes_conexas()
 {
     return info[2];
 }
@@ -227,7 +227,7 @@ bool Grafo::getVertice_de_Articulacao()
     return auxVerticeArticulacao();
 }
 
-unsigned int Grafo::getTamanho()
+int Grafo::getTamanho()
 {
     return info[3];
 }
@@ -245,7 +245,7 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName){
         exit(2);
     }
 
-    unsigned int ordem;
+    int ordem;
     bool direcionado;
     bool vertices_ponderados;
     bool arestas_ponderadas;
@@ -276,7 +276,7 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName){
     getline(file, line);
     while (!file.eof())
     {
-        unsigned int v, w;
+        int v, w;
         int peso = 0;
         file >> v; // vertice orígem
         file >> w; // vertice destino
@@ -343,10 +343,10 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
         exit(2);
     }
 
-    unsigned int grau;
-    unsigned int ordem;
+    int grau;
+    int ordem;
     bool direcionado;
-    unsigned int componentes_conexas;
+    int componentes_conexas;
     bool vertices_ponderados;
     bool arestas_ponderadas;
     bool completo;
@@ -366,6 +366,8 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
     file >> arvore;                 getline(file, line);
     file >> aresta_ponte;           getline(file, line);
     file >> vertice_de_articulacao; getline(file, line);
+
+// << @BHive >>
 
     this->setOrdem(ordem);
     this->setDirecionado(direcionado);
@@ -503,6 +505,8 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
             // insere aresta entre 2 subgrafos
         }
     }
+// >>
+
     file.close();
 }
 

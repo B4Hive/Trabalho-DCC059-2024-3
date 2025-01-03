@@ -36,7 +36,7 @@ void grafo_matriz::inicializa()
     }
 }
 
-int &grafo_matriz::operator()(unsigned int v, unsigned int w)
+int &grafo_matriz::operator()(int v, int w)
 {
     int i = v;
     int j = w;
@@ -52,27 +52,27 @@ int &grafo_matriz::operator()(unsigned int v, unsigned int w)
     }
 }
 
-void grafo_matriz::insere_vertice(unsigned int id, int peso)
+void grafo_matriz::insere_vertice(int id, int peso)
 {
     this->operator()(id-1, id-1) = peso;
 }
 
-void grafo_matriz::insere_aresta(unsigned int v, unsigned int w, int peso)
+void grafo_matriz::insere_aresta(int v, int w, int peso)
 {
     this->operator()(v-1,w-1) = peso;
 }
 
-int grafo_matriz::pesoAresta(unsigned int v, unsigned int w)
+int grafo_matriz::pesoAresta(int v, int w)
 {
     return this->operator()(v-1,w-1);
 }
 
-int grafo_matriz::pesoVertice(unsigned int idVertice)
+int grafo_matriz::pesoVertice(int idVertice)
 {
     return this->operator()(idVertice-1, idVertice-1);
 }
 
-bool grafo_matriz::buscaVertice(unsigned int idVertice)
+bool grafo_matriz::buscaVertice(int idVertice)
 {
     if(this->operator()(idVertice-1, idVertice-1) != 0)
     {
@@ -84,7 +84,7 @@ bool grafo_matriz::buscaVertice(unsigned int idVertice)
     }
 }
 
-bool grafo_matriz::buscaAresta(unsigned int v, unsigned int w)
+bool grafo_matriz::buscaAresta(int v, int w)
 {
     if(this->operator()(v-1,w-1) != 0)
     {
@@ -96,7 +96,7 @@ bool grafo_matriz::buscaAresta(unsigned int v, unsigned int w)
     }
 }
 
-edge *grafo_matriz::getAresta(unsigned int idAresta)
+edge *grafo_matriz::getAresta(int idAresta)
 {
     int aux = 0;
     edge *e = new edge();

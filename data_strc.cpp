@@ -13,12 +13,12 @@ vertice::vertice()
 
 vertice::~vertice(){};
 
-unsigned int &vertice::ID()
+int &vertice::ID()
 {
     return id;
 }
 
-unsigned int &vertice::Grau()
+int &vertice::Grau()
 {
     return grau;
 }
@@ -57,7 +57,7 @@ void vertice::insereAresta(edge *e)
 
 /*-------------------------- Aresta -----------------------------*/
 
-edge::edge(unsigned int v, unsigned int w)
+edge::edge(int v, int w)
 {
     this->v = v;
     this->w = w;
