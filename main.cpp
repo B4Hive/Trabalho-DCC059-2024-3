@@ -2,64 +2,66 @@
 #include "grafo.h"
 #include "grafo_lista.h"
 #include "grafo_matriz.h"
-
+using namespace std;
 
 int main(int argc, char *argv[])
 {
-
-    std::cout << "Programa iniciado " << std::endl;
-    std::cout << "argc: " << argc << std::endl;
+    if(argc < 4 || argc > 5){
+        cout << "Numero de argumentos invalido" << endl;
+        cout << "Uso: " << argv[0] << " <operacao> <tipo_armazenamento> <arquivoIn> <arquivoOut>" << endl;
+        cout << "Onde:" << endl;
+        cout << "<operacao> -d para carregar grafo de um arquivo e imprimir a descricao" << endl;
+        cout << "           -c para criar um novo grafo com as condicoes especificadas em arquivoIn e exporta-lo em arquivoOut" << endl;
+        cout << "<tipo_armazenamento> -l para armazenamento como lista encadeada ou -m para matriz" << endl;
+        cout << "<arquivo> o arquivo de entrada" << endl;
+        cout << "<arquivoOut> o arquivo de saida utilizado apenas caso a operacao selecionada seja -c" << endl;
+        exit(4);
+    }
+    cout << "Programa iniciado " << endl;
+    /*
+    cout << "argc: " << argc << endl;
     for(int i = 0; i < argc; i++)
     {
-        std::cout << "argv[" << i << "]: " << argv[i] << std::endl;
+        cout << "argv[" << i << "]: " << argv[i] << endl;
     }
-    std::cout << std::endl;
-    std::string filename;
-    std::string parametro1 = argv[1];
-    std::string parametro2 = argv[2];
-    std::cout << "Parametro1: " << parametro1 << std::endl;
-    std::cout << "Parametro2: " << parametro2 << std::endl;
+     */
+    cout << endl;
+    string filename;
+    string parametro1 = argv[1];
+    string parametro2 = argv[2];
+    cout << "Parametro 1: " << parametro1 << endl;
+    cout << "Parametro 2: " << parametro2 << endl;
     filename = argv[3];
-    std::cout << "Filename: " << filename << std::endl << std::endl;
+    cout << "Arquivo de entrada: " << filename << endl << endl;
 
-    grafo_lista *gl;
-    grafo_matriz *gm;
+    Grafo *g;
 
     if(parametro1 == "-d")
     {
-        if(parametro2 == "-l")
-        {
-            gl = new grafo_lista;
-            gl->carrega_grafo(argv[2], filename);
-            gl->exportDesc();
-            // gl->exportInfo(); // @bhive não precisa dessa função
+        if(parametro2 == "-l") {
+            g = new grafo_lista;
         }
-        if(parametro2 == "-m")
-        {
-            gm = new grafo_matriz; 
-            gm->carrega_grafo(argv[2], filename);
-            gm->imprime_matriz();
-            gm->exportDesc();
-
-            // gm->exportInfo();  // @bhive não precisa dessa função
-
+        else if(parametro2 == "-m") {
+            g = new grafo_matriz; 
         }
+        g->carrega_grafo(argv[2], filename);
+        g->exportDesc();
+        g->imprime();
     }
-    if(parametro2 == "-c") 
+    else if(parametro1 == "-c") 
     {
-        if(parametro1 == "-l")
-        {
-            gl = new grafo_lista;
-            // gl->carrega_grafo(argv[1], filename); // @bhive aqui é novo_grafo
-            gl->exportInfo();
+        if(parametro2 == "-l") {
+            g = new grafo_lista;
         }
-        if(parametro1 == "-m")
-        {
-            gm = new grafo_matriz; 
-            // gm->carrega_grafo(argv[1], filename); // @bhive aqui é novo_grafo
-            gm->exportInfo();
+        else if(parametro2 == "-m") {
+            g = new grafo_matriz; 
         }
+        g->novo_grafo(argv[1], filename);
+        g->exportInfo();
+        g->imprime();
     }
+    
+    delete g;
     
     return 0;
 }

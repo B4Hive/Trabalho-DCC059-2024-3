@@ -3,25 +3,24 @@
 
 #include <iostream>
 
-
 class edge
 {
     public:
-    edge(unsigned int v, unsigned int w);
+    edge(int v, int w);
     edge();
     ~edge();
 
-    unsigned int &V() {return v;}
-    unsigned int &W() {return w;}
-    unsigned int &ID(){return id;}
+    int &V() {return v;}
+    int &W() {return w;}
+    int &ID(){return id;}
     int &Peso()       {return peso;}
 
     edge *getProx();
     void setProx(edge *ep){prox = ep;}
 
     private:
-    unsigned int id;
-    unsigned int v, w;
+    int id;
+    int v, w;
     int peso;
     
     edge *prox;
@@ -33,8 +32,8 @@ class vertice
     vertice();
     ~vertice();
 
-    unsigned int &ID();
-    unsigned int &Grau();
+    int &ID();
+    int &Grau();
     int &Peso();
     edge *getAresta() {return init_aresta;}
     vertice *getProx();
@@ -42,12 +41,11 @@ class vertice
     void insereAresta(edge *e);
 
     private:
-    unsigned int id;
-    unsigned int grau;
+    int id;
+    int grau;
     int peso;
     vertice *prox;
     edge *init_aresta;
 };
-
 
 #endif

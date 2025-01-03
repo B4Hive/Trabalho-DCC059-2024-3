@@ -1,4 +1,5 @@
 #include "grafo_matriz.h"
+using namespace std;
 
 grafo_matriz::grafo_matriz()
 {
@@ -10,12 +11,12 @@ grafo_matriz::~grafo_matriz()
     delete m;
 }
 
-void grafo_matriz::inicializa_matriz()
+void grafo_matriz::inicializa()
 {
     if(getDirecionado() == 0) // matriz  triangular infeiror 
     {
         tamanho_vetor = (getOrdem() * (getOrdem() + 1)) / 2;
-        std::cout << "Tamanho: " << tamanho_vetor << std::endl;
+        cout << "Tamanho: " << tamanho_vetor << endl;
         m = new int [tamanho_vetor];
             for(int i = 0; i < tamanho_vetor; i++)
             {
@@ -27,7 +28,7 @@ void grafo_matriz::inicializa_matriz()
     {
         tamanho_vetor = getOrdem() * getOrdem();
         m = new int [tamanho_vetor];
-        std::cout << "Tamanho: " << tamanho_vetor << std::endl;
+        cout << "Tamanho: " << tamanho_vetor << endl;
             for(int i = 0; i < tamanho_vetor; i++)
             {
                 m[i] = 0;
@@ -35,89 +36,11 @@ void grafo_matriz::inicializa_matriz()
     }
 }
 
-void grafo_matriz::carrega_grafo(char *tipo, std::string dataFileName)
-{
-    std::cout << "Lendo Grafo" << std::endl;
-    std::ifstream file;
-    std::string line;
-    this->filename = dataFileName;
-    file.open(filename, std::ios::in);
-    if (!file.is_open())
-    {
-        std::cout << "Erro ao abrir arquivo" << std::endl;
-        return ;
-    }
-    
-    
-    unsigned int ordem;
-    bool direcionado;
-    bool vertices_ponderados;
-    bool arestas_ponderadas;
-
-    file >>  ordem;
-    file >> direcionado;
-    file >> vertices_ponderados;
-    file >> arestas_ponderadas;
-
-    setOrdem(ordem);
-    setDirecionado(direcionado);
-    setVertices_ponderados(vertices_ponderados);
-    setArestas_ponderadas(arestas_ponderadas);
-
-    getline(file, line);
-    
-    std::cout << "Ordem: " << getOrdem() << std::endl;
-    std::cout << "Direcionado: " << getDirecionado() << std::endl;
-    std::cout << "Vertices ponderados: " << getVertices_ponderados() << std::endl;
-    std::cout << "Arestas ponderadas: " << getArestas_ponderadas() << std::endl;
-
-    std::cout << "Iniciando matriz" << std::endl; 
-    inicializa_matriz();
-    std::cout << std::size_t(m) << std::endl;
-
-    if(getVertices_ponderados()) {
-        for (int i = 1; i <= getOrdem(); i++) {
-            int peso = 1;
-            if (getVertices_ponderados()) {
-                file >> peso;
-            }
-            insere_vertice(i, peso);
-        }
-        getline(file, line);
-    } else {
-        for (int i = 1; i <= getOrdem(); i++) {
-            insere_vertice(i, 1);
-        }
-    }
-    while (!file.eof())
-    {
-        unsigned int v, w;
-        int peso = 1;
-        file >> v; // vertice orígem
-        file >> w; // vertice destino
-        if (getArestas_ponderadas())
-        {
-            file >> peso;
-        }
-        Tamanho()++;
-        std::cout << "Inserindo Aresta "<< Tamanho() <<": "<<std::endl;
-        std::cout << "V: " << v << " W: " << w << " Peso: " << peso << std::endl<< std::endl;
-        insere_aresta(v, w, peso);
-
-        getline(file, line);
-    }   
-
-    file.close();
-
-}
-
-
-
-int &grafo_matriz::operator()(unsigned int v, unsigned int w)
+int &grafo_matriz::operator()(int v, int w)
 {
     int i = v;
     int j = w;
-    if(getDirecionado() == 0)
+    if(!getDirecionado())
     {   if(i < j)
             return m[i * (i - 1) / 2 + j];
         else
@@ -128,36 +51,28 @@ int &grafo_matriz::operator()(unsigned int v, unsigned int w)
         return m[i * getOrdem() + j];
     }
 }
-void grafo_matriz::insere_vertice(unsigned int id, int peso)
+
+void grafo_matriz::insere_vertice(int id, int peso)
 {
-    
     this->operator()(id-1, id-1) = peso;
-    
-    //std::cout << "Vertice inserido" << std::endl;
 }
 
-void grafo_matriz::insere_aresta(unsigned int v, unsigned int w, int peso)
+void grafo_matriz::insere_aresta(int v, int w, int peso)
 {
-
     this->operator()(v-1,w-1) = peso;
-    
-    std::cout << "Aresta inserida" << std::endl;
 }
 
-int grafo_matriz::pesoAresta(unsigned int v, unsigned int w)
+int grafo_matriz::pesoAresta(int v, int w)
 {
-    
     return this->operator()(v-1,w-1);
-    
 }
 
-int grafo_matriz::pesoVertice(unsigned int idVertice)
+int grafo_matriz::pesoVertice(int idVertice)
 {
-    
     return this->operator()(idVertice-1, idVertice-1);
 }
 
-bool grafo_matriz::buscaVertice(unsigned int idVertice)
+bool grafo_matriz::buscaVertice(int idVertice)
 {
     if(this->operator()(idVertice-1, idVertice-1) != 0)
     {
@@ -169,7 +84,7 @@ bool grafo_matriz::buscaVertice(unsigned int idVertice)
     }
 }
 
-bool grafo_matriz::buscaAresta(unsigned int v, unsigned int w)
+bool grafo_matriz::buscaAresta(int v, int w)
 {
     if(this->operator()(v-1,w-1) != 0)
     {
@@ -181,8 +96,7 @@ bool grafo_matriz::buscaAresta(unsigned int v, unsigned int w)
     }
 }
 
-
-edge *grafo_matriz::getAresta(unsigned int idAresta)
+edge *grafo_matriz::getAresta(int idAresta)
 {
     int aux = 0;
     edge *e = new edge();
@@ -203,13 +117,12 @@ edge *grafo_matriz::getAresta(unsigned int idAresta)
             }
         }
     }
-    std::cout << "Aresta nao encontrada" << std::endl;
+    cout << "Aresta nao encontrada" << endl;
     return 0;
 }
 
 // B4Hive-begin
-void grafo_matriz::auxArestaPonte(bool *result) {
-    *result = false;
+bool grafo_matriz::auxArestaPonte() {
     int tag[getOrdem()];
     for (int &t : tag) {
         t = -1;
@@ -250,11 +163,11 @@ void grafo_matriz::auxArestaPonte(bool *result) {
                 v++;
             }
             if (counter > count) {
-                *result = true;
-                return;
+                return true;
             }
         }
     }
+    return false;
 }
 
 void grafo_matriz::BPPonte(int v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW) {
@@ -273,8 +186,7 @@ void grafo_matriz::BPPonte(int v, int tag[], bool visitado[], int currentTag, in
     }
 }
 
-void grafo_matriz::auxVerticeArticulacao(bool *result) {
-    *result = false;
+bool grafo_matriz::auxVerticeArticulacao() {
     int tag[getOrdem()];
     for (int &t : tag) {
         t = -1;
@@ -314,10 +226,10 @@ void grafo_matriz::auxVerticeArticulacao(bool *result) {
             v++;
         }
         if (counter > count) {
-            *result = true;
-            return;
+            return true;
         }
     }
+    return false;
 }
 
 void grafo_matriz::BPArticulacao(int v, int tag[], bool visitado[], int currentTag, int ignoredV) {
@@ -336,12 +248,32 @@ void grafo_matriz::BPArticulacao(int v, int tag[], bool visitado[], int currentT
         e++;
     }
 }
+
+int grafo_matriz::auxSetGrau(){
+    int grau = 0;
+    int v = 1;
+    while (v <= getOrdem()){
+        int g = 0;
+        int e = 1;
+        while (e <= getOrdem()){
+            if(this->operator()(v, e) != 0 && v != e){
+                g++;
+            }
+            e++;
+        }
+        if (g > grau){
+            grau = g;
+        }
+        v++;
+    }
+    return grau;
+}
 // B4Hive-end
 
-void grafo_matriz::imprime_matriz()
+void grafo_matriz::imprime()
 {
-    std::cout << "Imprimindo matriz" << std::endl;
-    if(getDirecionado() == 0)
+    cout << endl << "Imprimindo matriz" << endl;
+    if(!getDirecionado())
     {
         for(int i = 0; i < getOrdem(); i++)
         {
@@ -349,14 +281,14 @@ void grafo_matriz::imprime_matriz()
             {
                 if(i < j)
                 {
-                    std::cout << m[i * (i - 1) / 2 + j] << " ";
+                    cout << m[i * (i - 1) / 2 + j] << " ";
                 }
                 else
                 {
-                    std::cout << m[j * (j - 1) / 2 + i] << " ";
+                    cout << m[j * (j - 1) / 2 + i] << " ";
                 }
             }
-            std::cout << std::endl;
+            cout << endl;
         }
     }
     else
@@ -365,9 +297,9 @@ void grafo_matriz::imprime_matriz()
         {
             for(int j = 0; j < getOrdem(); j++)
             {
-                std::cout << m[i * getOrdem() + j] << " ";
+                cout << m[i * getOrdem() + j] << " ";
             }
-            std::cout << std::endl;
+            cout << endl;
         }
     }
 }

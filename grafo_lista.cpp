@@ -1,4 +1,5 @@
 #include "grafo_lista.h"
+using namespace std;
 
 grafo_lista::grafo_lista()
 {
@@ -23,7 +24,7 @@ grafo_lista::~grafo_lista()
     }
 }
 
-void grafo_lista::insere_vertice(unsigned int id, int peso)
+void grafo_lista::insere_vertice(int id, int peso)
 {
     vertice *v = new vertice();
     v->ID() = id;
@@ -43,26 +44,30 @@ void grafo_lista::insere_vertice(unsigned int id, int peso)
     }
 }
 
-void grafo_lista::insere_aresta(unsigned int v, unsigned int w, int peso)
+void grafo_lista::insere_aresta(int v, int w, int peso)
 {
+    if(buscaAresta(v, w)){
+        return;
+    }
     vertice *p = inicio;
     edge *e = new edge(v, w);
     e->Peso() = peso;
     e->ID() = this->Tamanho();    
-    while(p != NULL)
-    {
-        if(p->ID() == v)
-        {
+    while(p != NULL){
+        if(p->ID() == v){
             p->insereAresta(e);
-            std::cout << "Aresta inserida!" << std::endl<< std::endl;
-            break;
         }
-
+        if(p->ID() == w && !getDirecionado()){
+            edge *e2 = new edge(w, v);
+            e2->Peso() = peso;
+            e2->ID() = this->Tamanho();
+            p->insereAresta(e2);
+        }
         p = p->getProx();
     }
 }
 
-int grafo_lista::pesoVertice(unsigned int idVertice)
+int grafo_lista::pesoVertice(int idVertice)
 {
     vertice *p = inicio;
     while(p != NULL)
@@ -73,10 +78,11 @@ int grafo_lista::pesoVertice(unsigned int idVertice)
         }
         p = p->getProx();
     }
-    std::cout << "Vertice nao encontrado" << std::endl;
+    cout << "Vertice nao encontrado" << endl;
     return 0;
 }
-int grafo_lista::pesoAresta(unsigned int v, unsigned int w)
+
+int grafo_lista::pesoAresta(int v, int w)
 {
     vertice *p = inicio;
     while(p != NULL)
@@ -95,7 +101,7 @@ int grafo_lista::pesoAresta(unsigned int v, unsigned int w)
         }
         p = p->getProx();
     }
-    std::cout << "Aresta nao encontrada" << std::endl;
+    cout << "Aresta nao encontrada" << endl;
     return 0;
 }
 
@@ -104,7 +110,7 @@ vertice* grafo_lista::getInicio()
     return inicio;
 }
 
-vertice* grafo_lista::getVertice(unsigned int v)
+vertice* grafo_lista::getVertice(int v)
 {
     vertice *p = inicio;
     while(p != NULL)
@@ -118,7 +124,7 @@ vertice* grafo_lista::getVertice(unsigned int v)
     return NULL;
 }
 
-edge* grafo_lista::getAresta(unsigned int idAresta)
+edge* grafo_lista::getAresta(int idAresta)
 {
     vertice *p = inicio;
     while(p != NULL)
@@ -134,11 +140,11 @@ edge* grafo_lista::getAresta(unsigned int idAresta)
         }
         p = p->getProx();
     }
-    std::cout << "Aresta nao encontrada" << std::endl;
+    cout << "Aresta nao encontrada" << endl;
     return NULL;
 }
 
-bool grafo_lista::buscaVertice(unsigned int idVertice)
+bool grafo_lista::buscaVertice(int idVertice)
 {
     vertice *p = inicio;
     while(p != NULL)
@@ -152,7 +158,7 @@ bool grafo_lista::buscaVertice(unsigned int idVertice)
     return false;
 }
 
-bool grafo_lista::buscaAresta(unsigned int v, unsigned int w)
+bool grafo_lista::buscaAresta(int v, int w)
 {
     vertice *p = inicio;
     while(p != NULL)
@@ -173,9 +179,9 @@ bool grafo_lista::buscaAresta(unsigned int v, unsigned int w)
     }
     return false;
 }
+
 // B4Hive-begin
-void grafo_lista::auxArestaPonte(bool *result) {
-    *result = false;
+bool grafo_lista::auxArestaPonte() {
     int tag[getOrdem()];
     for (int &t : tag) {
         t = -1;
@@ -216,11 +222,11 @@ void grafo_lista::auxArestaPonte(bool *result) {
                 v = v->getProx();
             }
             if (counter > count) {
-                *result = true;
-                return;
+                return true;
             }
         }
     }
+    return false;
 }
 
 void grafo_lista::BPPonte(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW) {
@@ -238,8 +244,7 @@ void grafo_lista::BPPonte(vertice *v, int tag[], bool visitado[], int currentTag
     }
 }
 
-void grafo_lista::auxVerticeArticulacao(bool *result) {
-    *result = false;
+bool grafo_lista::auxVerticeArticulacao() {
     int tag[getOrdem()];
     for (int &t : tag) {
         t = -1;
@@ -279,10 +284,10 @@ void grafo_lista::auxVerticeArticulacao(bool *result) {
             v = v->getProx();
         }
         if (counter > count) {
-            *result = true;
-            return;
+            return true;
         }
     }
+    return false;
 }
 
 void grafo_lista::BPArticulacao(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV) {
@@ -298,6 +303,44 @@ void grafo_lista::BPArticulacao(vertice *v, int tag[], bool visitado[], int curr
             BPArticulacao(w, tag, visitado, currentTag, ignoredV);
         }
         e = e->getProx();
+    }
+}
+
+int grafo_lista::auxSetGrau(){
+    int grau = 0;
+    vertice *v = getInicio();
+    while (v != NULL){
+        int g = 0;
+        edge *e = v->getAresta();
+        while (e != NULL){
+            g++;
+            e = e->getProx();
+        }
+        if (g > grau){
+            grau = g;
+        }
+        v = v->getProx();
+    }
+    return grau;
+}
+
+void grafo_lista::inicializa() {
+    // eu sei como evitar essa função mas é mais fácil deixar por enquanto
+}
+
+void grafo_lista::imprime() {
+    cout << endl << "Imprimindo lista" << endl;
+    cout << "vertice(peso do vertice) -> vizinho(peso da aresta) - vizinho(peso da aresta)..." << endl;
+    vertice *v = getInicio();
+    while (v != NULL){
+        cout << v->ID() << "(" << v->Peso() << ") -> ";
+        edge *e = v->getAresta();
+        while (e != NULL){
+            cout << e->W() << "(" << e->Peso() << ") - ";
+            e = e->getProx();
+        }
+        cout << endl;
+        v = v->getProx();
     }
 }
 // B4Hive-end

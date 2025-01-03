@@ -8,29 +8,33 @@ class grafo_lista : public Grafo {
         grafo_lista();
         ~grafo_lista();
 
-        void insere_vertice(unsigned int id, int peso);
-        //void remove_vertice(unsigned int id);
+        void insere_vertice(int id, int peso);
+        //void remove_vertice(int id);
 
-        void insere_aresta(unsigned int v, unsigned int w, int peso);
-       // void remove_aresta(unsigned int v, unsigned int w);
+        void insere_aresta(int v, int w, int peso);
+       // void remove_aresta(int v, int w);
 
-        int  pesoAresta(unsigned int v, unsigned int w);
-        int  pesoVertice(unsigned int idVertice);
-        bool buscaVertice(unsigned int idVertice);
-        bool buscaAresta(unsigned int v, unsigned int w);
+        int  pesoAresta(int v, int w);
+        int  pesoVertice(int idVertice);
+        bool buscaVertice(int idVertice);
+        bool buscaAresta(int v, int w);
 
-        edge *getAresta(unsigned int idAresta);
+        edge *getAresta(int idAresta);
 
         //B4Hive
-        void auxArestaPonte(bool *result);
+        bool auxArestaPonte();
         void BPPonte(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW);
-        void auxVerticeArticulacao(bool *result);
+        bool auxVerticeArticulacao();
         void BPArticulacao(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV);
+        int auxSetGrau();
+
+        void inicializa();
+        void imprime();
         
     private:
         vertice* inicio;
         vertice *getInicio();
-        vertice *getVertice(unsigned int v);
+        vertice *getVertice(int v);
 };
 
 #endif
