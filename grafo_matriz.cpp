@@ -167,132 +167,6 @@ int grafo_matriz::grauVertice(int id)
     return grau;
 }
 // B4Hive-begin
-bool grafo_matriz::auxArestaPonte() {
-    int tag[getOrdem()];
-    for (int &t : tag) {
-        t = -1;
-    }
-    bool visitado[getOrdem()];
-    for (bool &vis : visitado) {
-        vis = false;
-    }
-    int v = 0;
-    int count = 0;
-    int tagCount = 0;
-    while (v < getOrdem()){
-        if (!visitado[v]){
-            count++;
-            tagCount++;
-            BPPonte(v, tag, visitado, tagCount, -1, -1);
-        }    
-        v++;
-    }
-
-    for(int i = 0; i < getOrdem(); i++){
-        for(int j = 0; j < getOrdem(); j++){
-            for (int &t : tag) {
-                t = -1;
-            }
-            for (bool &vis : visitado) {
-                vis = false;
-            }
-            int counter = 0;
-            int tagCounter = 0;
-            v = 0;
-            while (v < getOrdem()){
-                if (!visitado[v]){
-                    counter++;
-                    tagCounter++;
-                    BPPonte(v, tag, visitado, tagCounter, i, j);
-                }
-                v++;
-            }
-            if (counter > count) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-void grafo_matriz::BPPonte(int v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW) {
-    visitado[v] = true;
-    tag[v] = currentTag;
-    int e = 0;
-    while (e < getOrdem()){
-        if (this->operator()(v, e) != 0){
-            if ((v != ignoredV && e != ignoredW) || (!getDirecionado() && v != ignoredW && e != ignoredV)){
-                if (!visitado[e] && e != ignoredV){
-                    BPPonte(e, tag, visitado, currentTag, ignoredV, ignoredW);
-                }
-            }
-        }
-        e++;
-    }
-}
-
-bool grafo_matriz::auxVerticeArticulacao() {
-    int tag[getOrdem()];
-    for (int &t : tag) {
-        t = -1;
-    }
-    bool visitado[getOrdem()];
-    for (bool &vis : visitado) {
-        vis = false;
-    }
-    int v = 0;
-    int count = 0;
-    int tagCount = 0;
-    while (v < getOrdem()){
-        if (!visitado[v]){
-            count++;
-            tagCount++;
-            BPArticulacao(v, tag, visitado, tagCount, -1);
-        }    
-        v++;
-    }
-    
-    for (int w = 0; w < getOrdem(); w++) {
-        for (int &t : tag) {
-            t = -1;
-        }
-        for (bool &vis : visitado) {
-            vis = false;
-        }
-        int counter = 0;
-        int tagCounter = 0;
-        v = 0;
-        while (v < getOrdem()){
-            if (!visitado[v]){
-                counter++;
-                tagCounter++;
-                BPArticulacao(v, tag, visitado, tagCounter, w);
-            }
-            v++;
-        }
-        if (counter > count) {
-            return true;
-        }
-    }
-    return false;
-}
-
-void grafo_matriz::BPArticulacao(int v, int tag[], bool visitado[], int currentTag, int ignoredV) {
-    if (visitado[v] || v == ignoredV){
-        return;
-    }
-    visitado[v] = true;
-    tag[v] = currentTag;
-    int e = 0;
-    while (e < getOrdem()){
-        if (this->operator()(v, e) != 0){
-            if (!visitado[e] && e != ignoredV){
-                BPArticulacao(e, tag, visitado, currentTag, ignoredV);
-            }
-        }
-        e++;
-    }
-}
 
 int grafo_matriz::auxSetGrau(){
     int grau = 0;
@@ -313,6 +187,7 @@ int grafo_matriz::auxSetGrau(){
     }
     return grau;
 }
+
 // B4Hive-end
 
 void grafo_matriz::imprime()
