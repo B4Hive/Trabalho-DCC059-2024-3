@@ -22,7 +22,7 @@ class grafo_lista : public Grafo {
         int  pesoAresta(int v, int w);
         bool buscaAresta(int v, int w);
 
-        edge *getAresta(int idAresta);
+        edge *getAresta(int v, int w);
 
         //B4Hive
         bool auxArestaPonte();

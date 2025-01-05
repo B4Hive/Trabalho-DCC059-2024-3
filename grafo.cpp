@@ -317,16 +317,14 @@ void Grafo::exportInfo()
     }
 
 
-    for(int i = 1; i<=getTamanho(); i++)
+    for(int i = 1; i<=getOrdem(); i++)
     {
-        edge *e = new edge(); 
-        e =getAresta(i);
-        file << e->V() << " " << e->W() << " ";
-        if(getArestas_ponderadas())
-        {
-            file << e->Peso() << " ";
-        }
-        file << '\n';
+       int aux = grauVertice(i);
+       int *vizinhos = vizinhosVertice(i);
+       for(int j = 0; j < aux; j++)
+       {
+           file << i << " " << vizinhos[j] << " " << pesoAresta(i, vizinhos[j]) << '\n';
+       }
     }
 
 }

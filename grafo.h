@@ -37,7 +37,7 @@ class Grafo
     virtual int *vizinhosVertice(int id) = 0; //retorna um vetor com os ídices dos vertices vizinhos
 
     virtual int  pesoAresta(int v, int w) = 0;
-    virtual edge *getAresta(int idAresta) = 0;  // alterar funcao
+    virtual edge *getAresta(int v, int w) = 0;  // alterar funcao
     virtual bool buscaAresta(int v, int w) = 0;
     //retono dos vizinho;
     //Metodos pra acesso externo;

@@ -127,21 +127,24 @@ vertice* grafo_lista::getVertice(int v)
     return NULL;
 }
 
-edge* grafo_lista::getAresta(int idAresta)
+edge* grafo_lista::getAresta(int v, int w)
 {
     vertice *p = inicio;
+    edge *e = new edge();
     while(p != NULL)
     {
-        edge *e = p->getAresta();
-        while(e != NULL)
+        if(p->ID() == v)
         {
-            if(e->ID() == idAresta)
+            e = p->getAresta();
+            while(e != NULL)
             {
-                return e;
+                if(e->W() == w)
+                {
+                    return e;
+                }
+                e = e->getProx();
             }
-            e = e->getProx();
         }
-        p = p->getProx();
     }
     cout << "Aresta nao encontrada" << endl;
     return NULL;

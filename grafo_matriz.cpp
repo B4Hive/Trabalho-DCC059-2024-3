@@ -96,28 +96,23 @@ bool grafo_matriz::buscaAresta(int v, int w)
     }
 }
 
-edge *grafo_matriz::getAresta(int idAresta)
+edge *grafo_matriz::getAresta(int v, int w)
 {
-    int aux = 0;
-    edge *e = new edge();
-    for(int i = 0; i<getOrdem(); i++)
+
+    if(this->operator()(v,w) != 0)
     {
-        for(int j = 0; j<getOrdem(); j++)
-        {  
-            if(this->operator()(i,j) != 0 && i != j)
-            {
-                aux++;
-                if(aux == idAresta)
-                {
-                    e->V() = i+1;
-                    e->W() = j+1;
-                    e->Peso() = this->operator()(i,j);
-                    return e;
-                }
-            }
-        }
+        edge *e = new edge();
+        e->V() = v;
+        e->W() = w;
+        e->Peso() = this->operator()(v-1,w-1);
+        return e;
     }
-    cout << "Aresta nao encontrada" << endl;
+    else
+    {
+        cout << "Aresta nao encontrada" << endl;
+        return 0;
+    }
+    
     return 0;
 }
 
