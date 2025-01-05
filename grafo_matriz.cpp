@@ -67,14 +67,14 @@ int grafo_matriz::pesoAresta(int v, int w)
     return this->operator()(v-1,w-1);
 }
 
-int grafo_matriz::pesoVertice(int idVertice)
+int grafo_matriz::pesoVertice(int id)
 {
-    return this->operator()(idVertice-1, idVertice-1);
+    return this->operator()(id-1, id-1);
 }
 
-bool grafo_matriz::buscaVertice(int idVertice)
+bool grafo_matriz::buscaVertice(int id)
 {
-    if(this->operator()(idVertice-1, idVertice-1) != 0)
+    if(this->operator()(id-1, id-1) != 0)
     {
         return true;
     }
@@ -121,6 +121,51 @@ edge *grafo_matriz::getAresta(int idAresta)
     return 0;
 }
 
+int * grafo_matriz::vizinhosVertice(int id)
+{
+    vertice *v_inicio = new vertice();
+    vertice *p = new vertice();
+    vertice *aux = new vertice();
+    unsigned int grau = 0;
+    v_inicio->ID() = id;
+    v_inicio->setProx(p);
+    for(int i = 0; i < getOrdem(); i++)
+    {
+        if(this->operator()(id-1, i) != 0)
+        {
+            p->ID() = i+1;
+            p = p->getProx();
+            grau++;
+        }
+    }
+
+    int* vizinhos = new int[grau];
+    p = v_inicio->getProx();
+    for(int i = 0; p != NULL; i++)
+    {
+        vizinhos[i] = p->ID();
+        aux = p;
+        p = p->getProx();
+        delete aux;
+    }
+
+    delete v_inicio;
+    return vizinhos;
+
+}
+
+int grafo_matriz::grauVertice(int id)
+{
+    int grau = 0;
+    for(int i = 0; i < getOrdem(); i++)
+    {
+        if(this->operator()(id-1, i) != 0)
+        {
+            grau++;
+        }
+    }
+    return grau;
+}
 // B4Hive-begin
 bool grafo_matriz::auxArestaPonte() {
     int tag[getOrdem()];

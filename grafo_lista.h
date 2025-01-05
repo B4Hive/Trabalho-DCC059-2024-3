@@ -14,9 +14,12 @@ class grafo_lista : public Grafo {
         void insere_aresta(int v, int w, int peso);
        // void remove_aresta(int v, int w);
 
+        int  pesoVertice(int id);
+        bool buscaVertice(int id);
+        int  grauVertice(int id); 
+        int *vizinhosVertice(int id);
+
         int  pesoAresta(int v, int w);
-        int  pesoVertice(int idVertice);
-        bool buscaVertice(int idVertice);
         bool buscaAresta(int v, int w);
 
         edge *getAresta(int idAresta);
@@ -32,7 +35,7 @@ class grafo_lista : public Grafo {
         void imprime();
         
     private:
-        vertice* inicio;
+        vertice *inicio;
         vertice *getInicio();
         vertice *getVertice(int v);
 };

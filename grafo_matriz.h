@@ -14,9 +14,12 @@ public:
     void insere_aresta(int v, int w, int peso);
     // void remove_aresta(int v, int w);
 
-    int pesoAresta(int v, int w);
-    int pesoVertice(int idVertice);
-    bool buscaVertice(int idVertice);
+    int pesoVertice(int idV);
+    bool buscaVertice(int id);
+    int *vizinhosVertice(int id);
+    int  grauVertice(int id); 
+
+    int  pesoAresta(int v, int w);
     bool buscaAresta(int v, int w);
 
     edge *getAresta(int idAresta);

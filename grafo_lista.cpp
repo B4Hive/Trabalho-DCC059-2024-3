@@ -53,11 +53,14 @@ void grafo_lista::insere_aresta(int v, int w, int peso)
     edge *e = new edge(v, w);
     e->Peso() = peso;
     e->ID() = this->Tamanho();    
-    while(p != NULL){
-        if(p->ID() == v){
+    while(p != NULL)
+    {
+        if(p->ID() == v)
+        {
             p->insereAresta(e);
-        }
-        if(p->ID() == w && !getDirecionado()){
+        }   
+        if(p->ID() == w && !getDirecionado())
+        {
             edge *e2 = new edge(w, v);
             e2->Peso() = peso;
             e2->ID() = this->Tamanho();
@@ -67,12 +70,12 @@ void grafo_lista::insere_aresta(int v, int w, int peso)
     }
 }
 
-int grafo_lista::pesoVertice(int idVertice)
+int grafo_lista::pesoVertice(int id)
 {
     vertice *p = inicio;
     while(p != NULL)
     {
-        if(p->ID() == idVertice)
+        if(p->ID() == id)
         {
             return p->Peso();
         }
@@ -144,12 +147,12 @@ edge* grafo_lista::getAresta(int idAresta)
     return NULL;
 }
 
-bool grafo_lista::buscaVertice(int idVertice)
+bool grafo_lista::buscaVertice(int id)
 {
     vertice *p = inicio;
     while(p != NULL)
     {
-        if(p->ID() == idVertice)
+        if(p->ID() == id)
         {
             return true;
         }
@@ -180,6 +183,47 @@ bool grafo_lista::buscaAresta(int v, int w)
     return false;
 }
 
+int* grafo_lista::vizinhosVertice(int id)
+{
+    vertice *p = inicio;
+    while(p != NULL)
+    {
+        if(p->ID() == id)
+        {
+            if(p->Grau() == 0)
+            {
+                cout << "Vertice sem vizinhos" << endl;
+                return NULL;
+            }
+            int *vizinhos = new int[p->Grau()];
+            edge *e = p->getAresta();
+            int i = 0;
+            for(unsigned int i = 0; e != NULL; i++)
+            {
+                vizinhos[i] = e->W();
+                e = e->getProx();
+            }
+            return vizinhos;
+        }
+        p = p->getProx();
+    }
+    return NULL;
+} 
+
+int grafo_lista::grauVertice(int id)
+{
+    vertice *p = inicio;
+    while(p != NULL)
+    {
+        if(p->ID() == id)
+        {
+            return p->Grau();
+        }
+        p = p->getProx();
+    }
+    cout << "Vertice nao encontrado" << endl;
+    return 0;
+}
 // B4Hive-begin
 bool grafo_lista::auxArestaPonte() {
     int tag[getOrdem()];

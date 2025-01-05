@@ -47,6 +47,30 @@ int main(int argc, char *argv[])
         g->carrega_grafo(argv[2], filename);
         g->exportDesc();
         g->imprime();
+
+        // Exemplo de percurso por todo o grafo;
+        for(int i = 0; i < g->getOrdem(); i++)
+        {
+            cout << "Vertice " << i+1 << " : "<<endl;
+            cout << "Peso: " << g->pesoVertice(i+1) << endl;
+            cout << "Grau: " << g->grauVertice(i+1) << endl;
+            cout << "Vizinhos: ";
+            int *vizinhos = g->vizinhosVertice(i+1);
+            if(vizinhos != NULL)
+            {
+                for(int j = 0; j < g->grauVertice(i+1); j++)
+                {
+                    cout << vizinhos[j] << " ";
+                }
+                cout << endl;
+            }
+            else
+            {
+                cout << "Nao possui vizinhos" << endl;
+            }
+            cout << endl;
+        }
+
     }
     else if(parametro1 == "-c") 
     {

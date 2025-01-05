@@ -31,12 +31,15 @@ class Grafo
     virtual void insere_aresta(int v, int w, int peso) = 0;
     //virtual void remove_aresta(int v, int w) = 0; esse tambem, talvez....
 
-    virtual int  pesoAresta(int v, int w) = 0;
-    virtual int  pesoVertice(int idVertice) = 0;
-    virtual edge *getAresta(int idAresta) = 0; 
-    virtual bool buscaVertice(int idVertice) = 0;
-    virtual bool buscaAresta(int v, int w) = 0;
+    virtual int  pesoVertice(int id) = 0;
+    virtual bool buscaVertice(int id) = 0;
+    virtual int  grauVertice(int id) = 0;     // retorna o grau de um vertice
+    virtual int *vizinhosVertice(int id) = 0; //retorna um vetor com os ídices dos vertices vizinhos
 
+    virtual int  pesoAresta(int v, int w) = 0;
+    virtual edge *getAresta(int idAresta) = 0;  // alterar funcao
+    virtual bool buscaAresta(int v, int w) = 0;
+    //retono dos vizinho;
     //Metodos pra acesso externo;
 
     int getGrau();
