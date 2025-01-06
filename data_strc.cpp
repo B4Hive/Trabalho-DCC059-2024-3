@@ -43,7 +43,6 @@ void vertice::insereAresta(edge *e)
     if(init_aresta == NULL)
     {
         init_aresta = e;
-        this->Grau()++;
     }
     else
     {
@@ -53,7 +52,6 @@ void vertice::insereAresta(edge *e)
             ep = ep->getProx();
         }
         ep->setProx(e);
-        this->Grau()++;
     }
 }
 

@@ -37,7 +37,7 @@ class Grafo
     virtual int *vizinhosVertice(int id) = 0; //retorna um vetor com os ídices dos vertices vizinhos
 
     virtual int  pesoAresta(int v, int w) = 0;
-    virtual edge *getAresta(int idAresta) = 0;  // alterar funcao
+    virtual edge *getAresta(int v, int w) = 0;  // alterar funcao
     virtual bool buscaAresta(int v, int w) = 0;
     //retono dos vizinho;
     //Metodos pra acesso externo;
@@ -74,11 +74,6 @@ class Grafo
     int &Tamanho()             {return info[3];} // Quantidade de arestas que o grafo tem
 
     //B4Hive
-    bool auxArestaPonte();
-    void BPPonte(int v, bool visitado[], int ignoredV, int ignoredW);
-    bool auxVerticeArticulacao();
-    void BPArticulacao(int v, bool visitado[], int ignoredV);
-    virtual int auxSetGrau() = 0;
     
     //Variaveis internas
     string filename;

@@ -41,15 +41,24 @@ int &grafo_matriz::operator()(int v, int w)
     int i = v;
     int j = w;
     if(!getDirecionado())
-    {   if(i < j)
-            return m[i * (i - 1) / 2 + j];
+    {   
+        
+        if(i >= j)
+        {
+            return m[i*(i+1)/2+j];
+        }
         else
-            return m[j * (j - 1) / 2 + i];
+        {
+            return m[j*(j+1)/2+i];
+        }
+
     }
+        
     else
     {
         return m[i * getOrdem() + j];
     }
+    return m[0];
 }
 
 void grafo_matriz::insere_vertice(int id, int peso)
@@ -86,7 +95,7 @@ bool grafo_matriz::buscaVertice(int id)
 
 bool grafo_matriz::buscaAresta(int v, int w)
 {
-    if(this->operator()(v-1,w-1) != 0)
+    if(this->operator()(v-1,w-1) != 0 && v != w)
     {
         return true;
     }
@@ -96,44 +105,47 @@ bool grafo_matriz::buscaAresta(int v, int w)
     }
 }
 
-edge *grafo_matriz::getAresta(int idAresta)
+edge *grafo_matriz::getAresta(int v, int w)
 {
-    int aux = 0;
-    edge *e = new edge();
-    for(int i = 0; i<getOrdem(); i++)
+
+    if(this->operator()(v-1,w-1) != 0 && v != w)
     {
-        for(int j = 0; j<getOrdem(); j++)
-        {  
-            if(this->operator()(i,j) != 0 && i != j)
-            {
-                aux++;
-                if(aux == idAresta)
-                {
-                    e->V() = i+1;
-                    e->W() = j+1;
-                    e->Peso() = this->operator()(i,j);
-                    return e;
-                }
-            }
-        }
+        edge *e = new edge();
+        e->V() = v;
+        e->W() = w;
+        e->Peso() = this->operator()(v-1,w-1);
+        return e;
     }
-    cout << "Aresta nao encontrada" << endl;
+    else
+    {
+        cout << "Aresta nao encontrada" << endl;
+        return 0;
+    }
+    
     return 0;
 }
 
 int * grafo_matriz::vizinhosVertice(int id)
 {
+    
     int grau = grauVertice(id);
-    int* vizinhos = new int[grau];
-    int j = 0;
-    for(int i = 0; i < getOrdem(); i++)
+    int *vizinhos = new int[grau];
+    int aux = 0;
+    
+    if(grau == 0)
     {
-        if(this->operator()(id, i) != 0)
+        cout << "Vertice sem vizinhos" << endl;
+        return 0;
+    }
+    for(int i = 0; i <getOrdem(); i++)
+    {
+        if(this->operator()(id-1, i) != 0 && id-1 != i)
         {
-            vizinhos[j] = i;
-            j++;
+            vizinhos[aux] = i+1;
+            aux++;
         }
     }
+
     return vizinhos;
 }
 
@@ -142,7 +154,7 @@ int grafo_matriz::grauVertice(int id)
     int grau = 0;
     for(int i = 1; i <= getOrdem(); i++)
     {
-        if(this->operator()(id, i) != 0)
+        if(this->operator()(id-1, i) != 0 && id-1 != i)
         {
             grau++;
         }
@@ -151,44 +163,19 @@ int grafo_matriz::grauVertice(int id)
 }
 // B4Hive-begin
 
-int grafo_matriz::auxSetGrau(){
-    int grau = 0;
-    int v = 1;
-    while (v <= getOrdem()){
-        int g = 0;
-        int e = 1;
-        while (e <= getOrdem()){
-            if(this->operator()(v, e) != 0 && v != e){
-                g++;
-            }
-            e++;
-        }
-        if (g > grau){
-            grau = g;
-        }
-        v++;
-    }
-    return grau;
-}
-
 // B4Hive-end
 
 void grafo_matriz::imprime()
 {
-    cout << endl << "Imprimindo matriz" << endl;
-    if(!getDirecionado())
+    if (!getDirecionado())
     {
-        for(int i = 0; i < getOrdem(); i++)
+        for (int i = 0; i < getOrdem(); i++)
         {
-            for(int j = 0; j < getOrdem(); j++)
+            for (int j = 0; j <= i; j++)
             {
-                if(i < j)
+                if (i >= j)
                 {
-                    cout << m[i * (i - 1) / 2 + j] << " ";
-                }
-                else
-                {
-                    cout << m[j * (j - 1) / 2 + i] << " ";
+                    cout << m[i * (i + 1) / 2 + j] << " ";
                 }
             }
             cout << endl;
@@ -196,9 +183,9 @@ void grafo_matriz::imprime()
     }
     else
     {
-        for(int i = 0; i < getOrdem(); i++)
+        for (int i = 0; i < getOrdem(); i++)
         {
-            for(int j = 0; j < getOrdem(); j++)
+            for (int j = 0; j < getOrdem(); j++)
             {
                 cout << m[i * getOrdem() + j] << " ";
             }

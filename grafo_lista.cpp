@@ -55,9 +55,11 @@ void grafo_lista::insere_aresta(int v, int w, int peso)
     e->ID() = this->Tamanho();    
     while(p != NULL)
     {
+       
         if(p->ID() == v)
         {
             p->insereAresta(e);
+            p->Grau()++;
         }   
         if(p->ID() == w && !getDirecionado())
         {
@@ -65,6 +67,7 @@ void grafo_lista::insere_aresta(int v, int w, int peso)
             e2->Peso() = peso;
             e2->ID() = this->Tamanho();
             p->insereAresta(e2);
+            p->Grau()++;
         }
         p = p->getProx();
     }
@@ -127,21 +130,24 @@ vertice* grafo_lista::getVertice(int v)
     return NULL;
 }
 
-edge* grafo_lista::getAresta(int idAresta)
+edge* grafo_lista::getAresta(int v, int w)
 {
     vertice *p = inicio;
+    edge *e = new edge();
     while(p != NULL)
     {
-        edge *e = p->getAresta();
-        while(e != NULL)
+        if(p->ID() == v)
         {
-            if(e->ID() == idAresta)
+            e = p->getAresta();
+            while(e != NULL)
             {
-                return e;
+                if(e->W() == w)
+                {
+                    return e;
+                }
+                e = e->getProx();
             }
-            e = e->getProx();
         }
-        p = p->getProx();
     }
     cout << "Aresta nao encontrada" << endl;
     return NULL;
@@ -224,24 +230,6 @@ int grafo_lista::grauVertice(int id)
     return 0;
 }
 // B4Hive-begin
-
-int grafo_lista::auxSetGrau(){
-    int grau = 0;
-    vertice *v = getInicio();
-    while (v != NULL){
-        int g = 0;
-        edge *e = v->getAresta();
-        while (e != NULL){
-            g++;
-            e = e->getProx();
-        }
-        if (g > grau){
-            grau = g;
-        }
-        v = v->getProx();
-    }
-    return grau;
-}
 
 void grafo_lista::inicializa() {
     // eu sei como evitar essa função mas é mais fácil deixar por enquanto

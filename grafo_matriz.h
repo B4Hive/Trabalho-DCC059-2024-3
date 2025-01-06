@@ -22,12 +22,11 @@ public:
     int  pesoAresta(int v, int w);
     bool buscaAresta(int v, int w);
 
-    edge *getAresta(int idAresta);
+    edge *getAresta(int v, int w);
 
     int &operator()(int v, int w);
     
     //B4Hive
-    int auxSetGrau();
 
     void inicializa();
     void imprime();
