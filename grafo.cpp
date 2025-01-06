@@ -264,16 +264,20 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName){
 
     inicializa();
 
+
     for (int i = 1; i <= getOrdem(); i++)
     {
-        int peso;
+        int peso = 1;
         if (getVertices_ponderados())
         {
             file >> peso;
         }
         insere_vertice(i, peso);
     }
-    getline(file, line);
+    if(getVertices_ponderados())
+    {
+        getline(file, line);
+    }
     while (!file.eof())
     {
         int v, w;

@@ -55,9 +55,11 @@ void grafo_lista::insere_aresta(int v, int w, int peso)
     e->ID() = this->Tamanho();    
     while(p != NULL)
     {
+       
         if(p->ID() == v)
         {
             p->insereAresta(e);
+            p->Grau()++;
         }   
         if(p->ID() == w && !getDirecionado())
         {
@@ -65,6 +67,7 @@ void grafo_lista::insere_aresta(int v, int w, int peso)
             e2->Peso() = peso;
             e2->ID() = this->Tamanho();
             p->insereAresta(e2);
+            p->Grau()++;
         }
         p = p->getProx();
     }

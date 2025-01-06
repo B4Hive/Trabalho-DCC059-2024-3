@@ -86,7 +86,7 @@ bool grafo_matriz::buscaVertice(int id)
 
 bool grafo_matriz::buscaAresta(int v, int w)
 {
-    if(this->operator()(v-1,w-1) != 0)
+    if(this->operator()(v-1,w-1) != 0 && v != w)
     {
         return true;
     }
@@ -99,7 +99,7 @@ bool grafo_matriz::buscaAresta(int v, int w)
 edge *grafo_matriz::getAresta(int v, int w)
 {
 
-    if(this->operator()(v,w) != 0)
+    if(this->operator()(v-1,w-1) != 0 && v != w)
     {
         edge *e = new edge();
         e->V() = v;
@@ -118,33 +118,25 @@ edge *grafo_matriz::getAresta(int v, int w)
 
 int * grafo_matriz::vizinhosVertice(int id)
 {
-    vertice *v_inicio = new vertice();
-    vertice *p = new vertice();
-    vertice *aux = new vertice();
-    unsigned int grau = 0;
-    v_inicio->ID() = id;
-    v_inicio->setProx(p);
-    for(int i = 0; i < getOrdem(); i++)
+    
+    int grau = grauVertice(id);
+    int *vizinhos = new int[grau];
+    int aux = 0;
+    
+    if(grau == 0)
     {
-        if(this->operator()(id-1, i) != 0)
+        cout << "Vertice sem vizinhos" << endl;
+        return 0;
+    }
+    for(int i = 0; i <getOrdem(); i++)
+    {
+        if(this->operator()(id-1, i) != 0 && id-1 != i)
         {
-            p->ID() = i+1;
-            p = p->getProx();
-            grau++;
+            vizinhos[aux] = i+1;
+            aux++;
         }
     }
 
-    int* vizinhos = new int[grau];
-    p = v_inicio->getProx();
-    for(int i = 0; p != NULL; i++)
-    {
-        vizinhos[i] = p->ID();
-        aux = p;
-        p = p->getProx();
-        delete aux;
-    }
-
-    delete v_inicio;
     return vizinhos;
 
 }
@@ -154,7 +146,7 @@ int grafo_matriz::grauVertice(int id)
     int grau = 0;
     for(int i = 0; i < getOrdem(); i++)
     {
-        if(this->operator()(id-1, i) != 0)
+        if(this->operator()(id-1, i) != 0 && id-1 != i)
         {
             grau++;
         }
@@ -312,7 +304,6 @@ int grafo_matriz::auxSetGrau(){
 
 void grafo_matriz::imprime()
 {
-    cout << endl << "Imprimindo matriz" << endl;
     if(!getDirecionado())
     {
         for(int i = 0; i < getOrdem(); i++)
