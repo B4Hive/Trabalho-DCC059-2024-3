@@ -356,24 +356,6 @@ void grafo_lista::BPArticulacao(vertice *v, int tag[], bool visitado[], int curr
     }
 }
 
-int grafo_lista::auxSetGrau(){
-    int grau = 0;
-    vertice *v = getInicio();
-    while (v != NULL){
-        int g = 0;
-        edge *e = v->getAresta();
-        while (e != NULL){
-            g++;
-            e = e->getProx();
-        }
-        if (g > grau){
-            grau = g;
-        }
-        v = v->getProx();
-    }
-    return grau;
-}
-
 void grafo_lista::inicializa() {
     // eu sei como evitar essa função mas é mais fácil deixar por enquanto
 }

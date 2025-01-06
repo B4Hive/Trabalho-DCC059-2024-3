@@ -31,8 +31,7 @@ public:
     void BPPonte(int v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW);
     bool auxVerticeArticulacao();
     void BPArticulacao(int v, int tag[], bool visitado[], int currentTag, int ignoredV);
-    int auxSetGrau();
-
+   
     void inicializa();
     void imprime();
 

@@ -76,7 +76,6 @@ class Grafo
     //B4Hive
     virtual bool auxArestaPonte() = 0;
     virtual bool auxVerticeArticulacao() = 0;
-    virtual int auxSetGrau() = 0;
     
     //Variaveis internas
     string filename;

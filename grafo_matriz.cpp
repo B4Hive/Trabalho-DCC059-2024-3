@@ -281,25 +281,6 @@ void grafo_matriz::BPArticulacao(int v, int tag[], bool visitado[], int currentT
     }
 }
 
-int grafo_matriz::auxSetGrau(){
-    int grau = 0;
-    int v = 1;
-    while (v <= getOrdem()){
-        int g = 0;
-        int e = 1;
-        while (e <= getOrdem()){
-            if(this->operator()(v, e) != 0 && v != e){
-                g++;
-            }
-            e++;
-        }
-        if (g > grau){
-            grau = g;
-        }
-        v++;
-    }
-    return grau;
-}
 // B4Hive-end
 
 void grafo_matriz::imprime()

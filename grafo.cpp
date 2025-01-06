@@ -294,7 +294,14 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName){
         getline(file, line);
     }
 
-    setGrau(auxSetGrau());
+    for(int i = 1; i <= getOrdem(); i++)
+    {
+       if(grauVertice(i) > getGrau())
+       {
+           setGrau(grauVertice(i));
+       }
+    }
+
 
     file.close();
 }
