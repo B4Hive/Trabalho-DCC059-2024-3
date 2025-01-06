@@ -238,42 +238,33 @@ int Grafo::getTamanho()
 // << @BHive >>
 
 bool Grafo::auxArestaPonte(){
-    int tag[getOrdem()];
-    for (int &t : tag) {
-        t = -1;
-    }
     bool visitado[getOrdem()];
     for (bool &vis : visitado) {
         vis = false;
     }
     int v = 1;
     int count = 0;
-    int tagCount = 0;
-    while (v < getOrdem()){
+    while (v <= getOrdem()){
         if (!visitado[v-1]){
             count++;
-            tagCount++;
-            BPPonte(v, tag, visitado, tagCount, -1, -1);
+            BPPonte(v, visitado, -1, -1);
         }    
         v++;
     }
-
     for(int i = 1; i <= getOrdem(); i++){
         for(int j = 1; j <= getOrdem(); j++){
-            for (int &t : tag) {
-                t = -1;
+            if(i == j){
+                continue;
             }
             for (bool &vis : visitado) {
                 vis = false;
             }
             int counter = 0;
-            int tagCounter = 0;
             v = 1;
-            while (v < getOrdem()){
+            while (v <= getOrdem()){
                 if (!visitado[v-1]){
                     counter++;
-                    tagCounter++;
-                    BPPonte(v, tag, visitado, tagCounter, i, j);
+                    BPPonte(v, visitado, i, j);
                 }
                 v++;
             }
@@ -285,56 +276,47 @@ bool Grafo::auxArestaPonte(){
     return false;
 }
 
-void Grafo::BPPonte(int v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW) {
+void Grafo::BPPonte(int v, bool visitado[], int ignoredV, int ignoredW) {
     visitado[v-1] = true;
-    tag[v-1] = currentTag;
     int *vizinhos = vizinhosVertice(v);
+    if (vizinhos == nullptr) {
+        return;
+    }
     for (int i = 0; i < grauVertice(v); i++){
         if ((v != ignoredV && vizinhos[i] != ignoredW) || (!getDirecionado() && v != ignoredW && vizinhos[i] != ignoredV)){
             int w = vizinhos[i];
             if (!visitado[w-1] && w != ignoredV){
-                BPPonte(w, tag, visitado, currentTag, ignoredV, ignoredW);
+                BPPonte(w, visitado, ignoredV, ignoredW);
             }
         }
     }
 }
 
 bool Grafo::auxVerticeArticulacao() {
-    int tag[getOrdem()];
-    for (int &t : tag) {
-        t = -1;
-    }
     bool visitado[getOrdem()];
     for (bool &vis : visitado) {
         vis = false;
     }
     int v = 1;
     int count = 0;
-    int tagCount = 0;
     while (v < getOrdem()){
         if (!visitado[v-1]){
             count++;
-            tagCount++;
-            BPArticulacao(v, tag, visitado, tagCount, -1);
+            BPArticulacao(v, visitado, -1);
         }    
         v++;
     }
     
     for (int w = 1; w <= getOrdem(); w++) {
-        for (int &t : tag) {
-            t = -1;
-        }
         for (bool &vis : visitado) {
             vis = false;
         }
         int counter = 0;
-        int tagCounter = 0;
         v = 1;
         while (v < getOrdem()){
             if (!visitado[v-1]){
                 counter++;
-                tagCounter++;
-                BPArticulacao(v, tag, visitado, tagCounter, w);
+                BPArticulacao(v, visitado, w);
             }
             v++;
         }
@@ -345,17 +327,16 @@ bool Grafo::auxVerticeArticulacao() {
     return false;
 }
 
-void Grafo::BPArticulacao(int v, int tag[], bool visitado[], int currentTag, int ignoredV) {
+void Grafo::BPArticulacao(int v, bool visitado[], int ignoredV) {
     if(visitado[v-1] || v == ignoredV){
         return;
     }
     visitado[v-1] = true;
-    tag[v-1] = currentTag;
     int *vizinhos = vizinhosVertice(v);
     for (int i = 0; i < grauVertice(v); i++){
         int w = vizinhos[i];
         if (!visitado[w-1] && w != ignoredV){
-            BPArticulacao(w, tag, visitado, currentTag, ignoredV);
+            BPArticulacao(w, visitado, ignoredV);
         }
     }
 }
@@ -394,18 +375,21 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName){
 
     for (int i = 1; i <= getOrdem(); i++)
     {
-        int peso;
+        int peso = 1;
         if (getVertices_ponderados())
         {
             file >> peso;
         }
         insere_vertice(i, peso);
     }
-    getline(file, line);
+    if (getVertices_ponderados())
+    {
+        getline(file, line);
+    }
     while (!file.eof())
     {
         int v, w;
-        int peso = 0;
+        int peso = 1;
         file >> v; // vertice orígem
         file >> w; // vertice destino
         if (getArestas_ponderadas())

@@ -47,7 +47,7 @@ int main(int argc, char *argv[])
         g->carrega_grafo(argv[2], filename);
         g->exportDesc();
         g->imprime();
-
+/*
         // Exemplo de percurso por todo o grafo;
         for(int i = 0; i < g->getOrdem(); i++)
         {
@@ -70,7 +70,7 @@ int main(int argc, char *argv[])
             }
             cout << endl;
         }
-
+*/
     }
     else if(parametro1 == "-c") 
     {

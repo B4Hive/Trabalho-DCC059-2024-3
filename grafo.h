@@ -75,9 +75,9 @@ class Grafo
 
     //B4Hive
     bool auxArestaPonte();
-    void BPPonte(int v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW);
+    void BPPonte(int v, bool visitado[], int ignoredV, int ignoredW);
     bool auxVerticeArticulacao();
-    void BPArticulacao(int v, int tag[], bool visitado[], int currentTag, int ignoredV);
+    void BPArticulacao(int v, bool visitado[], int ignoredV);
     virtual int auxSetGrau() = 0;
     
     //Variaveis internas

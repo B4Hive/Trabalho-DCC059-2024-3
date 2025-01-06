@@ -123,43 +123,26 @@ edge *grafo_matriz::getAresta(int idAresta)
 
 int * grafo_matriz::vizinhosVertice(int id)
 {
-    vertice *v_inicio = new vertice();
-    vertice *p = new vertice();
-    vertice *aux = new vertice();
-    unsigned int grau = 0;
-    v_inicio->ID() = id;
-    v_inicio->setProx(p);
+    int grau = grauVertice(id);
+    int* vizinhos = new int[grau];
+    int j = 0;
     for(int i = 0; i < getOrdem(); i++)
     {
-        if(this->operator()(id-1, i) != 0)
+        if(this->operator()(id, i) != 0)
         {
-            p->ID() = i+1;
-            p = p->getProx();
-            grau++;
+            vizinhos[j] = i;
+            j++;
         }
     }
-
-    int* vizinhos = new int[grau];
-    p = v_inicio->getProx();
-    for(int i = 0; p != NULL; i++)
-    {
-        vizinhos[i] = p->ID();
-        aux = p;
-        p = p->getProx();
-        delete aux;
-    }
-
-    delete v_inicio;
     return vizinhos;
-
 }
 
 int grafo_matriz::grauVertice(int id)
 {
     int grau = 0;
-    for(int i = 0; i < getOrdem(); i++)
+    for(int i = 1; i <= getOrdem(); i++)
     {
-        if(this->operator()(id-1, i) != 0)
+        if(this->operator()(id, i) != 0)
         {
             grau++;
         }
