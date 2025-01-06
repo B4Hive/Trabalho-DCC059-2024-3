@@ -251,6 +251,7 @@ bool Grafo::auxArestaPonte(){
         }    
         v++;
     }
+cout << "DEBUG" << endl;
     for(int i = 1; i <= getOrdem(); i++){
         for(int j = 1; j <= getOrdem(); j++){
             if(i == j){
@@ -279,7 +280,7 @@ bool Grafo::auxArestaPonte(){
 void Grafo::BPPonte(int v, bool visitado[], int ignoredV, int ignoredW) {
     visitado[v-1] = true;
     int *vizinhos = vizinhosVertice(v);
-    if (vizinhos == nullptr) {
+    if (vizinhos == NULL) {
         return;
     }
     for (int i = 0; i < grauVertice(v); i++){
@@ -294,12 +295,12 @@ void Grafo::BPPonte(int v, bool visitado[], int ignoredV, int ignoredW) {
 
 bool Grafo::auxVerticeArticulacao() {
     bool visitado[getOrdem()];
-    for (bool &vis : visitado) {
-        vis = false;
+    for (int i = 0; i < getOrdem(); i++) {
+        visitado[i] = false;
     }
     int v = 1;
     int count = 0;
-    while (v < getOrdem()){
+    while (v <= getOrdem()){
         if (!visitado[v-1]){
             count++;
             BPArticulacao(v, visitado, -1);
@@ -308,12 +309,12 @@ bool Grafo::auxVerticeArticulacao() {
     }
     
     for (int w = 1; w <= getOrdem(); w++) {
-        for (bool &vis : visitado) {
-            vis = false;
+        for (int i = 0; i < getOrdem(); i++) {
+            visitado[i] = false;
         }
         int counter = 0;
         v = 1;
-        while (v < getOrdem()){
+        while (v <= getOrdem()){
             if (!visitado[v-1]){
                 counter++;
                 BPArticulacao(v, visitado, w);
