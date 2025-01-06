@@ -41,15 +41,24 @@ int &grafo_matriz::operator()(int v, int w)
     int i = v;
     int j = w;
     if(!getDirecionado())
-    {   if(i < j)
-            return m[i * (i - 1) / 2 + j];
+    {   
+        
+        if(i >= j)
+        {
+            return m[i*(i+1)/2+j];
+        }
         else
-            return m[j * (j - 1) / 2 + i];
+        {
+            return m[j*(j+1)/2+i];
+        }
+
     }
+        
     else
     {
         return m[i * getOrdem() + j];
     }
+    return m[0];
 }
 
 void grafo_matriz::insere_vertice(int id, int peso)
@@ -285,19 +294,15 @@ void grafo_matriz::BPArticulacao(int v, int tag[], bool visitado[], int currentT
 
 void grafo_matriz::imprime()
 {
-    if(!getDirecionado())
+    if (!getDirecionado())
     {
-        for(int i = 0; i < getOrdem(); i++)
+        for (int i = 0; i < getOrdem(); i++)
         {
-            for(int j = 0; j < getOrdem(); j++)
+            for (int j = 0; j <= i; j++)
             {
-                if(i < j)
+                if (i >= j)
                 {
-                    cout << m[i * (i - 1) / 2 + j] << " ";
-                }
-                else
-                {
-                    cout << m[j * (j - 1) / 2 + i] << " ";
+                    cout << m[i * (i + 1) / 2 + j] << " ";
                 }
             }
             cout << endl;
@@ -305,9 +310,9 @@ void grafo_matriz::imprime()
     }
     else
     {
-        for(int i = 0; i < getOrdem(); i++)
+        for (int i = 0; i < getOrdem(); i++)
         {
-            for(int j = 0; j < getOrdem(); j++)
+            for (int j = 0; j < getOrdem(); j++)
             {
                 cout << m[i * getOrdem() + j] << " ";
             }
