@@ -73,6 +73,10 @@ class Grafo
 
     int &Tamanho()             {return info[3];} // Quantidade de arestas que o grafo tem
 
+    void temCiclo(int v, bool visitado[], bool *resultado);
+    bool eh_completo();
+    bool eh_arvore();
+
     //B4Hive
     bool auxArestaPonte();
     void BPPonte(int v, bool visitado[], int *tempo, int disc[], int low[], int pai, int *qtdPonte);
