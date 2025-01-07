@@ -205,6 +205,7 @@ bool Grafo::getArestas_ponderadas()
 
 bool Grafo::getCompleto()
 {
+    eh_completo();
     return dpp[3];
 }
 
@@ -215,6 +216,7 @@ bool Grafo::getBipartido()
 
 bool Grafo::getArvore()
 {
+    eh_arvore();
     return dpp[5];
 }
 
@@ -387,6 +389,8 @@ bool Grafo::eh_arvore()
 	{
         return true;
     }
+
+    return false;
 }
 
 // >>
