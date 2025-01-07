@@ -380,8 +380,10 @@ bool Grafo::eh_arvore()
     void *visitado = new bool[getOrdem()];
     for (bool &vis : visitado) vis = false;
 
+    temCiclo(1, visitado, &resultado);
+
     // Verifica se o grafo eh conexo, se o numero de arestas eh igual ao numero de vertices-1 e se tem ciclos
-    if (conexo() && arestas == n - 1 && !temCiclo(1, visitado, &resultado))
+    if (BPConexo() == 1 && arestas == n - 1 && !resultado)
 	{
         return true;
     }
