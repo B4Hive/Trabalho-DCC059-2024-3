@@ -338,7 +338,7 @@ void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], i
 bool Grafo::eh_completo() 
 {
     //para um grafo ser completo, cada vértice deve ter V-1 arestas. Então, se um deles não tiver v-1 arestas, o grafo não é completo
-    for (int i = 0; i < getOrdem(); i++) 
+    for (int i = 1; i <= getOrdem(); i++) 
 	{
         if (grauVertice(i) != getOrdem()-1)
             return false; 
@@ -354,7 +354,7 @@ void Grafo::temCiclo(int v, bool visitado[], bool *resultado)
     visitado[v-1] = true;
     int *vizinhos = vizinhosVertice(v);
 
-    for (int i = 0; i < grauVertice(v); i++)
+    for (int i = ; i < grauVertice(v); i++)
     {
       temCiclo(vizinhos[i], visitado, resultado);
     }
