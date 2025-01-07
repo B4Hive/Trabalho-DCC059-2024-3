@@ -172,6 +172,7 @@ void Grafo::setTamanho(int tamanho)
     }
 }
 
+
 int Grafo::getGrau()
 {
     return info[0];
@@ -232,7 +233,109 @@ int Grafo::getTamanho()
     return info[3];
 }
 
-// >
+// >>
+
+// << @BHive >>
+
+bool Grafo::auxArestaPonte() {
+    int disc[getOrdem()];
+    int low[getOrdem()];
+    int pai = -1;
+    bool visitado[getOrdem()];
+    int tempo = 0;
+    int qtdPonte = 0;
+    for (int i = 0; i < getOrdem(); i++){
+        disc[i] = -1;
+        low[i] = -1;
+        visitado[i] = false;
+    }
+
+    for (int i = 1; i <= getOrdem(); i++){
+        if (disc[i-1] == -1){
+            BPPonte(i, visitado, &tempo, disc, low, pai, &qtdPonte);
+        }
+    }
+
+    return qtdPonte > 0;
+}
+
+void Grafo::BPPonte(int v, bool visitado[], int *tempo, int disc[], int low[], int pai, int *qtdPonte) {
+    (*tempo)++;
+    disc[v-1] = *tempo;
+    low[v-1] = *tempo;
+    visitado[v-1] = true;
+    int *vizinhos = vizinhosVertice(v);
+    for (int i = 0; i < grauVertice(v); i++){
+        int w = vizinhos[i];
+        if (!visitado[w-1]){
+            pai = v;
+            BPPonte(w, visitado, tempo, disc, low, pai, qtdPonte);
+            low[v-1] = min(low[v-1], low[w-1]);
+            if (low[w-1] > disc[v-1]){
+                (*qtdPonte)++;
+            }
+        } else if (w != pai){
+            low[v-1] = min(low[v-1], disc[w-1]);
+        }
+    }
+}
+
+bool Grafo::auxVerticeArticulacao() {
+    int ordem = getOrdem();
+    int disc[ordem];
+    int low[ordem];
+    int pai[ordem];
+    int tempo = 0;
+    int qtdArticulacao = 0;
+
+    for (int i = 0; i < ordem; i++) {
+        disc[i] = -1;
+        low[i] = -1;
+        pai[i] = -1;
+    }
+
+    for (int i = 1; i <= ordem; i++) {
+        if (disc[i-1] == -1) {
+            BPArticulacao(i, &tempo, disc, low, pai, &qtdArticulacao);
+        }
+    }
+
+    return qtdArticulacao > 0;
+}
+
+void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], int *qtdArticulacao) {
+    (*tempo)++;
+    disc[v-1] = *tempo;
+    low[v-1] = *tempo;
+    int filhos = 0;
+    bool isArticulation = false;
+    int *vizinhos = vizinhosVertice(v);
+
+    for (int i = 0; i < grauVertice(v); i++) {
+        int w = vizinhos[i];
+        if (disc[w-1] == -1) { // w não foi visitado
+            filhos++;
+            pai[w-1] = v;
+            BPArticulacao(w, tempo, disc, low, pai, qtdArticulacao);
+            low[v-1] = min(low[v-1], low[w-1]);
+
+            if (pai[v-1] == -1 && filhos > 1) {
+                isArticulation = true;
+            }
+            if (pai[v-1] != -1 && low[w-1] >= disc[v-1]) {
+                isArticulation = true;
+            }
+        } else if (w != pai[v-1]) {
+            low[v-1] = min(low[v-1], disc[w-1]);
+        }
+    }
+
+    if (isArticulation) {
+        (*qtdArticulacao)++;
+    }
+}
+
+// >>
 
 void Grafo::carrega_grafo(char *tipo, string dataFileName){
     ifstream file;
@@ -281,7 +384,7 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName){
     while (!file.eof())
     {
         int v, w;
-        int peso = 0;
+        int peso = 1;
         file >> v; // vertice orígem
         file >> w; // vertice destino
         if (getArestas_ponderadas())

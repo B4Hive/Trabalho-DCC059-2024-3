@@ -74,8 +74,10 @@ class Grafo
     int &Tamanho()             {return info[3];} // Quantidade de arestas que o grafo tem
 
     //B4Hive
-    virtual bool auxArestaPonte() = 0;
-    virtual bool auxVerticeArticulacao() = 0;
+    bool auxArestaPonte();
+    void BPPonte(int v, bool visitado[], int *tempo, int disc[], int low[], int pai, int *qtdPonte);
+    bool auxVerticeArticulacao();
+    void BPArticulacao(int v, int *tempo, int disc[], int low[], int *pai, int *qtdArticulacao);
     
     //Variaveis internas
     string filename;

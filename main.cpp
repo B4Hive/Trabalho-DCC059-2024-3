@@ -55,13 +55,13 @@ int main(int argc, char *argv[])
         g->imprime();
         cout << " --------------------------------------------" << endl;
 
-        cout << "Percorrendo grafo e imprimindo informações" << endl;
+        cout << "Percorrendo grafo e imprimindo informaï¿½ï¿½es" << endl;
 
         cout << " -------Vertices-------"<<endl;
         // Exemplo de percurso por todo o grafo;
         //if(g->getDirecionado())
         //{
-        //    cout << "OBS: A noção de vizinhança de vértices é associada a grafos não orientado (GOLDBARG 2012, pg.10)" << endl<<endl;
+        //    cout << "OBS: A noï¿½ï¿½o de vizinhanï¿½a de vï¿½rtices ï¿½ associada a grafos nï¿½o orientado (GOLDBARG 2012, pg.10)" << endl<<endl;
         //}
         for(int i = 0; i < g->getOrdem(); i++)
         {

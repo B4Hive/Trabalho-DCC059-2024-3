@@ -27,11 +27,7 @@ public:
     int &operator()(int v, int w);
     
     //B4Hive
-    bool auxArestaPonte();
-    void BPPonte(int v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW);
-    bool auxVerticeArticulacao();
-    void BPArticulacao(int v, int tag[], bool visitado[], int currentTag, int ignoredV);
-   
+
     void inicializa();
     void imprime();
 

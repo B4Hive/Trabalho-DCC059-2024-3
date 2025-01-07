@@ -203,8 +203,7 @@ int* grafo_lista::vizinhosVertice(int id)
             }
             int *vizinhos = new int[p->Grau()];
             edge *e = p->getAresta();
-            int i = 0;
-            for(unsigned int i = 0; e != NULL; i++)
+            for(int i = 0; e != NULL; i++)
             {
                 vizinhos[i] = e->W();
                 e = e->getProx();
@@ -231,130 +230,6 @@ int grafo_lista::grauVertice(int id)
     return 0;
 }
 // B4Hive-begin
-bool grafo_lista::auxArestaPonte() {
-    int tag[getOrdem()];
-    for (int &t : tag) {
-        t = -1;
-    }
-    bool visitado[getOrdem()];
-    for (bool &vis : visitado) {
-        vis = false;
-    }
-    vertice *v = getInicio();
-    int count = 0;
-    int tagCount = 0;
-    while (v != NULL){
-        if (!visitado[v->ID()-1]){
-            count++;
-            tagCount++;
-            BPPonte(v, tag, visitado, tagCount, -1, -1);
-        }    
-        v = v->getProx();
-    }
-
-    for(int i = 1; i <= getOrdem(); i++){
-        for(int j = 1; j <= getOrdem(); j++){
-            for (int &t : tag) {
-                t = -1;
-            }
-            for (bool &vis : visitado) {
-                vis = false;
-            }
-            int counter = 0;
-            int tagCounter = 0;
-            v = getInicio();
-            while (v != NULL){
-                if (!visitado[v->ID()-1]){
-                    counter++;
-                    tagCounter++;
-                    BPPonte(v, tag, visitado, tagCounter, i, j);
-                }
-                v = v->getProx();
-            }
-            if (counter > count) {
-                return true;
-            }
-        }
-    }
-    return false;
-}
-
-void grafo_lista::BPPonte(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW) {
-    visitado[v->ID()-1] = true;
-    tag[v->ID()-1] = currentTag;
-    edge *e = v->getAresta();
-    while (e != NULL){
-        if ((e->V() != ignoredV && e->W() != ignoredW) || (!getDirecionado() && e->V() != ignoredW && e->W() != ignoredV)){
-            vertice *w = getVertice(e->W());
-            if (!visitado[w->ID()-1] && w->ID() != ignoredV){
-                BPPonte(w, tag, visitado, currentTag, ignoredV, ignoredW);
-            }
-        }
-        e = e->getProx();
-    }
-}
-
-bool grafo_lista::auxVerticeArticulacao() {
-    int tag[getOrdem()];
-    for (int &t : tag) {
-        t = -1;
-    }
-    bool visitado[getOrdem()];
-    for (bool &vis : visitado) {
-        vis = false;
-    }
-    vertice *v = getInicio();
-    int count = 0;
-    int tagCount = 0;
-    while (v != NULL){
-        if (!visitado[v->ID()-1]){
-            count++;
-            tagCount++;
-            BPArticulacao(v, tag, visitado, tagCount, -1);
-        }    
-        v = v->getProx();
-    }
-    
-    for (int w = 1; w <= getOrdem(); w++) {
-        for (int &t : tag) {
-            t = -1;
-        }
-        for (bool &vis : visitado) {
-            vis = false;
-        }
-        int counter = 0;
-        int tagCounter = 0;
-        v = getInicio();
-        while (v != NULL){
-            if (!visitado[v->ID()-1]){
-                counter++;
-                tagCounter++;
-                BPArticulacao(v, tag, visitado, tagCounter, w);
-            }
-            v = v->getProx();
-        }
-        if (counter > count) {
-            return true;
-        }
-    }
-    return false;
-}
-
-void grafo_lista::BPArticulacao(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV) {
-    if(visitado[v->ID()-1] || v->ID() == ignoredV){
-        return;
-    }
-    visitado[v->ID()-1] = true;
-    tag[v->ID()-1] = currentTag;
-    edge *e = v->getAresta();
-    while (e != NULL){
-        vertice *w = getVertice(e->W());
-        if (!visitado[w->ID()-1] && w->ID() != ignoredV){
-            BPArticulacao(w, tag, visitado, currentTag, ignoredV);
-        }
-        e = e->getProx();
-    }
-}
 
 void grafo_lista::inicializa() {
     // eu sei como evitar essa função mas é mais fácil deixar por enquanto

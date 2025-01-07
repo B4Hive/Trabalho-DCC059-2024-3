@@ -25,11 +25,8 @@ class grafo_lista : public Grafo {
         edge *getAresta(int v, int w);
 
         //B4Hive
-        bool auxArestaPonte();
-        void BPPonte(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV, int ignoredW);
-        bool auxVerticeArticulacao();
-        void BPArticulacao(vertice *v, int tag[], bool visitado[], int currentTag, int ignoredV);
-        
+        int auxSetGrau();
+
         void inicializa();
         void imprime();
         
