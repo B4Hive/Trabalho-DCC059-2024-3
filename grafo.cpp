@@ -281,47 +281,57 @@ void Grafo::BPPonte(int v, bool visitado[], int *tempo, int disc[], int low[], i
 }
 
 bool Grafo::auxVerticeArticulacao() {
-    int disc[getOrdem()];
-    int low[getOrdem()];
-    int pai = -1;;
-    bool visitado[getOrdem()];
+    int ordem = getOrdem();
+    int disc[ordem];
+    int low[ordem];
+    int pai[ordem];
     int tempo = 0;
     int qtdArticulacao = 0;
-    for (int i = 0; i < getOrdem(); i++){
+
+    for (int i = 0; i < ordem; i++) {
         disc[i] = -1;
         low[i] = -1;
-        visitado[i] = false;
+        pai[i] = -1;
     }
 
-    for (int i = 1; i <= getOrdem(); i++){
-        if (!visitado[i-1]){
-            BPArticulacao(i, visitado, &tempo, disc, low, pai, &qtdArticulacao);
+    for (int i = 1; i <= ordem; i++) {
+        if (disc[i-1] == -1) {
+            BPArticulacao(i, &tempo, disc, low, pai, &qtdArticulacao);
         }
     }
+
     return qtdArticulacao > 0;
 }
 
-void Grafo::BPArticulacao(int v, bool visitado[], int *tempo, int disc[], int low[], int pai, int *qtdArticulacao) {
+void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], int *qtdArticulacao) {
     (*tempo)++;
     disc[v-1] = *tempo;
     low[v-1] = *tempo;
-    visitado[v-1] = true;
     int filhos = 0;
+    bool isArticulation = false;
     int *vizinhos = vizinhosVertice(v);
-    for (int i = 0; i < grauVertice(v); i++){
+
+    for (int i = 0; i < grauVertice(v); i++) {
         int w = vizinhos[i];
-        if (pai == w){
-            continue;
-        }
-        if (!visitado[w-1]){
+        if (disc[w-1] == -1) { // w não foi visitado
             filhos++;
-            pai = v;
-            BPArticulacao(w, visitado, tempo, disc, low, pai, qtdArticulacao);
+            pai[w-1] = v;
+            BPArticulacao(w, tempo, disc, low, pai, qtdArticulacao);
             low[v-1] = min(low[v-1], low[w-1]);
-            if (pai == -1 && filhos > 1){
-                (*qtdArticulacao)++;
+
+            if (pai[v-1] == -1 && filhos > 1) {
+                isArticulation = true;
             }
+            if (pai[v-1] != -1 && low[w-1] >= disc[v-1]) {
+                isArticulation = true;
+            }
+        } else if (w != pai[v-1]) {
+            low[v-1] = min(low[v-1], disc[w-1]);
         }
+    }
+
+    if (isArticulation) {
+        (*qtdArticulacao)++;
     }
 }
 

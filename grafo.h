@@ -77,7 +77,7 @@ class Grafo
     bool auxArestaPonte();
     void BPPonte(int v, bool visitado[], int *tempo, int disc[], int low[], int pai, int *qtdPonte);
     bool auxVerticeArticulacao();
-    void BPArticulacao(int v, bool visitado[], int *tempo, int disc[], int low[], int pai, int *qtdArticulacao);
+    void BPArticulacao(int v, int *tempo, int disc[], int low[], int *pai, int *qtdArticulacao);
     
     //Variaveis internas
     string filename;
