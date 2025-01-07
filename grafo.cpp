@@ -335,24 +335,6 @@ void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], i
     }
 }
 
-bool Grafo::eh_completo()
-{
-    // O numero total de arestas de um grafo completo é dado por n*(n-1)/2, onde n eh o numero de vertices
-    int n = getOrdem();
-    int arestasEsperadas = n*(n-1)/2;
-    int arestasReais = 0;
-
-    for(int i=0; i<n; i++)
-    {
-        arestasReais += grauVertice(i);
-    }
-
-    if(arestasReais == arestasEsperadas)
-        return true;
-    else
-        return false;
-}
-
 bool Grafo::eh_completo() 
 {
     //para um grafo ser completo, cada vértice deve ter V-1 arestas. Então, se um deles não tiver v-1 arestas, o grafo não é completo
