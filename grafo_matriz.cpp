@@ -134,7 +134,7 @@ int * grafo_matriz::vizinhosVertice(int id)
     
     if(grau == 0)
     {
-        cout << "Vertice sem vizinhos" << endl;
+        //cout << "Vertice sem vizinhos" << endl;
         return 0;
     }
     for(int i = 0; i <getOrdem(); i++)

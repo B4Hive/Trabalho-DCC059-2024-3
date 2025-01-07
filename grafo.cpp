@@ -630,7 +630,6 @@ bool Grafo::BipartidoFB(){
     int n = getOrdem(); 
     if (n <= 1) {
         return true;
-        return; 
     }
 
     for (int i = 0; i < (1 << n); ++i) { // Itera sobre todas as 2^n combinações de cores
@@ -656,8 +655,7 @@ bool Grafo::BipartidoFB(){
                 break;  
             }
         }
-
-            if (bipartido) {
+        if (bipartido) {
             return true; 
         }
     }
