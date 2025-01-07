@@ -198,7 +198,7 @@ int* grafo_lista::vizinhosVertice(int id)
         {
             if(p->Grau() == 0)
             {
-                cout << "Vertice sem vizinhos" << endl;
+                //cout << "Vertice sem vizinhos" << endl;
                 return NULL;
             }
             int *vizinhos = new int[p->Grau()];
