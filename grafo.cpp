@@ -190,6 +190,7 @@ bool Grafo::getDirecionado()
 
 int Grafo::getComponentes_conexas()
 {
+    info[2] = BPConexo();
     return info[2];
 }
 
@@ -211,6 +212,7 @@ bool Grafo::getCompleto()
 
 bool Grafo::getBipartido()
 {
+    dpp[4] = BipartidoFB();
     return dpp[4];
 }
 
@@ -679,6 +681,88 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
 
     file.close();
 }
+
+// ufjoao-init
+
+bool Grafo::BipartidoFB(){
+    int n = getOrdem(); 
+    if (n <= 1) {
+        return true;
+    }
+
+    for (int i = 0; i < (1 << n); ++i) { // Itera sobre todas as 2^n combinações de cores
+        bool bipartido = true;
+        bool cores[n] = {false};
+
+        // Atribui cores aos vértices de acordo com 'i'
+        for (int j = 0; j < n; ++j) {
+            cores[j] = (i & (1 << j)) != 0;
+        }
+        for(int k =1; k <= n; k++){
+            int *vizinhos =  vizinhosVertice(k);
+            int grau = grauVertice(k);
+            
+            for(int l=0; l < grau; l++){
+                int w = vizinhos[l];
+                if (cores[k - 1] == cores[w - 1]) { 
+                    bipartido = false; 
+                    break; 
+                }
+            }
+            if (!bipartido) {
+                break;  
+            }
+        }
+        if (bipartido) {
+            return true; 
+        }
+    }
+
+
+    return false;
+
+}
+
+// Função auxiliar para realizar a busca em profundidade
+void Grafo::auxBPConexos(int v, bool* visitado) {
+    visitado[v] = true;
+    int* vizinhos = vizinhosVertice(v);  // Obtém os vizinhos do vértice
+    int grau = grauVertice(v);  // Obtém o grau do vértice
+
+    for (int i = 0; i < grau; i++) {
+        int w = vizinhos[i];
+        if (!visitado[w]) {
+            auxBPConexos(w, visitado);  // Realiza DFS recursivamente nos vizinhos não visitados
+        }
+    }
+}
+
+// Função para contar componentes conexos
+unsigned int Grafo::BPConexo() {
+    int n = getOrdem();  // Ordem do grafo (número de vértices)
+    if (n <= 0) {
+        return 0;
+    }
+
+    bool visitado[n];  // Array de visitados (considerando vértices de 1 a n)
+    for (int i = 1; i <= n; i++) {
+        visitado[i] = false;  // Inicializa todos os vértices como não visitados
+    }
+
+    int componentesConexos = 0;
+
+    for (int i = 1; i <= n; i++) {
+        if (!visitado[i]) {  // Se o vértice não foi visitado
+            componentesConexos++;  // Aumenta o número de componentes conexos
+            auxBPConexos(i, visitado);  // Realiza DFS a partir do vértice não visitado
+        }
+    }
+
+    return componentesConexos;
+}
+
+//ufjoao-final
+
 
 void Grafo::exportDesc(){
     cout << "Grau: " << getGrau() << endl;

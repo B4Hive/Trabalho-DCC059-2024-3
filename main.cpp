@@ -21,7 +21,9 @@ int main(int argc, char *argv[])
         cout << "<arquivoOut> o arquivo de saida utilizado apenas caso a operacao selecionada seja -c" << endl;
         exit(4);
     }
+    cout << "--------------------------------------------------" << endl;
     cout << "Programa iniciado " << endl;
+    cout << "--------------------------------------------------" << endl;
     /*
     cout << "argc: " << argc << endl;
     for(int i = 0; i < argc; i++)
@@ -29,14 +31,13 @@ int main(int argc, char *argv[])
         cout << "argv[" << i << "]: " << argv[i] << endl;
     }
      */
-    cout << endl;
     string filename;
     string parametro1 = argv[1];
     string parametro2 = argv[2];
     cout << "Parametro 1: " << parametro1 << endl;
     cout << "Parametro 2: " << parametro2 << endl;
     filename = argv[3];
-    cout << "Arquivo de entrada: " << filename << endl << endl;
+    cout << "Arquivo de entrada: " << filename << endl;
 
     Grafo *g;
 
@@ -50,11 +51,11 @@ int main(int argc, char *argv[])
         }
         g->carrega_grafo(argv[2], filename);
         g->exportDesc();
-        cout << " --------------------------------------------"<<endl;
-        cout << "Imprimindo grafo" << endl << endl;
+        cout << "--------------------------------------------------"<<endl;
+        cout << "Imprimindo grafo" << endl;
         g->imprime();
-        cout << " --------------------------------------------" << endl;
-
+        cout << "--------------------------------------------------" << endl;
+/**
         cout << "Percorrendo grafo e imprimindo informa��es" << endl;
 
         cout << " -------Vertices-------"<<endl;
@@ -105,7 +106,7 @@ int main(int argc, char *argv[])
             }
         }
         cout << "--------------------------------------------" << endl;
-
+*/
     }
     else if(parametro1 == "-c") 
     {

@@ -198,7 +198,7 @@ int* grafo_lista::vizinhosVertice(int id)
         {
             if(p->Grau() == 0)
             {
-                cout << "Vertice sem vizinhos" << endl;
+                //cout << "Vertice sem vizinhos" << endl;
                 return NULL;
             }
             int *vizinhos = new int[p->Grau()];
@@ -236,8 +236,8 @@ void grafo_lista::inicializa() {
 }
 
 void grafo_lista::imprime() {
-    cout << endl << "Imprimindo lista" << endl;
-    cout << "vertice(peso do vertice) -> vizinho(peso da aresta) - vizinho(peso da aresta)..." << endl;
+    //cout << endl << "Imprimindo lista" << endl;
+    //cout << "vertice(peso do vertice) -> vizinho(peso da aresta) - vizinho(peso da aresta)..." << endl;
     vertice *v = getInicio();
     while (v != NULL){
         cout << v->ID() << "(" << v->Peso() << ") -> ";

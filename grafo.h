@@ -83,6 +83,12 @@ class Grafo
     bool auxVerticeArticulacao();
     void BPArticulacao(int v, int *tempo, int disc[], int low[], int *pai, int *qtdArticulacao);
     
+   //ufjoao
+    unsigned int BPConexo();     // info[2]
+    void auxBPConexos(int v, bool* visitado);
+    bool BipartidoFB();
+
+
     //Variaveis internas
     string filename;
     int info[4]{0,0,0,0}; //[Grau, Ordem, Componentes_conexas, Tamanho]
