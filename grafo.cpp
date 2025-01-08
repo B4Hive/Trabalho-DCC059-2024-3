@@ -339,6 +339,10 @@ void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], i
     }
 }
 
+// >>
+
+// << Rodrigo >>
+
 bool Grafo::eh_completo() 
 {
     //para um grafo ser completo, cada vértice deve ter V-1 arestas. Então, se um deles não tiver v-1 arestas, o grafo não é completo
@@ -684,7 +688,7 @@ void Grafo::novo_grafo(char *tipo, string descFileName)
     file.close();
 }
 
-// ufjoao-init
+// << ufjoao-init >>
 
 bool Grafo::BipartidoFB(){
     int n = getOrdem(); 
@@ -763,8 +767,7 @@ unsigned int Grafo::BPConexo() {
     return componentesConexos;
 }
 
-//ufjoao-final
-
+// >> ufjoao-final
 
 void Grafo::exportDesc(){
     cout << "Grau: " << getGrau() << endl;
