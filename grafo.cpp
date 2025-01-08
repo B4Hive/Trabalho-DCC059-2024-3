@@ -351,23 +351,23 @@ bool Grafo::eh_completo()
     return true;
 }
 
-void Grafo::temCiclo(int v, bool visitado[], bool *resultado)
+void Grafo::temCiclo(int v, bool visitado[], int pai, bool *resultado)
 {
-  if(visitado[v-1] == false)
-  {
-    visitado[v-1] = true;
-    int *vizinhos = vizinhosVertice(v);
-
-    for (int i = 0; i < grauVertice(v); i++)
+    if(visitado[v-1] == false)
     {
-      temCiclo(vizinhos[i], visitado, resultado);
+        visitado[v-1] = true;
+        int *vizinhos = vizinhosVertice(v);
+
+        for (int i = 0; i < grauVertice(v); i++)
+        {
+            if(vizinhos[i] != pai)
+                temCiclo(vizinhos[i], visitado, v, resultado);
+        }
     }
-  }
-  else
-  {
-    *resultado = true;
-    return;
-  }
+    else
+    {
+        *resultado = true;
+    }
 }
 
 bool Grafo::eh_arvore() 
@@ -379,15 +379,17 @@ bool Grafo::eh_arvore()
     {
         arestas += grauVertice(i+1);
     }
-	
+	if(!getDirecionado()){
+        arestas = arestas/2;
+    }
     bool resultado = false;
     bool visitado[getOrdem()];
     for (bool &vis : visitado) vis = false;
 
-    temCiclo(1, visitado, &resultado);
+    temCiclo(1, visitado, -1, &resultado);
 
     // Verifica se o grafo eh conexo, se o numero de arestas eh igual ao numero de vertices-1 e se tem ciclos
-    if (BPConexo() == 1 && arestas/2 == getOrdem() - 1 && !resultado)
+    if (BPConexo() == 1 && arestas == getOrdem() - 1 && !resultado)
 	{
         return true;
     }
