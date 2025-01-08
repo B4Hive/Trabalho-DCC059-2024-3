@@ -206,6 +206,7 @@ bool Grafo::getArestas_ponderadas()
 
 bool Grafo::getCompleto()
 {
+    eh_completo();
     return dpp[3];
 }
 
@@ -217,6 +218,7 @@ bool Grafo::getBipartido()
 
 bool Grafo::getArvore()
 {
+    eh_arvore();
     return dpp[5];
 }
 
@@ -335,6 +337,62 @@ void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], i
     if (isArticulation) {
         (*qtdArticulacao)++;
     }
+}
+
+bool Grafo::eh_completo() 
+{
+    //para um grafo ser completo, cada vértice deve ter V-1 arestas. Então, se um deles não tiver v-1 arestas, o grafo não é completo
+    for (int i = 1; i <= getOrdem(); i++) 
+	{
+        if (grauVertice(i) != getOrdem()-1)
+            return false; 
+    }
+
+    return true;
+}
+
+void Grafo::temCiclo(int v, bool visitado[], bool *resultado)
+{
+  if(visitado[v-1] == false)
+  {
+    visitado[v-1] = true;
+    int *vizinhos = vizinhosVertice(v);
+
+    for (int i = ; i < grauVertice(v); i++)
+    {
+      temCiclo(vizinhos[i], visitado, resultado);
+    }
+  }
+  else
+  {
+    resultado = true;
+    return;
+  }
+}
+
+bool Grafo::eh_arvore() 
+{
+	int arestas = 0;
+
+    //contabiliza o total de arestas do grafo
+    for (int i = 0; i < getOrdem(); i++)
+    {
+        arestas += grauVertice(i+1);
+    }
+	
+    bool resultado = false;
+    void *visitado = new bool[getOrdem()];
+    for (bool &vis : visitado) vis = false;
+
+    temCiclo(1, visitado, &resultado);
+
+    // Verifica se o grafo eh conexo, se o numero de arestas eh igual ao numero de vertices-1 e se tem ciclos
+    if (BPConexo() == 1 && arestas == n - 1 && !resultado)
+	{
+        return true;
+    }
+
+    return false;
 }
 
 // >>
