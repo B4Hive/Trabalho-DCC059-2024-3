@@ -32,12 +32,22 @@ int main(int argc, char *argv[])
     }
      */
     string filename;
+    string fileOut;
     string parametro1 = argv[1];
     string parametro2 = argv[2];
     cout << "Parametro 1: " << parametro1 << endl;
     cout << "Parametro 2: " << parametro2 << endl;
     filename = argv[3];
     cout << "Arquivo de entrada: " << filename << endl;
+
+    if(argc == 5)
+    {
+        fileOut = argv[4];
+        cout << "Arquivo de saida: " << fileOut << endl << endl;
+    } 
+    else    cout << endl;
+
+
 
     Grafo *g;
 
@@ -54,8 +64,11 @@ int main(int argc, char *argv[])
         cout << "--------------------------------------------------"<<endl;
         cout << "Imprimindo grafo" << endl;
         g->imprime();
-        cout << "--------------------------------------------------" << endl;
-/**
+
+        cout << " --------------------------------------------" << endl;
+
+/*  //DEBUG
+
         cout << "Percorrendo grafo e imprimindo informa��es" << endl;
 
         cout << " -------Vertices-------"<<endl;
@@ -106,7 +119,11 @@ int main(int argc, char *argv[])
             }
         }
         cout << "--------------------------------------------" << endl;
+
+    
 */
+
+
     }
     else if(parametro1 == "-c") 
     {
@@ -116,11 +133,11 @@ int main(int argc, char *argv[])
         else if(parametro2 == "-m") {
             g = new grafo_matriz; 
         }
-        g->novo_grafo(argv[1], filename);
-        g->exportInfo();
-        g->imprime();
+        g->novo_grafo(filename, fileOut);
+        //g->imprime();
     }
-    
+
+
     delete g;
     
     return 0;

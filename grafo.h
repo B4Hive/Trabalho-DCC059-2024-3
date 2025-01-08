@@ -18,7 +18,7 @@ class Grafo
     ~Grafo(){}
 
     void carrega_grafo(char *tipo, string dataFileName);
-    void novo_grafo(char *tipo, string descFileName);
+    void novo_grafo(string descFileName, string outFileName);
     void exportInfo();
     void exportDesc();
 
@@ -82,6 +82,9 @@ class Grafo
     void BPPonte(int v, bool visitado[], int *tempo, int disc[], int low[], int pai, int *qtdPonte);
     bool auxVerticeArticulacao();
     void BPArticulacao(int v, int *tempo, int disc[], int low[], int *pai, int *qtdArticulacao);
+
+    //Abner
+    void casoEspecial(int tipo);
     
    //ufjoao
     unsigned int BPConexo();     // info[2]
@@ -91,6 +94,7 @@ class Grafo
 
     //Variaveis internas
     string filename;
+    string outFile;
     int info[4]{0,0,0,0}; //[Grau, Ordem, Componentes_conexas, Tamanho]
     bool dpp[8] = {0,0,0,0,0,0,0,0};
                 // direcionado             [0]
