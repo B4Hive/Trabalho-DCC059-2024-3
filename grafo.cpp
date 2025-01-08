@@ -206,8 +206,8 @@ bool Grafo::getArestas_ponderadas()
 
 bool Grafo::getCompleto()
 {
-    eh_completo();
-    return dpp[3];
+    return eh_completo();
+    //return dpp[3];
 }
 
 bool Grafo::getBipartido()
@@ -218,8 +218,8 @@ bool Grafo::getBipartido()
 
 bool Grafo::getArvore()
 {
-    eh_arvore();
-    return dpp[5];
+    return eh_arvore();
+    //return dpp[5];
 }
 
 bool Grafo::getAresta_Ponte()
@@ -358,14 +358,14 @@ void Grafo::temCiclo(int v, bool visitado[], bool *resultado)
     visitado[v-1] = true;
     int *vizinhos = vizinhosVertice(v);
 
-    for (int i = ; i < grauVertice(v); i++)
+    for (int i = 0; i < grauVertice(v); i++)
     {
       temCiclo(vizinhos[i], visitado, resultado);
     }
   }
   else
   {
-    resultado = true;
+    *resultado = true;
     return;
   }
 }
@@ -381,13 +381,13 @@ bool Grafo::eh_arvore()
     }
 	
     bool resultado = false;
-    void *visitado = new bool[getOrdem()];
+    bool visitado[getOrdem()];
     for (bool &vis : visitado) vis = false;
 
     temCiclo(1, visitado, &resultado);
 
     // Verifica se o grafo eh conexo, se o numero de arestas eh igual ao numero de vertices-1 e se tem ciclos
-    if (BPConexo() == 1 && arestas == n - 1 && !resultado)
+    if (BPConexo() == 1 && arestas/2 == getOrdem() - 1 && !resultado)
 	{
         return true;
     }
