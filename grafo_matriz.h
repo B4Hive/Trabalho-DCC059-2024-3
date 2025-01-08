@@ -17,17 +17,16 @@ public:
     int pesoVertice(int idV);
     bool buscaVertice(int id);
     int *vizinhosVertice(int id);
-    int  grauVertice(int id); 
+    int grauVertice(int id);
 
-    int  pesoAresta(int v, int w);
+    int pesoAresta(int v, int w);
     bool buscaAresta(int v, int w);
 
     edge *getAresta(int v, int w);
 
     int &operator()(int v, int w);
-    
-    //B4Hive
 
+    // B4Hive
     void inicializa();
     void imprime();
 

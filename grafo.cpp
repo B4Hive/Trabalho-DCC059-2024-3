@@ -239,7 +239,7 @@ int Grafo::getTamanho()
 
 // >>
 
-// << @BHive >>
+// << BHive >>
 
 bool Grafo::auxArestaPonte() {
     int disc[getOrdem()];
@@ -403,10 +403,7 @@ bool Grafo::eh_arvore()
 
 // >>
 
-
-
 // << Abner >>
-
 
 void Grafo::carrega_grafo(char *tipo, string dataFileName){
     ifstream file;
@@ -480,7 +477,6 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName){
     file.close();
 }
 
-//exportInfo precisa de parametro "filename" que vai estar em argv[4]
 void Grafo::exportInfo()
 {
     cout << "Exportando Info" << endl;
@@ -1159,6 +1155,63 @@ void Grafo::novo_grafo(string descFileName, string outFileName)
 
 }
 
+void Grafo::exportDesc(){
+    cout << "Grau: " << getGrau() << endl;
+    cout << "Ordem: " << getOrdem() << endl;
+    cout << "Direcionado: ";
+    if (getDirecionado()){
+        cout << "Sim" << endl;
+    }
+    else{
+        cout << "Nao" << endl;
+    }
+    cout << "Componentes conexas: " << getComponentes_conexas() << endl;
+    cout << "Vertices ponderados: ";
+    if (getVertices_ponderados()){
+        cout << "Sim" << endl;
+    }else{
+        cout << "Nao" << endl;
+    }
+    cout << "Arestas ponderadas: ";
+    if (getArestas_ponderadas()){
+        cout << "Sim" << endl;
+    }else{
+        cout << "Nao" << endl;
+    }
+    cout << "Completo: ";
+    if (getCompleto()){
+        cout << "Sim" << endl;
+    }else{
+        cout << "Nao" << endl;
+    }
+    cout << "Bipartido: ";
+    if (getBipartido()){
+        cout << "Sim" << endl;
+    }else{
+        cout << "Nao" << endl;
+    }
+    cout << "Arvore: ";
+    if (getArvore()){
+        cout << "Sim" << endl;
+    }else{
+        cout << "Nao" << endl;
+    }
+    cout << "Aresta Ponte: ";
+    if (getAresta_Ponte()){
+        cout << "Sim" << endl;
+    }else{
+        cout << "Nao" << endl;
+    }
+    cout << "Vertice de Articulacao: ";
+    if (getVertice_de_Articulacao()){
+        cout << "Sim" << endl;
+    }else{
+        cout << "Nao" << endl;
+    }
+}
+
+// >>
+
 // << ufjoao-init >>
 
 bool Grafo::BipartidoFB(){
@@ -1239,58 +1292,3 @@ unsigned int Grafo::BPConexo() {
 }
 
 // >> ufjoao-final
-
-void Grafo::exportDesc(){
-    cout << "Grau: " << getGrau() << endl;
-    cout << "Ordem: " << getOrdem() << endl;
-    cout << "Direcionado: ";
-    if (getDirecionado()){
-        cout << "Sim" << endl;
-    }
-    else{
-        cout << "Nao" << endl;
-    }
-    cout << "Componentes conexas: " << getComponentes_conexas() << endl;
-    cout << "Vertices ponderados: ";
-    if (getVertices_ponderados()){
-        cout << "Sim" << endl;
-    }else{
-        cout << "Nao" << endl;
-    }
-    cout << "Arestas ponderadas: ";
-    if (getArestas_ponderadas()){
-        cout << "Sim" << endl;
-    }else{
-        cout << "Nao" << endl;
-    }
-    cout << "Completo: ";
-    if (getCompleto()){
-        cout << "Sim" << endl;
-    }else{
-        cout << "Nao" << endl;
-    }
-    cout << "Bipartido: ";
-    if (getBipartido()){
-        cout << "Sim" << endl;
-    }else{
-        cout << "Nao" << endl;
-    }
-    cout << "Arvore: ";
-    if (getArvore()){
-        cout << "Sim" << endl;
-    }else{
-        cout << "Nao" << endl;
-    }
-    cout << "Aresta Ponte: ";
-    if (getAresta_Ponte()){
-        cout << "Sim" << endl;
-    }else{
-        cout << "Nao" << endl;
-    }
-    cout << "Vertice de Articulacao: ";
-    if (getVertice_de_Articulacao()){
-        cout << "Sim" << endl;
-    }else{
-        cout << "Nao" << endl;
-    }
-}

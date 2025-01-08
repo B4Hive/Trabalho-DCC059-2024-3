@@ -12,10 +12,9 @@ using namespace std;
 
 class Grafo
 {
-    public:
-
+public:
     Grafo() {}
-    ~Grafo(){}
+    ~Grafo() {}
 
     void carrega_grafo(char *tipo, string dataFileName);
     void novo_grafo(string descFileName, string outFileName);
@@ -26,21 +25,21 @@ class Grafo
     virtual void imprime() = 0;
 
     virtual void insere_vertice(int id, int peso) = 0;
-    //virtual void remove_vertice(int id) = 0; calma que vamos impelementar aindaa
+    // virtual void remove_vertice(int id) = 0; calma que vamos impelementar aindaa
 
     virtual void insere_aresta(int v, int w, int peso) = 0;
-    //virtual void remove_aresta(int v, int w) = 0; esse tambem, talvez....
+    // virtual void remove_aresta(int v, int w) = 0; esse tambem, talvez....
 
-    virtual int  pesoVertice(int id) = 0;
+    virtual int pesoVertice(int id) = 0;
     virtual bool buscaVertice(int id) = 0;
-    virtual int  grauVertice(int id) = 0;     // retorna o grau de um vertice
-    virtual int *vizinhosVertice(int id) = 0; //retorna um vetor com os ídices dos vertices vizinhos
+    virtual int grauVertice(int id) = 0;      // retorna o grau de um vertice
+    virtual int *vizinhosVertice(int id) = 0; // retorna um vetor com os ídices dos vertices vizinhos
 
-    virtual int  pesoAresta(int v, int w) = 0;
-    virtual edge *getAresta(int v, int w) = 0;  // alterar funcao
+    virtual int pesoAresta(int v, int w) = 0;
+    virtual edge *getAresta(int v, int w) = 0; // alterar funcao
     virtual bool buscaAresta(int v, int w) = 0;
-    //retono dos vizinho;
-    //Metodos pra acesso externo;
+    // retono dos vizinho;
+    // Metodos pra acesso externo;
 
     int getGrau();
     int getOrdem();
@@ -55,9 +54,8 @@ class Grafo
     bool getAresta_Ponte();
     bool getVertice_de_Articulacao();
 
-    protected:
-
-    //Metodos pra acesso interno;
+protected:
+    // Metodos pra acesso interno;
     void setGrau(int);
     void setOrdem(int);
     void setDirecionado(bool);
@@ -71,38 +69,37 @@ class Grafo
     void setVertice_de_Articulacao(bool);
     void setTamanho(int);
 
-    int &Tamanho()             {return info[3];} // Quantidade de arestas que o grafo tem
+    int &Tamanho() { return info[3]; } // Quantidade de arestas que o grafo tem
 
+    // Rodrigo
     void temCiclo(int v, bool visitado[], int pai, bool *resultado);
     bool eh_completo();
     bool eh_arvore();
 
-    //B4Hive
+    // B4Hive
     bool auxArestaPonte();
     void BPPonte(int v, bool visitado[], int *tempo, int disc[], int low[], int pai, int *qtdPonte);
     bool auxVerticeArticulacao();
     void BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], int *qtdArticulacao);
-    
-   //ufjoao
-    unsigned int BPConexo();     // info[2]
-    void auxBPConexos(int v, bool* visitado);
+
+    // ufjoao
+    unsigned int BPConexo(); // info[2]
+    void auxBPConexos(int v, bool *visitado);
     bool BipartidoFB();
 
-
-    //Variaveis internas
+    // Variaveis internas
     string filename;
     string outFile;
-    int info[4]{0,0,0,0}; //[Grau, Ordem, Componentes_conexas, Tamanho]
-    bool dpp[8] = {0,0,0,0,0,0,0,0};
-                // direcionado             [0]
-                // vertices ponderados     [1]
-                // arestas ponderadas      [2]
-                // completo                [3]
-                // Bipartido               [4]
-                // Arvore                  [5]
-                // Aresta Ponte            [6]
-                // Vertice de Articulação  [7]
-    
+    int info[4]{0, 0, 0, 0}; //[Grau, Ordem, Componentes_conexas, Tamanho]
+    bool dpp[8] = {0, 0, 0, 0, 0, 0, 0, 0};
+    // direcionado             [0]
+    // vertices ponderados     [1]
+    // arestas ponderadas      [2]
+    // completo                [3]
+    // Bipartido               [4]
+    // Arvore                  [5]
+    // Aresta Ponte            [6]
+    // Vertice de Articulação  [7]
 };
 
 #endif

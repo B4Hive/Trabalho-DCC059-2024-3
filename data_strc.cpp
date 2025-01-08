@@ -11,7 +11,7 @@ vertice::vertice()
     this->init_aresta = NULL;
 }
 
-vertice::~vertice(){};
+vertice::~vertice() {};
 
 int &vertice::ID()
 {
@@ -40,14 +40,14 @@ void vertice::setProx(vertice *p)
 
 void vertice::insereAresta(edge *e)
 {
-    if(init_aresta == NULL)
+    if (init_aresta == NULL)
     {
         init_aresta = e;
     }
     else
     {
         edge *ep = init_aresta;
-        while(ep->getProx() != NULL)
+        while (ep->getProx() != NULL)
         {
             ep = ep->getProx();
         }
@@ -65,7 +65,7 @@ edge::edge(int v, int w)
     this->prox = NULL;
 }
 
-edge::~edge(){};
+edge::~edge() {};
 
 edge::edge()
 {
