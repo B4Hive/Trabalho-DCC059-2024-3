@@ -689,38 +689,31 @@ void Grafo::novo_grafo(string descFileName, string outFileName)
             fileOut << '\n';
 
             //Criando Arestas ----------------------------
-
-            for(int i = 1; i <= ordem; i ++)
-            {
-                int _peso_aresta = 0;
-                if(grau > 2)
+            int peso_aresta = 0;
+            for (int i = 0; i < grau - 1; i++)
                 {
-                    int aux;
-                    for(int j = 1; j<= grau; j++)
+                    fileOut << 1 << " " << grau - i;
+                    if (arestas_ponderadas == 1)
                     {
-                        aux = i+j;
-                        fileOut << i << " " << aux;
-                        if(arestas_ponderadas == 1)
-                        {
-                            _peso_aresta = rand();
-                            fileOut << " "<<_peso_aresta;
-                        }
-                        insere_aresta(i, aux, _peso_aresta);
-                        if(i != ordem || j != grau) fileOut << '\n';
+                        peso_aresta = rand();
+                        fileOut << " "<<peso_aresta;
                     }
-                    i = aux;
+                    insere_aresta(1, grau - i, peso_aresta);
+                    if(grau != ordem ) fileOut << '\n';
                 }
-
-                fileOut << i << " " << i+1;
-                if(arestas_ponderadas == 1)
+                for(int i = grau; i<ordem; i++)
                 {
-                    _peso_aresta = rand();
-                    fileOut << " "<<_peso_aresta;
+                
+                    fileOut << i << " " << i + 1;
+                    if (arestas_ponderadas == 1)
+                    {
+                        peso_aresta = rand();
+                        fileOut << " "<<peso_aresta;
+                    }
+                    insere_aresta(i, i + 1, peso_aresta);
+                    if(i != ordem) fileOut << '\n';
+                    
                 }
-                insere_aresta(i, i+1, _peso_aresta);
-                if(i+1 != ordem) fileOut << '\n';
-            }
-
 
         }
         // Fim Grafo Bipartido Arvore -------------------------
@@ -756,6 +749,7 @@ void Grafo::novo_grafo(string descFileName, string outFileName)
             fileOut << '\n';
 
             //Criando Arestas ----------------------------
+            int peso_aresta = 0;
             if(componentes_conexas >1)
             {
                 int ordemLocal= ordem / componentes_conexas;
@@ -774,44 +768,328 @@ void Grafo::novo_grafo(string descFileName, string outFileName)
                         ordemLocal += resto;
                     }
 
-                    for (int j = 1; j < ordemLocal; j++)
+                    int vertice_1 = i * ordemLocal + 1;
+                    for(int j = 0; j<grau-1; j++)
                     {
-                        if(grau > 2)
-                        {
-                            int aux;
-                            for(int k = 1; k<= grau; k++)
-                            {
-                                aux = j+k;
-                                fileOut << j + i * ordemLocal << " " << aux + i * ordemLocal;
-                                int _peso_aresta = 0;
-                                if(arestas_ponderadas == 1)
-                                {
-                                    _peso_aresta = rand();
-                                    fileOut << " " << _peso_aresta;
-                                }
-                                insere_aresta(j + i * ordemLocal, aux + i * ordemLocal, _peso_aresta);
-                                if(j + i * ordemLocal != ordemLocal * (i+1))
-                                    fileOut << '\n';
-                            }
-                            j = aux;
-                            if(j == ordemLocal)break;
-                        }
-                        fileOut << j + i * ordemLocal << " " << j + i * ordemLocal + 1;
-                        int _peso_aresta = 0;
+                        int vertice_2 = vertice_1 + j + 1;
+                        fileOut << vertice_1 << " " << vertice_2;
                         if (arestas_ponderadas == 1)
                         {
-                            _peso_aresta = rand();
-                            fileOut << " " << _peso_aresta;
+                            peso_aresta = rand();
+                            fileOut << " "<<peso_aresta;
                         }
-                        insere_aresta(j + i * ordemLocal, j + i * ordemLocal + 1, _peso_aresta);
-                        if (j + i * ordemLocal + 1 != (i + 1) * ordemLocal)
-                            fileOut << '\n';
+                        insere_aresta(vertice_1, vertice_2, peso_aresta);
+                        if(i != componentes_conexas-1 || j != grau-2) fileOut << '\n';                        
                     }
+                    if(grau + 1 != ordemLocal)
+                    {
+                        for(int j = grau; j< ordemLocal; j++)
+                        {
+                            
+                            fileOut << j << " " << j+1;
+                            if (arestas_ponderadas == 1)
+                            {
+                                peso_aresta = rand();
+                                fileOut << " "<<peso_aresta;
+                            }
+                            insere_aresta(j, j+1, peso_aresta);
+                            if(i != componentes_conexas-1 || j +1 != ordemLocal) fileOut << '\n';                        
+                        }
+                    }
+                }
+            }
+            else
+            {
+                for (int i = 0; i < grau - 1; i++)
+                {
+                    fileOut << 1 << " " << grau - i;
+                    if (arestas_ponderadas == 1)
+                    {
+                        peso_aresta = rand();
+                        fileOut << " "<<peso_aresta;
+                    }
+                    insere_aresta(1, grau - i, peso_aresta);
+                    if(grau != ordem ) fileOut << '\n';
+                }
+                for(int i = grau; i<ordem; i++)
+                {
+                
+                    fileOut << i << " " << i + 1;
+                    if (arestas_ponderadas == 1)
+                    {
+                        peso_aresta = rand();
+                        fileOut << " "<<peso_aresta;
+                    }
+                    insere_aresta(i, i + 1, peso_aresta);
+                    if(i != ordem) fileOut << '\n';
+                    
                 }
             }
         }
     }
+    // Fim Grafo Bipartido -------------------------
 
+    if(arvore == 1 && bipartido == 0)
+    {
+        if(componentes_conexas != 1)
+        {
+            cout << "Grafo arvore deve ter apenas uma componente conexa!" << endl;
+            cout << "Encerrando programa..." << endl;
+            exit(1);
+        }
+
+        if(grau > ordem-1)
+        {
+            cout << "Grafo arvore não pode ter grau > ordem - 1!" << endl;
+            cout << "Encerrando programa..." << endl;
+            exit(1);
+        }
+
+        if(aresta_ponte == 0 && ordem >= 2)
+        {
+            cout << "Grafo arvore de ordem >= 2 naturalmente tem uma aresta ponte!" << endl;
+            cout << "Encerrando programa..." << endl;
+            exit(1);
+        }
+
+        if(vertice_de_articulacao == 0 && ordem >= 3)
+        {
+            cout << "Grafo arvore de ordem >= 3 naturalmente tem um vertice de articulacao!" << endl;
+            cout << "Encerrando programa..." << endl;
+            exit(1);
+        }
+
+        inicializa();
+
+        ofstream fileOut;
+        fileOut.open(outFileName.c_str());
+        if(!fileOut.is_open())
+        {
+            cout << "Erro ao abrir arquivo" << endl;
+            exit(2);
+        }
+
+        //Cabeçalho ----------------------------------
+        fileOut << ordem << " " << direcionado << " " << vertices_ponderados << " " << arestas_ponderadas << '\n';
+
+        //Criando Vertices ---------------------------
+        for(int i = 1; i<=ordem; i++)
+        {
+            int _peso_vertice = 0;
+            if(vertices_ponderados == 1)
+            {
+                _peso_vertice = rand();
+                fileOut << _peso_vertice << " ";
+            }
+            insere_vertice(i, _peso_vertice);
+        }
+        fileOut << '\n';
+
+        //Criando Arestas ----------------------------
+
+        int peso_aresta = 0;
+        for (int i = 0; i < grau - 1; i++)
+        {
+            fileOut << 1 << " " << grau - i;
+            if (arestas_ponderadas == 1)
+            {
+                peso_aresta = rand();
+                fileOut << " "<<peso_aresta;
+            }
+            insere_aresta(1, grau - i, peso_aresta);
+            if(grau != ordem ) fileOut << '\n';
+        }
+        for(int i = grau; i<ordem; i++)
+        {
+        
+            fileOut << i << " " << i + 1;
+            if (arestas_ponderadas == 1)
+            {
+                peso_aresta = rand();
+                fileOut << " "<<peso_aresta;
+            }
+            insere_aresta(i, i + 1, peso_aresta);
+            if(i != ordem) fileOut << '\n';
+            
+        }    
+
+    }
+    // Fim Grafo Arvore -------------------------
+
+    if(completo == 0 && arvore == 0 && bipartido == 0)
+    {
+        if(ordem <= 3)
+        {
+            cout << "Grafo grafo não possível!" << endl;
+            cout << "Encerrando programa..." << endl;
+            exit(1);
+        }
+
+        if(aresta_ponte == 0 && vertice_de_articulacao == 1)
+        {
+            
+            cout << "Grafo não pode ser criado!" << endl;
+            cout << "Encerrando programa..." << endl;
+            exit(1);
+        }
+
+        //--------------------------Criando Grafo Não Completo-------------------------- //
+
+        inicializa();
+        cout<< "Exportando Info" << endl;
+
+        ofstream fileOut;
+        fileOut.open(outFileName.c_str());
+        if(!fileOut.is_open())
+        {
+            cout << "Erro ao abrir arquivo" << endl;
+            exit(2);
+        }
+
+        //Cabeçalho ----------------------------------
+        fileOut << ordem << " " << direcionado << " " << vertices_ponderados << " " << arestas_ponderadas << '\n';
+
+        //Criando Vertices ---------------------------
+        for(int i = 1; i<=ordem; i++)
+        {
+            int _peso_vertice = 0;
+            if(vertices_ponderados == 1)
+            {
+                _peso_vertice = rand();
+                fileOut << _peso_vertice << " ";
+            }
+            insere_vertice(i, _peso_vertice);
+        }
+        fileOut << '\n';
+
+        // Criando Arestas ----------------------------
+        int peso_aresta = 0;
+
+        // Quadrado base                        1 *-----* 4
+        //                                        | \   |
+        //                                        |   \ |
+        //                                      2 *-----* 3
+        //Não é complto, bipartido, arvore, não possúi aresta ponte nem vértice de articulação e conexidade 1
+
+        fileOut << 1 << " " << 2;
+        if(arestas_ponderadas == 1)
+        {
+            peso_aresta = rand();
+            fileOut << " "<<peso_aresta;
+        }
+        fileOut << '\n';
+
+         fileOut << 1 << " " << 3;
+        if(arestas_ponderadas == 1)
+        {
+            peso_aresta = rand();
+            fileOut << " "<<peso_aresta;
+        }
+        fileOut << '\n';
+         fileOut << 1 << " " << 4;
+        if(arestas_ponderadas == 1)
+        {
+            peso_aresta = rand();
+            fileOut << " "<<peso_aresta;
+        }
+        fileOut << '\n';
+         fileOut << 2 << " " << 3;
+        if(arestas_ponderadas == 1)
+        {
+            peso_aresta = rand();
+            fileOut << " "<<peso_aresta;
+        }
+        fileOut << '\n';
+
+         fileOut << 3 << " " << 4;
+        if(arestas_ponderadas == 1)
+        {
+            peso_aresta = rand();
+            fileOut << " "<<peso_aresta;
+        }
+        if(ordem > 4)
+        {
+            fileOut << '\n';
+            if(aresta_ponte == 1)
+            {
+                if(vertice_de_articulacao == 1)
+                {
+                    for(int i = 4; i <= ordem; i++)
+                    {
+                        fileOut << i << " " << i + 1;
+                        if(arestas_ponderadas == 1)
+                        {
+                            peso_aresta = rand();
+                            fileOut << " "<<peso_aresta;
+                        }
+                        insere_aresta(i, i + 1, peso_aresta);
+                        if(i + 1 != ordem) fileOut << '\n';
+                    }
+                }
+                else
+                {
+                    for(int i = 4; i < ordem; i++)
+                    {
+                        fileOut << i + 1 << " " << i;
+                        if(arestas_ponderadas == 1)
+                        {
+                            peso_aresta = rand();
+                            fileOut << " "<<peso_aresta;
+                        }
+                        insere_aresta(i + 1, i, peso_aresta);
+                        if(i + 1 != ordem) fileOut << '\n';
+
+                        fileOut << i + 1 << " " << i - 1;
+                        if(arestas_ponderadas == 1)
+                        {
+                            peso_aresta = rand();
+                            fileOut << " "<<peso_aresta;
+                        }
+                        insere_aresta(i + 1, i - 1, peso_aresta);
+                        fileOut << '\n';
+                    }
+                    fileOut << ordem << " " << ordem - 1;
+                    if(peso_aresta == 1)
+                    {
+                        peso_aresta = rand();
+                        fileOut << " "<<peso_aresta;
+                    }
+                }
+            }
+
+            if(aresta_ponte == 0)
+            {
+                for(int i = 4; i <= ordem; i++)
+                {
+                    fileOut << i + 1 << " " << i;
+                    if(arestas_ponderadas == 1)
+                    {
+                        peso_aresta = rand();
+                        fileOut << " "<<peso_aresta;
+                    }
+                    insere_aresta(i + 1, i, peso_aresta);
+                    if(i + 1 != ordem) fileOut << '\n';
+
+                    fileOut << i + 1 << " " << i - 1;
+                    if(arestas_ponderadas == 1)
+                    {
+                        peso_aresta = rand();
+                        fileOut << " "<<peso_aresta;
+                    }
+                    insere_aresta(i + 1, i - 1, peso_aresta);
+                    if(i + 1 != ordem) fileOut << '\n';
+                }
+
+            }
+
+        } 
+            
+            
+        
+
+
+
+    }
 
 }
 
