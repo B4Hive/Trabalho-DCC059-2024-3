@@ -236,8 +236,8 @@ void grafo_lista::inicializa() {
 }
 
 void grafo_lista::imprime() {
-    cout << endl << "Imprimindo lista" << endl;
-    cout << "vertice(peso do vertice) -> vizinho(peso da aresta) - vizinho(peso da aresta)..." << endl;
+    //cout << endl << "Imprimindo lista" << endl;
+    //cout << "vertice(peso do vertice) -> vizinho(peso da aresta) - vizinho(peso da aresta)..." << endl;
     vertice *v = getInicio();
     while (v != NULL){
         cout << v->ID() << "(" << v->Peso() << ") -> ";
