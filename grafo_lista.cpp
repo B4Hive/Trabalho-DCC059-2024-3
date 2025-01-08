@@ -9,10 +9,10 @@ grafo_lista::grafo_lista()
 grafo_lista::~grafo_lista()
 {
     vertice *p = inicio;
-    while(p != NULL)
+    while (p != NULL)
     {
         edge *e = p->getAresta();
-        while(e != NULL)
+        while (e != NULL)
         {
             edge *aux = e;
             e = e->getProx();
@@ -29,7 +29,7 @@ void grafo_lista::insere_vertice(int id, int peso)
     vertice *v = new vertice();
     v->ID() = id;
     v->Peso() = peso;
-    if(inicio == NULL)
+    if (inicio == NULL)
     {
         inicio = v;
     }
@@ -40,28 +40,29 @@ void grafo_lista::insere_vertice(int id, int peso)
         {
             p = p->getProx();
         }
-        p->setProx(v);        
+        p->setProx(v);
     }
 }
 
 void grafo_lista::insere_aresta(int v, int w, int peso)
 {
-    if(buscaAresta(v, w)){
+    if (buscaAresta(v, w))
+    {
         return;
     }
     vertice *p = inicio;
     edge *e = new edge(v, w);
     e->Peso() = peso;
-    e->ID() = this->Tamanho();    
-    while(p != NULL)
+    e->ID() = this->Tamanho();
+    while (p != NULL)
     {
-       
-        if(p->ID() == v)
+
+        if (p->ID() == v)
         {
             p->insereAresta(e);
             p->Grau()++;
-        }   
-        if(p->ID() == w && !getDirecionado())
+        }
+        if (p->ID() == w && !getDirecionado())
         {
             edge *e2 = new edge(w, v);
             e2->Peso() = peso;
@@ -76,29 +77,29 @@ void grafo_lista::insere_aresta(int v, int w, int peso)
 int grafo_lista::pesoVertice(int id)
 {
     vertice *p = inicio;
-    while(p != NULL)
+    while (p != NULL)
     {
-        if(p->ID() == id)
+        if (p->ID() == id)
         {
             return p->Peso();
         }
         p = p->getProx();
     }
-    cout << "Vertice nao encontrado" << endl;
+    //cout << "Vertice nao encontrado" << endl;
     return 0;
 }
 
 int grafo_lista::pesoAresta(int v, int w)
 {
     vertice *p = inicio;
-    while(p != NULL)
+    while (p != NULL)
     {
-        if(p->ID() == v)
+        if (p->ID() == v)
         {
             edge *ep = p->getAresta();
-            while(ep != NULL)
+            while (ep != NULL)
             {
-                if(ep->W() == w)
+                if (ep->W() == w)
                 {
                     return ep->Peso();
                 }
@@ -107,21 +108,21 @@ int grafo_lista::pesoAresta(int v, int w)
         }
         p = p->getProx();
     }
-    cout << "Aresta nao encontrada" << endl;
+    //cout << "Aresta nao encontrada" << endl;
     return 0;
 }
 
-vertice* grafo_lista::getInicio()
+vertice *grafo_lista::getInicio()
 {
     return inicio;
 }
 
-vertice* grafo_lista::getVertice(int v)
+vertice *grafo_lista::getVertice(int v)
 {
     vertice *p = inicio;
-    while(p != NULL)
+    while (p != NULL)
     {
-        if(p->ID() == v)
+        if (p->ID() == v)
         {
             return p;
         }
@@ -130,18 +131,18 @@ vertice* grafo_lista::getVertice(int v)
     return NULL;
 }
 
-edge* grafo_lista::getAresta(int v, int w)
+edge *grafo_lista::getAresta(int v, int w)
 {
     vertice *p = inicio;
     edge *e = new edge();
-    while(p != NULL)
+    while (p != NULL)
     {
-        if(p->ID() == v)
+        if (p->ID() == v)
         {
             e = p->getAresta();
-            while(e != NULL)
+            while (e != NULL)
             {
-                if(e->W() == w)
+                if (e->W() == w)
                 {
                     return e;
                 }
@@ -149,16 +150,16 @@ edge* grafo_lista::getAresta(int v, int w)
             }
         }
     }
-    cout << "Aresta nao encontrada" << endl;
+    //cout << "Aresta nao encontrada" << endl;
     return NULL;
 }
 
 bool grafo_lista::buscaVertice(int id)
 {
     vertice *p = inicio;
-    while(p != NULL)
+    while (p != NULL)
     {
-        if(p->ID() == id)
+        if (p->ID() == id)
         {
             return true;
         }
@@ -170,14 +171,14 @@ bool grafo_lista::buscaVertice(int id)
 bool grafo_lista::buscaAresta(int v, int w)
 {
     vertice *p = inicio;
-    while(p != NULL)
+    while (p != NULL)
     {
-        if(p->ID() == v)
+        if (p->ID() == v)
         {
             edge *e = p->getAresta();
-            while(e != NULL)
+            while (e != NULL)
             {
-                if(e->W() == w)
+                if (e->W() == w)
                 {
                     return true;
                 }
@@ -189,21 +190,21 @@ bool grafo_lista::buscaAresta(int v, int w)
     return false;
 }
 
-int* grafo_lista::vizinhosVertice(int id)
+int *grafo_lista::vizinhosVertice(int id)
 {
     vertice *p = inicio;
-    while(p != NULL)
+    while (p != NULL)
     {
-        if(p->ID() == id)
+        if (p->ID() == id)
         {
-            if(p->Grau() == 0)
+            if (p->Grau() == 0)
             {
-                //cout << "Vertice sem vizinhos" << endl;
+                // cout << "Vertice sem vizinhos" << endl;
                 return NULL;
             }
             int *vizinhos = new int[p->Grau()];
             edge *e = p->getAresta();
-            for(int i = 0; e != NULL; i++)
+            for (int i = 0; e != NULL; i++)
             {
                 vizinhos[i] = e->W();
                 e = e->getProx();
@@ -213,36 +214,39 @@ int* grafo_lista::vizinhosVertice(int id)
         p = p->getProx();
     }
     return NULL;
-} 
+}
 
 int grafo_lista::grauVertice(int id)
 {
     vertice *p = inicio;
-    while(p != NULL)
+    while (p != NULL)
     {
-        if(p->ID() == id)
+        if (p->ID() == id)
         {
             return p->Grau();
         }
         p = p->getProx();
     }
-    cout << "Vertice nao encontrado" << endl;
+    //cout << "Vertice nao encontrado" << endl;
     return 0;
 }
-// B4Hive-begin
 
-void grafo_lista::inicializa() {
+void grafo_lista::inicializa()
+{
     // eu sei como evitar essa função mas é mais fácil deixar por enquanto
 }
 
-void grafo_lista::imprime() {
-    //cout << endl << "Imprimindo lista" << endl;
-    //cout << "vertice(peso do vertice) -> vizinho(peso da aresta) - vizinho(peso da aresta)..." << endl;
+void grafo_lista::imprime()
+{
+    // cout << endl << "Imprimindo lista" << endl;
+    // cout << "vertice(peso do vertice) -> vizinho(peso da aresta) - vizinho(peso da aresta)..." << endl;
     vertice *v = getInicio();
-    while (v != NULL){
+    while (v != NULL)
+    {
         cout << v->ID() << "(" << v->Peso() << ") -> ";
         edge *e = v->getAresta();
-        while (e != NULL){
+        while (e != NULL)
+        {
             cout << e->W() << "(" << e->Peso() << ") - ";
             e = e->getProx();
         }
@@ -250,4 +254,3 @@ void grafo_lista::imprime() {
         v = v->getProx();
     }
 }
-// B4Hive-end

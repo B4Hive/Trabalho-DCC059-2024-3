@@ -3,37 +3,35 @@
 
 #include "grafo.h"
 
-class grafo_lista : public Grafo {
-    public:
-        grafo_lista();
-        ~grafo_lista();
+class grafo_lista : public Grafo
+{
+public:
+    grafo_lista();
+    ~grafo_lista();
 
-        void insere_vertice(int id, int peso);
-        //void remove_vertice(int id);
+    void insere_vertice(int id, int peso);
+    // void remove_vertice(int id);
 
-        void insere_aresta(int v, int w, int peso);
-       // void remove_aresta(int v, int w);
+    void insere_aresta(int v, int w, int peso);
+    // void remove_aresta(int v, int w);
 
-        int  pesoVertice(int id);
-        bool buscaVertice(int id);
-        int  grauVertice(int id); 
-        int *vizinhosVertice(int id);
+    int pesoVertice(int id);
+    bool buscaVertice(int id);
+    int grauVertice(int id);
+    int *vizinhosVertice(int id);
 
-        int  pesoAresta(int v, int w);
-        bool buscaAresta(int v, int w);
+    int pesoAresta(int v, int w);
+    bool buscaAresta(int v, int w);
 
-        edge *getAresta(int v, int w);
+    edge *getAresta(int v, int w);
 
-        //B4Hive
-        int auxSetGrau();
+    void inicializa();
+    void imprime();
 
-        void inicializa();
-        void imprime();
-        
-    private:
-        vertice *inicio;
-        vertice *getInicio();
-        vertice *getVertice(int v);
+private:
+    vertice *inicio;
+    vertice *getInicio();
+    vertice *getVertice(int v);
 };
 
 #endif
