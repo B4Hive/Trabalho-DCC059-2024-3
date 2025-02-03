@@ -54,6 +54,9 @@ public:
     bool getAresta_Ponte();
     bool getVertice_de_Articulacao();
 
+    // B4Hive
+    void caminhoMinimoFloyd();
+
 protected:
     // Metodos pra acesso interno;
     void setGrau(int);
