@@ -339,6 +339,34 @@ void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], i
     }
 }
 
+void Grafo::caminhoMinimoFloyd(){
+    const int INF = INFINITY;
+    int n = getOrdem();
+
+    int** dist = new int*[n];
+    int** next = new int*[n];
+    for (int i = 0; i < n; i++) {
+        dist[i] = new int[n];
+        next[i] = new int[n];
+    }
+
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            if (i == j) {
+                dist[i][j] = 0;
+                next[i][j] = j;
+            } else if (buscaAresta(i, j)) {
+                dist[i][j] = pesoAresta(i, j);
+                next[i][j] = j;
+            } else {
+                dist[i][j] = INF;
+                next[i][j] = -1;
+            }
+        }
+    }
+
+}
+
 // >>
 
 // << Rodrigo >>
