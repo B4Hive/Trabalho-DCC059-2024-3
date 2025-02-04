@@ -365,6 +365,27 @@ void Grafo::caminhoMinimoFloyd(){
         }
     }
 
+    for (int k = 0; k < n; k++) {
+        for (int i = 0; i < n; i++) {
+            for (int j = 0; j < n; j++) {
+                if (dist[i][k] < INF && dist[k][j] < INF) {
+                    if (dist[i][j] > dist[i][k] + dist[k][j]) {
+                        dist[i][j] = dist[i][k] + dist[k][j];
+                        next[i][j] = next[i][k];
+                    }
+                }
+            }
+        }
+    }
+
+    // impressão aqui mas já terminei de implementar o pseudo
+
+    for (int i = 0; i < n; i++) {
+        delete[] dist[i];
+        delete[] next[i];
+    }
+    delete[] dist;
+    delete[] next;
 }
 
 // >>
