@@ -9,20 +9,17 @@
 Compile o programa rodando os seguintes comandos:
 
 ```bash
-$ cmake -S . -B build
-$ cmake --build build
+$ mkdir build
+$ cd build
+$ cmake ..
+$ make         # Linux
+$ mingw32-make # Windows
 ```
 
-O executável será gerado dentro da pasta `build`. Certifique-se de copiar o arquivo de entrada para a pasta `build` antes de executar o programa. *(Essa dependência será corrigida em breve.)*
-
-### Sem CMake
-Se preferir não instalar o CMake, compile diretamente pelo terminal com o comando:
-
-```bash
-$ g++ *.cpp -o main.exe
-```
 
 ## Executando
+
+Retorne a pasta raiz onde o executável do programa foi criado.
 
 O programa é executado a partir do terminal com os seguintes parâmetros:
 

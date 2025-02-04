@@ -39,6 +39,7 @@ int main(int argc, char *argv[])
     cout << "Parametro 1: " << parametro1 << endl;
     cout << "Parametro 2: " << parametro2 << endl;
     filename = argv[3];
+    filename = ".\\entradas\\" + filename;
     cout << "Arquivo de entrada: " << filename << endl;
 
     if (argc == 5)
