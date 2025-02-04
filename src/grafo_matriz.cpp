@@ -3,7 +3,7 @@ using namespace std;
 
 grafo_matriz::grafo_matriz()
 {
-    m = NULL;
+    //m = NULL;
 }
 
 grafo_matriz::~grafo_matriz()
@@ -65,10 +65,7 @@ void grafo_matriz::insere_vertice(int id, int peso)
 
 void grafo_matriz::insere_aresta(int v, int w, int peso)
 {
-    if(v != w)
-    {
-        this->operator()(v - 1, w - 1) = peso;
-    }
+    this->operator()(v-1,w-1) = peso;
 }
 
 int grafo_matriz::pesoAresta(int v, int w)
