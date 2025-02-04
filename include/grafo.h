@@ -55,7 +55,7 @@ public:
     bool getVertice_de_Articulacao();
 
     // B4Hive
-    void caminhoMinimoFloyd();
+    void caminhoMinimoFloyd(int u, int v);
 
 protected:
     // Metodos pra acesso interno;

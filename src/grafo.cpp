@@ -339,7 +339,7 @@ void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], i
     }
 }
 
-void Grafo::caminhoMinimoFloyd(){
+void Grafo::caminhoMinimoFloyd(int u, int v){
     const int INF = INFINITY;
     int n = getOrdem();
 
@@ -377,8 +377,35 @@ void Grafo::caminhoMinimoFloyd(){
             }
         }
     }
+    cout << "Caminho de " << u << " para " << v << ": ";
 
-    // impressão aqui mas já terminei de implementar o pseudo
+    cout << endl << "Next: " << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << next[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << "Dist: " << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << dist[i][j] << " ";
+        }
+        cout << endl;
+    }
+/*
+    if (next[u][v] == -1) {
+        cout << "Nao ha caminho de " << u << " para " << v << endl;
+    } else {
+        cout << u;
+        while (u != v) {
+            u = next[u][v];
+            cout << " -> " << u;
+        }
+        cout << endl;
+        cout << "Distancia: " << dist[u][v] << endl;
+    }
+*/
 
     for (int i = 0; i < n; i++) {
         delete[] dist[i];
@@ -1257,6 +1284,10 @@ void Grafo::exportDesc(){
     }else{
         cout << "Nao" << endl;
     }
+
+    // Temp test
+
+    caminhoMinimoFloyd(1, getOrdem());
 }
 
 // >>
