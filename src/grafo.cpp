@@ -339,14 +339,14 @@ void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], i
     }
 }
 
-void Grafo::caminhoMinimoFloyd(int u, int v){
-    const int INF = INFINITY;
-    int n = getOrdem();
+const double INF = INFINITY;
 
-    int** dist = new int*[n];
+void Grafo::caminhoMinimoFloyd(int u, int v){
+    int n = getOrdem();
+    double** dist = new double*[n];
     int** next = new int*[n];
     for (int i = 0; i < n; i++) {
-        dist[i] = new int[n];
+        dist[i] = new double[n];
         next[i] = new int[n];
     }
 
@@ -354,7 +354,7 @@ void Grafo::caminhoMinimoFloyd(int u, int v){
         for (int j = 0; j < n; j++) {
             if (i == j) {
                 dist[i][j] = 0;
-                next[i][j] = j;
+                next[i][j] = 0;
             } else if (buscaAresta(i, j)) {
                 dist[i][j] = pesoAresta(i, j);
                 next[i][j] = j;
@@ -369,6 +369,20 @@ void Grafo::caminhoMinimoFloyd(int u, int v){
         for (int i = 0; i < n; i++) {
             for (int j = 0; j < n; j++) {
                 if (dist[i][k] < INF && dist[k][j] < INF) {
+                    cout << endl << "Next: " << endl;
+                    for (int i = 0; i < n; i++) {
+                        for (int j = 0; j < n; j++) {
+                            cout << next[i][j] << " ";
+                        }
+                        cout << endl;
+                    }
+                    cout << "Dist: " << endl;
+                    for (int i = 0; i < n; i++) {
+                        for (int j = 0; j < n; j++) {
+                            cout << dist[i][j] << " ";
+                        }
+                        cout << endl;
+                    }
                     if (dist[i][j] > dist[i][k] + dist[k][j]) {
                         dist[i][j] = dist[i][k] + dist[k][j];
                         next[i][j] = next[i][k];
@@ -379,20 +393,7 @@ void Grafo::caminhoMinimoFloyd(int u, int v){
     }
     cout << "Caminho de " << u << " para " << v << ": ";
 
-    cout << endl << "Next: " << endl;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cout << next[i][j] << " ";
-        }
-        cout << endl;
-    }
-    cout << "Dist: " << endl;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cout << dist[i][j] << " ";
-        }
-        cout << endl;
-    }
+    
 /*
     if (next[u][v] == -1) {
         cout << "Nao ha caminho de " << u << " para " << v << endl;
