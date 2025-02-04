@@ -1,8 +1,17 @@
 cmake_minimum_required(VERSION 3.10)
 project(solver LANGUAGES CXX)
-add_executable(main.o grafo.h
-                    grafo.cpp
-                    grafo_lista.cpp
-                    grafo_matriz.cpp
-                    data_strc.cpp
-                    main.cpp)
+project(MeuProjeto)
+
+# Define os diretórios de include e src
+include_directories(include)
+set(SOURCE_FILES
+    ../main.cpp
+    src/grafo.cpp
+    src/grafo_lista.cpp
+    src/grafo_matriz.cpp
+    src/data_strc.cpp
+)
+
+# Cria o executável
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../)
+add_executable(main ${SOURCE_FILES}) 
