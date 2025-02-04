@@ -350,64 +350,62 @@ void Grafo::caminhoMinimoFloyd(int u, int v){
         next[i] = new int[n];
     }
 
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
             if (i == j) {
-                dist[i][j] = 0;
-                next[i][j] = 0;
+                dist[i-1][j-1] = 0;
+                next[i-1][j-1] = 0;
             } else if (buscaAresta(i, j)) {
-                dist[i][j] = pesoAresta(i, j);
-                next[i][j] = j;
+                dist[i-1][j-1] = pesoAresta(i, j);
+                next[i-1][j-1] = j;
             } else {
-                dist[i][j] = INF;
-                next[i][j] = -1;
+                dist[i-1][j-1] = INF;
+                next[i-1][j-1] = -1;
             }
         }
     }
 
-    for (int k = 0; k < n; k++) {
-        for (int i = 0; i < n; i++) {
-            for (int j = 0; j < n; j++) {
-                if (dist[i][k] < INF && dist[k][j] < INF) {
-                    cout << endl << "Next: " << endl;
-                    for (int i = 0; i < n; i++) {
-                        for (int j = 0; j < n; j++) {
-                            cout << next[i][j] << " ";
-                        }
-                        cout << endl;
-                    }
-                    cout << "Dist: " << endl;
-                    for (int i = 0; i < n; i++) {
-                        for (int j = 0; j < n; j++) {
-                            cout << dist[i][j] << " ";
-                        }
-                        cout << endl;
-                    }
-                    if (dist[i][j] > dist[i][k] + dist[k][j]) {
-                        dist[i][j] = dist[i][k] + dist[k][j];
-                        next[i][j] = next[i][k];
+    for (int k = 1; k <= n; k++) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (dist[i-1][k-1] < INF && dist[k-1][j-1] < INF) {
+                    if (dist[i-1][j-1] > dist[i-1][k-1] + dist[k-1][j-1]) {
+                        dist[i-1][j-1] = dist[i-1][k-1] + dist[k-1][j-1];
+                        next[i-1][j-1] = next[i-1][k-1];
                     }
                 }
             }
         }
     }
     cout << "Caminho de " << u << " para " << v << ": ";
-
-    
-/*
+/* DEBUG
+    cout << "Next: " << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << next[i][j] << " ";
+        }
+        cout << endl;
+    }
+    cout << "Dist: " << endl;
+    for (int i = 0; i < n; i++) {
+        for (int j = 0; j < n; j++) {
+            cout << dist[i][j] << " ";
+        }
+        cout << endl;
+    }
+*/
     if (next[u][v] == -1) {
         cout << "Nao ha caminho de " << u << " para " << v << endl;
     } else {
+        cout << "Distancia: " << dist[u-1][v-1] << endl;
         cout << u;
         while (u != v) {
-            u = next[u][v];
+            u = next[u-1][v-1];
             cout << " -> " << u;
         }
         cout << endl;
-        cout << "Distancia: " << dist[u][v] << endl;
     }
-*/
-
+    
     for (int i = 0; i < n; i++) {
         delete[] dist[i];
         delete[] next[i];
