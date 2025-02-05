@@ -2,6 +2,8 @@
 #include "grafo_lista.h"
 #include "grafo_matriz.h"
 using namespace std;
+const double INF = INFINITY;
+
 // << Getters and Setters >>
 
 void Grafo::setGrau(int grau)
@@ -339,9 +341,9 @@ void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], i
     }
 }
 
-const double INF = INFINITY;
-
 void Grafo::caminhoMinimoFloyd(int u, int v){
+    //inicializando variáveis
+    int lower = 0;
     int n = getOrdem();
     double** dist = new double*[n];
     int** next = new int*[n];
@@ -349,14 +351,18 @@ void Grafo::caminhoMinimoFloyd(int u, int v){
         dist[i] = new double[n];
         next[i] = new int[n];
     }
-
+    //inicializando matriz de distâncias e matriz de próximos
     for (int i = 1; i <= n; i++) {
         for (int j = 1; j <= n; j++) {
             if (i == j) {
                 dist[i-1][j-1] = 0;
                 next[i-1][j-1] = 0;
             } else if (buscaAresta(i, j)) {
-                dist[i-1][j-1] = pesoAresta(i, j);
+                int peso = pesoAresta(i, j);
+                if(peso < lower){ //tratamento pra ciclos negativos parte 1
+                    lower = peso;
+                }
+                dist[i-1][j-1] = peso;
                 next[i-1][j-1] = j;
             } else {
                 dist[i-1][j-1] = INF;
@@ -364,7 +370,17 @@ void Grafo::caminhoMinimoFloyd(int u, int v){
             }
         }
     }
-
+    //tratamento pra ciclos negativos parte 2
+    if(lower < 0){
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                if(dist[i-1][j-1] != INF){
+                    dist[i-1][j-1] += abs(lower) + 1;
+                }
+            }
+        }
+    }
+    //algoritmo de Floyd-Warshall
     for (int k = 1; k <= n; k++) {
         for (int i = 1; i <= n; i++) {
             for (int j = 1; j <= n; j++) {
@@ -377,23 +393,8 @@ void Grafo::caminhoMinimoFloyd(int u, int v){
             }
         }
     }
+    //imprimindo caminho
     cout << "Caminho de " << u << " para " << v << ": ";
-/* DEBUG
-    cout << "Next: " << endl;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cout << next[i][j] << " ";
-        }
-        cout << endl;
-    }
-    cout << "Dist: " << endl;
-    for (int i = 0; i < n; i++) {
-        for (int j = 0; j < n; j++) {
-            cout << dist[i][j] << " ";
-        }
-        cout << endl;
-    }
-*/
     if (next[u][v] == -1) {
         cout << "Nao ha caminho de " << u << " para " << v << endl;
     } else {
@@ -405,7 +406,7 @@ void Grafo::caminhoMinimoFloyd(int u, int v){
         }
         cout << endl;
     }
-    
+    //liberando memória
     for (int i = 0; i < n; i++) {
         delete[] dist[i];
         delete[] next[i];
