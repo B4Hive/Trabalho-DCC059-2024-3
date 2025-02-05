@@ -53,7 +53,7 @@ int &grafo_matriz::operator()(int v, int w)
     }
     else
     {
-        return m[j * getOrdem() + i];
+        return m[i * getOrdem() + j];
     }
     return m[0];
 }
@@ -65,7 +65,11 @@ void grafo_matriz::insere_vertice(int id, int peso)
 
 void grafo_matriz::insere_aresta(int v, int w, int peso)
 {
-    this->operator()(v-1,w-1) = peso;
+    if(this->operator()(v-1,w-1) == 0)
+    {
+        this->operator()(v-1,w-1) = peso;
+    }
+    
 }
 
 int grafo_matriz::pesoAresta(int v, int w)
@@ -132,11 +136,11 @@ int *grafo_matriz::vizinhosVertice(int id)
         // cout << "Vertice sem vizinhos" << endl;
         return 0;
     }
-    for (int i = 0; i < getOrdem(); i++)
+    for (int j = 0; j < getOrdem(); j++)
     {
-        if (this->operator()(id - 1, i) != 0 && id - 1 != i)
+        if (this->operator()(id - 1, j) != 0 && id - 1 != j)
         {
-            vizinhos[aux] = i + 1;
+            vizinhos[aux] = j + 1;
             aux++;
         }
     }
@@ -147,9 +151,9 @@ int *grafo_matriz::vizinhosVertice(int id)
 int grafo_matriz::grauVertice(int id)
 {
     int grau = 0;
-    for (int i = 1; i <= getOrdem(); i++)
+    for (int j = 1; j <= getOrdem(); j++)
     {
-        if (this->operator()(id - 1, i) != 0 && id - 1 != i)
+        if (this->operator()(id - 1, j - 1) != 0 && id != j)
         {
             grau++;
         }
