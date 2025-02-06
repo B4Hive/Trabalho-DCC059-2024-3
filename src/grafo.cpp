@@ -2,7 +2,6 @@
 #include "grafo_lista.h"
 #include "grafo_matriz.h"
 using namespace std;
-const double INF = INFINITY;
 
 // << Getters and Setters >>
 
@@ -343,6 +342,7 @@ void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], i
 
 void Grafo::caminhoMinimoFloyd(int u, int v){
     //inicializando variáveis
+    const double INF = INFINITY;
     int lower = 0;
     int n = getOrdem();
     double** dist = new double*[n];
@@ -389,6 +389,16 @@ void Grafo::caminhoMinimoFloyd(int u, int v){
                         dist[i-1][j-1] = dist[i-1][k-1] + dist[k-1][j-1];
                         next[i-1][j-1] = next[i-1][k-1];
                     }
+                }
+            }
+        }
+    }
+    //tratamento pra ciclos negativos parte 3
+    if(lower < 0){
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                if(dist[i-1][j-1] != INF){
+                    dist[i-1][j-1] -= (abs(lower) + 1);
                 }
             }
         }
@@ -511,7 +521,6 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName){
 
     inicializa();
 
-
     for (int i = 1; i <= getOrdem(); i++)
     {
         int peso = 1;
@@ -537,7 +546,7 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName){
         }
         Tamanho()++;
         insere_aresta(v, w, peso);
-
+        
         getline(file, line);
     }
 
@@ -548,7 +557,6 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName){
            setGrau(grauVertice(i));
        }
     }
-
 
     file.close();
 }
