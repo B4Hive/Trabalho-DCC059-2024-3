@@ -71,6 +71,13 @@ void grafo_matriz::insere_aresta(int v, int w, int peso)
     }
     
 }
+void grafo_matriz::remove_aresta(int v, int w)
+{
+    if (v != w)
+    {
+        this->operator()(v - 1, w - 1) = 0;
+    }
+}
 
 int grafo_matriz::pesoAresta(int v, int w)
 {

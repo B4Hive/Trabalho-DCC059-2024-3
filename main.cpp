@@ -65,7 +65,23 @@ int main(int argc, char *argv[])
         cout << "--------------------------------------------------" << endl;
         cout << "Imprimindo grafo" << endl;
         g->imprime();
-        cout << "--------------------------------------------------" << endl;
+        cout << "--------------------------------------------------" << endl<<endl;
+        cout <<"Teste remoção de aresta" << endl;
+        cout <<"Removendo aresta 1-2" << endl;
+        g->remove_aresta(1,2);
+        cout <<"Imprimindo grafo" << endl;
+        g->imprime();
+        cout<<endl;
+
+        cout <<"Removendo aresta 2-3" << endl;
+        g->remove_aresta(2,3);
+        cout <<"Imprimindo grafo" << endl;
+        g->imprime();
+        cout<<endl;
+        cout << "--------------------------------------------------" << endl<<endl;
+
+
+        cout << "Fim do programa" << endl<<endl<<endl;
 
         /*  //DEBUG
 

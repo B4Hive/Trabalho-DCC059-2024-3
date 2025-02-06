@@ -11,7 +11,7 @@ grafo_lista::~grafo_lista()
     vertice *p = inicio;
     while (p != NULL)
     {
-        edge *e = p->getAresta();
+        edge *e = p->get_init_aresta();
         while (e != NULL)
         {
             edge *aux = e;
@@ -74,6 +74,62 @@ void grafo_lista::insere_aresta(int v, int w, int peso)
     }
 }
 
+void grafo_lista::remove_aresta(int v, int w)
+{
+    vertice *p = inicio;
+    while (p != NULL)
+    {
+        if (p->ID() == v)
+        {
+            edge *e = p->get_init_aresta();
+            edge *ant = NULL;
+            while (e != NULL)
+            {
+                if (e->W ()== w)
+                {
+                    if (ant == NULL)
+                    {
+                        p->set_init_aresta(e->getProx());
+                    }
+                    else
+                    {
+                        ant->setProx(e->getProx());
+                    }
+                    delete e;
+                    p->Grau()--;
+                    if(getDirecionado())break;
+                }
+                ant = e;
+                e = e->getProx();
+            }
+        }
+        if (p->ID() == w && !getDirecionado())
+        {
+            edge *e = p->get_init_aresta();
+            edge *ant = NULL;
+            while (e != NULL)
+            {
+                if (e->W() == v)
+                {
+                    if (ant == NULL)
+                    {
+                        p->set_init_aresta(e->getProx());
+                    }
+                    else
+                    {
+                        ant->setProx(e->getProx());
+                    }
+                    delete e;
+                }
+                ant = e;
+                e = e->getProx();
+            }
+        }
+        
+        p = p->getProx();
+    }
+}
+
 int grafo_lista::pesoVertice(int id)
 {
     vertice *p = inicio;
@@ -96,7 +152,7 @@ int grafo_lista::pesoAresta(int v, int w)
     {
         if (p->ID() == v)
         {
-            edge *ep = p->getAresta();
+            edge *ep = p->get_init_aresta();
             while (ep != NULL)
             {
                 if (ep->W() == w)
@@ -139,7 +195,7 @@ edge *grafo_lista::getAresta(int v, int w)
     {
         if (p->ID() == v)
         {
-            e = p->getAresta();
+            e = p->get_init_aresta();
             while (e != NULL)
             {
                 if (e->W() == w)
@@ -175,7 +231,7 @@ bool grafo_lista::buscaAresta(int v, int w)
     {
         if (p->ID() == v)
         {
-            edge *e = p->getAresta();
+            edge *e = p->get_init_aresta();
             while (e != NULL)
             {
                 if (e->W() == w)
@@ -203,7 +259,7 @@ int *grafo_lista::vizinhosVertice(int id)
                 return NULL;
             }
             int *vizinhos = new int[p->Grau()];
-            edge *e = p->getAresta();
+            edge *e = p->get_init_aresta();
             for (int i = 0; e != NULL; i++)
             {
                 vizinhos[i] = e->W();
@@ -244,7 +300,7 @@ void grafo_lista::imprime()
     while (v != NULL)
     {
         cout << v->ID() << "(" << v->Peso() << ") -> ";
-        edge *e = v->getAresta();
+        edge *e = v->get_init_aresta();
         while (e != NULL)
         {
             cout << e->W() << "(" << e->Peso() << ") - ";

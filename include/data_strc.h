@@ -35,7 +35,8 @@ public:
     int &ID();
     int &Grau();
     int &Peso();
-    edge *getAresta() { return init_aresta; }
+    edge *get_init_aresta() { return init_aresta; }
+    void  set_init_aresta(edge *e) { init_aresta = e; }
     vertice *getProx();
     void setProx(vertice *p);
     void insereAresta(edge *e);

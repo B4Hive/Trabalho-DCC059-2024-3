@@ -10,10 +10,10 @@ public:
     ~grafo_lista();
 
     void insere_vertice(int id, int peso);
-    // void remove_vertice(int id);
+    //void remove_vertice(int id);
 
     void insere_aresta(int v, int w, int peso);
-    // void remove_aresta(int v, int w);
+    void remove_aresta(int v, int w);
 
     int pesoVertice(int id);
     bool buscaVertice(int id);
