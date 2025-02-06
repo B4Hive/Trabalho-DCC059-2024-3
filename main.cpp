@@ -1,8 +1,8 @@
 #include <iostream>
 #include <locale.h>
-#include "include/grafo.h"
-#include "include/grafo_lista.h"
-#include "include/grafo_matriz.h"
+#include "grafo.h"
+#include "grafo_lista.h"
+#include "grafo_matriz.h"
 
 using namespace std;
 
