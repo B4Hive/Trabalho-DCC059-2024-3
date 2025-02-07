@@ -25,7 +25,7 @@ public:
     virtual void imprime() = 0;
 
     virtual void insere_vertice(int id, int peso) = 0;
-    //virtual void remove_vertice(int id) = 0;
+    virtual void remove_vertice(int id) = 0;
 
     virtual void insere_aresta(int v, int w, int peso) = 0;
     virtual void remove_aresta(int v, int w) = 0; 

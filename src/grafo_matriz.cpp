@@ -63,6 +63,66 @@ void grafo_matriz::insere_vertice(int id, int peso)
     this->operator()(id - 1, id - 1) = peso;
 }
 
+void grafo_matriz::remove_vertice(int id)
+{
+    int novo_tamanho = 0;
+    int nova_ordem = getOrdem() - 1;
+    int v[Tamanho()];
+    int w[Tamanho()];
+    int offset = 0;
+
+    // Armazenando arestas
+
+    for(int i = 0; i<getOrdem(); i++)
+    {
+        int grau = grauVertice(i+1);
+        if(grau !=0)
+        {
+            int *vizinhos = vizinhosVertice(i+1);
+            for(int j = 0; j < grau; j++)
+            {
+                v[offset + j] = i+1;
+                w[offset + j] = vizinhos[j];
+            }
+            offset += grau;
+        }
+        
+    }
+
+
+    // Realocando novo tamanho de matriz
+
+    setOrdem(nova_ordem);
+    if(getDirecionado())
+    {
+        novo_tamanho = nova_ordem * nova_ordem;
+    }
+    else
+    {
+        novo_tamanho = (nova_ordem * (nova_ordem + 1)) / 2;
+    }
+    this->m = new int[novo_tamanho];
+
+    // Inicializando nova matriz
+    for(int i = 0; i < novo_tamanho; i++)
+    {
+        m[i] = 0;
+    }
+
+
+    // Inserindo arestas com índices atualizados
+    for(int i = 0; i < Tamanho(); i++)
+    {
+        if(v[i] != id && w[i] != id)
+        {
+            if(v[i] > id ) v[i]--;
+            if(w[i] > id ) w[i]--;
+            insere_aresta(v[i], w[i], pesoAresta(v[i], w[i]));
+        }
+        
+    }
+}
+
 void grafo_matriz::insere_aresta(int v, int w, int peso)
 {
     if(this->operator()(v-1,w-1) == 0)

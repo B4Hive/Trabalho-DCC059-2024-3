@@ -44,6 +44,65 @@ void grafo_lista::insere_vertice(int id, int peso)
     }
 }
 
+void grafo_lista::remove_vertice(int id)
+{
+    vertice *p = inicio;
+    vertice *ant = NULL;
+    int *vizinhos = new int;
+    while (p != NULL)
+    {
+        if (p->ID() == id)
+        {
+            vizinhos = vizinhosVertice(id);
+            for (int i = 0; i < grauVertice(id); i++)
+            {
+                remove_aresta(id, vizinhos[i]);
+            }
+            break;
+        }
+        ant = p;
+        p = p->getProx();
+        
+    }
+    
+    // --------- Atualização dos indices ------ //
+
+    p = inicio;
+    while (p != NULL)
+    {   
+        if(p->ID() == id)
+        {
+            if(ant == NULL)
+            {
+                inicio = p->getProx();
+            }
+            else
+            {
+                ant->setProx(p->getProx());
+            }
+            delete p;
+        }
+        else
+        {
+            if(p->ID() > id)
+            {
+                p->ID()--;
+            }
+            edge *e = p->get_init_aresta();
+            while(e != NULL)
+            {
+                if(e->W() > id)
+                {
+                    e->W()--;
+                }
+                e = e->getProx();
+            }
+        }
+        ant = p;
+        p = p->getProx();
+    }
+}
+
 void grafo_lista::insere_aresta(int v, int w, int peso)
 {
     if (buscaAresta(v, w))
