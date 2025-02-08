@@ -68,17 +68,30 @@ int main(int argc, char *argv[])
         cout << "--------------------------------------------------" << endl<<endl;
         cout <<"Teste remoção de aresta" << endl;
         cout <<"Removendo aresta 1-2" << endl;
-        g->remove_aresta(1,2);
+        g->deleta_aresta(1,2);
         cout <<"Imprimindo grafo" << endl;
         g->imprime();
         cout<<endl;
 
         cout <<"Removendo aresta 2-3" << endl;
-        g->remove_aresta(2,3);
+        g->deleta_aresta(2,3);
         cout <<"Imprimindo grafo" << endl;
         g->imprime();
         cout<<endl;
+
+        cout << "Reinserindo aresta 1-2 e 2-3" << endl;
+        g->nova_aresta(1,2,12);
+        g->nova_aresta(2,3,23);
+        cout <<"Imprimindo grafo" << endl;
+        g->imprime();
         cout << "--------------------------------------------------" << endl<<endl;
+
+        cout << "Teste remoção de vertice" << endl;
+
+        cout << "Removendo vertice 3" << endl;
+        g->deleta_no(3);
+        cout <<"Imprimindo grafo" << endl;
+        g->imprime();
 
 
         cout << "Fim do programa" << endl<<endl<<endl;

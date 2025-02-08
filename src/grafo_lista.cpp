@@ -44,19 +44,40 @@ void grafo_lista::insere_vertice(int id, int peso)
     }
 }
 
-void grafo_lista::remove_vertice(int id)
+void grafo_lista::novo_no(int peso)
+{
+    setOrdem(getOrdem() + 1);
+    insere_vertice(getOrdem(), peso);
+}
+
+void grafo_lista::deleta_no(int id)
 {
     vertice *p = inicio;
     vertice *ant = NULL;
     int *vizinhos = new int;
     while (p != NULL)
     {
-        if (p->ID() == id)
+        if(getDirecionado()) // Remoção para arcos dos vertices antecessores; 
+        {
+            vizinhos = vizinhosVertice(p->ID());
+            for(int i = 0; i < grauVertice(p->ID()); i++)
+            {
+                if(vizinhos[i] == id)
+                {
+                    deleta_aresta(p->ID(), id);
+                }
+            }
+        }
+        if (p->ID() == id) // Remoção para arcos dos vertices sucessores;
         {
             vizinhos = vizinhosVertice(id);
             for (int i = 0; i < grauVertice(id); i++)
             {
-                remove_aresta(id, vizinhos[i]);
+                deleta_aresta(id, vizinhos[i]);
+                if(getDirecionado())
+                {
+                    deleta_aresta(vizinhos[i], id);
+                }
             }
             break;
         }
@@ -101,6 +122,7 @@ void grafo_lista::remove_vertice(int id)
         ant = p;
         p = p->getProx();
     }
+    setOrdem(getOrdem() - 1);
 }
 
 void grafo_lista::insere_aresta(int v, int w, int peso)
@@ -133,8 +155,17 @@ void grafo_lista::insere_aresta(int v, int w, int peso)
     }
 }
 
-void grafo_lista::remove_aresta(int v, int w)
+void grafo_lista::nova_aresta(int v, int w, int peso)
 {
+    insere_aresta(v, w, peso);
+}
+
+void grafo_lista::deleta_aresta(int v, int w)
+{
+    if(!buscaAresta(v,w))
+    {
+        return;
+    }
     vertice *p = inicio;
     while (p != NULL)
     {
@@ -342,19 +373,15 @@ int grafo_lista::grauVertice(int id)
         }
         p = p->getProx();
     }
-    //cout << "Vertice nao encontrado" << endl;
     return 0;
 }
 
 void grafo_lista::inicializa()
 {
-    // eu sei como evitar essa função mas é mais fácil deixar por enquanto
 }
 
 void grafo_lista::imprime()
 {
-    // cout << endl << "Imprimindo lista" << endl;
-    // cout << "vertice(peso do vertice) -> vizinho(peso da aresta) - vizinho(peso da aresta)..." << endl;
     vertice *v = getInicio();
     while (v != NULL)
     {
