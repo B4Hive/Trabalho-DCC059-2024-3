@@ -23,31 +23,28 @@ void grafo_matriz::inicializa()
     cout << "Ordem da matriz: " << ordem_matriz << endl;
     cout << "Ordem do grafo: " << getOrdem() << endl;
     int tamanho_vetor = 0;
-    if (getDirecionado() == 0) // matriz  triangular infeiror
+    if (!getDirecionado()) // matriz  triangular infeiror
     {
         tamanho_vetor = (ordem_matriz * (ordem_matriz + 1)) / 2;
-        cout << "Tamanho do vetor: " << tamanho_vetor << endl;
-        m = new int[tamanho_vetor];
-        for (int i = 0; i < tamanho_vetor; i++)
-        {
-            m[i] = 0;
-        }
+    }
+    
+    if (getDirecionado())
+    {
+        tamanho_vetor = ordem_matriz * ordem_matriz;    
     }
 
-    if (getDirecionado() == 1)
+    cout << "Tamanho do vetor: " << tamanho_vetor << endl;
+    m = new int[tamanho_vetor];
+    for (int i = 0; i < tamanho_vetor; i++)
     {
-        tamanho_vetor = ordem_matriz * ordem_matriz;
-        m = new int[tamanho_vetor];
-        cout << "Tamanho do vetor: " << tamanho_vetor << endl;
-        for (int i = 0; i < tamanho_vetor; i++)
-        {
-            m[i] = 0;
-        }
+        m[i] = 0;
     }
+
 }
 
 void grafo_matriz::realoca()
 {
+    cout << "Realocando" << endl;
     if(Debug())cout << "DEBUG Realoca" << endl;
     // Armazenamento das arestas e do pesos dos vertices;
     int cont = 0; 
@@ -81,25 +78,31 @@ void grafo_matriz::realoca()
     }
 
     // Realocando a matriz
-    delete m;
+    //delete m;
     exp_ordem++;
     ordem_matriz = 10 * (pow(2,exp_ordem));
     int tamanho_vetor = 0;
-
+    
     if(!getDirecionado())
     {
-        tamanho_vetor = (ordem_matriz * (ordem_matriz + 1)) / 2;
+        tamanho_vetor = (( ordem_matriz * (ordem_matriz + 1) ) / 2);
     }
     else
     {
         tamanho_vetor = ordem_matriz * ordem_matriz;
     }
+    
+    cout << "Tamanho do vetor: " << tamanho_vetor << endl;
+    cout << "Ordem da matriz: " << ordem_matriz << endl;
+    this->m = NULL;
+    if(Debug()) cout<< "DEBUG " << endl;
+    this->m = new int[tamanho_vetor];
 
-    m = new int[tamanho_vetor];
     for(int i = 0; i < tamanho_vetor; i++)
     {
         m[i] = 0;
     }
+    //this->m = m_aux;
 
     // Inserindo os vertices e arestas
 
@@ -153,6 +156,7 @@ void grafo_matriz::novo_no(int peso)
         realoca();
     }
     insere_vertice(ordem_grafo, peso);
+    setOrdem(ordem_grafo);
 }
 
 void grafo_matriz::deleta_no(int id)

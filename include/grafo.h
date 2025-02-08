@@ -15,7 +15,7 @@ class Grafo
 public:
 
     Grafo() {}
-    ~Grafo() {}
+    virtual ~Grafo() {}
 
     void carrega_grafo(char *tipo, string dataFileName);
     void novo_grafo(string descFileName, string outFileName);
@@ -45,8 +45,7 @@ public:
     //virtual void nova_aresta(int v, int w, int peso) = 0;
    
     
-protected:
-
+    
     int getGrau();
     int getOrdem();
     int getComponentes_conexas();
@@ -60,7 +59,8 @@ protected:
     bool getAresta_Ponte();
     bool getVertice_de_Articulacao();
     bool &Debug() { return debug; }
-
+    
+protected:
     
     void setGrau(int);
     void setOrdem(int);
@@ -106,7 +106,7 @@ protected:
     // Aresta Ponte            [6]
     // Vertice de Articulação  [7]
 
-    bool debug = 1;
+    bool debug = 0;
 };
 
 #endif

@@ -15,3 +15,4 @@ set(SOURCE_FILES
 # Cria o executável
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ../)
 add_executable(main ${SOURCE_FILES}) 
+set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -Wall -std=c++11")

@@ -64,34 +64,110 @@ int main(int argc, char *argv[])
         g->exportDesc();
         cout << "--------------------------------------------------" << endl;
         cout << "Imprimindo grafo" << endl;
-        g->imprime();
         cout << "--------------------------------------------------" << endl<<endl;
-        cout <<"Teste remoção de aresta" << endl;
-        cout <<"Removendo aresta 1-2" << endl;
-        g->deleta_aresta(1,2);
-        cout <<"Imprimindo grafo" << endl;
+        g->novo_no(60);
+        g->novo_no(66);
+        g->novo_no(70);
+        g->novo_no(80);
+        g->novo_no(90);
+        
         g->imprime();
-        cout<<endl;
+        
+        while (true)
+        {
+            cout << "--------------------------------------------------" << endl<<endl;
+            cout << "SELECIONE UMA OPCAO:" << endl<<endl;
+            cout << " 1 - Deletar No" << endl;
+            cout << " 2 - Deletar Aresta" << endl;
+            cout << " 3 - Novo No" << endl;
+            cout << " 4 - Nova Aresta" << endl;
+            cout << " 5 - Sair" << endl<<endl;
+    
+            cout << "OPCAO: ";
+    
+            int opcao = 0;
+            cin >> opcao;
 
-        cout <<"Removendo aresta 2-3" << endl;
-        g->deleta_aresta(2,3);
-        cout <<"Imprimindo grafo" << endl;
-        g->imprime();
-        cout<<endl;
+            if (opcao == 1)
+            {
+                cout << "Digite o ID do no (1 a " << g->getOrdem()<<"): "<<endl;
+                int no;
+                cin >> no;
+                if(no < 1 || no > g->getOrdem())
+                {
+                    cout << "No invalido" << endl;
+                    continue;
+                }
+                g->deleta_no(no);
+                cout << endl;
+                g->imprime();
+                cout << endl;
+            }
+            else if (opcao == 2)
+            {
+                cout << "Indices dos nos disponiveis: 1 a "<< g->getOrdem()<<endl;
+                cout << "Digite o No de origem: ";
+                int v=0;
+                cin >> v;
+                cout << "Digite o No de destino: ";
+                int w = 0;
+                cin >> w;
+                if(v < 1 || v > g->getOrdem() || w < 1 || w > g->getOrdem() || v == w)
+                {
+                    cout << "Par invalido!" << endl;
+                    continue;
+                }
+                g->deleta_aresta(v, w);
+                cout<<endl;
+                g->imprime();
+                cout<<endl;
+            }
+            else if (opcao == 3)
+            {
+                cout << "Digite o peso do novo no: ";
+                int peso;
+                cin >> peso;
+                g->novo_no(peso);
+                cout<<endl;
+                g->imprime();
+                cout<<endl;
+            }
+            else if (opcao == 4)
+            {
+                cout << "Indices dos nos disponiveis: 1 a "<< g->getOrdem()<<endl;
+                cout << "Digite o No de origem: ";
+                int v=0;
+                cin >> v;
+                cout << "Digite o No de destino: ";
+                int w = 0;
+                cin >> w;
+                cout << "Digite o peso da aresta: ";
+                int peso = 0;
+                cin >> peso;
+                if(v < 1 || v > g->getOrdem() || w < 1 || w > g->getOrdem() || v == w)
+                {
+                    cout << "Par invalido!" << endl;
+                    continue;
+                }
+                g->nova_aresta(v, w, peso);
+                cout<<endl;
+                g->imprime();
+                cout<<endl;
+            }
+            else if (opcao == 5)
+            {
+                break;
+            }
+            else
+            {
+                cout << "Opcao invalida" << endl;
+                continue;
+            }
+            
+        }
+        
 
-        cout << "Reinserindo aresta 1-2 e 2-3" << endl;
-        g->nova_aresta(1,2,12);
-        g->nova_aresta(2,3,23);
-        cout <<"Imprimindo grafo" << endl;
-        g->imprime();
-        cout << "--------------------------------------------------" << endl<<endl;
 
-        cout << "Teste remoção de vertice" << endl;
-
-        cout << "Removendo vertice 3" << endl;
-        g->deleta_no(3);
-        cout <<"Imprimindo grafo" << endl;
-        g->imprime();
 
 
         cout << "Fim do programa" << endl<<endl<<endl;
