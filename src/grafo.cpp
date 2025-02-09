@@ -283,6 +283,7 @@ void Grafo::BPPonte(int v, bool visitado[], int *tempo, int disc[], int low[], i
             low[v-1] = min(low[v-1], disc[w-1]);
         }
     }
+    delete[] vizinhos;
 }
 
 bool Grafo::auxVerticeArticulacao() {
@@ -338,6 +339,7 @@ void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], i
     if (isArticulation) {
         (*qtdArticulacao)++;
     }
+    delete[] vizinhos;
 }
 
 void Grafo::caminhoMinimoFloyd(int u, int v){
@@ -443,10 +445,10 @@ bool Grafo::eh_completo()
 
 void Grafo::temCiclo(int v, bool visitado[], int pai, bool *resultado)
 {
+    int *vizinhos = vizinhosVertice(v);
     if(visitado[v-1] == false)
     {
         visitado[v-1] = true;
-        int *vizinhos = vizinhosVertice(v);
 
         for (int i = 0; i < grauVertice(v); i++)
         {
@@ -458,6 +460,7 @@ void Grafo::temCiclo(int v, bool visitado[], int pai, bool *resultado)
     {
         *resultado = true;
     }
+    delete[] vizinhos;
 }
 
 bool Grafo::eh_arvore() 
@@ -590,6 +593,7 @@ void Grafo::exportInfo()
        {
            file << i << " " << vizinhos[j] << " " << pesoAresta(i, vizinhos[j]) << '\n';
        }
+       delete[] vizinhos;
     }
 
 }
@@ -1295,7 +1299,7 @@ void Grafo::exportDesc(){
 
     // Temp test
 
-    caminhoMinimoFloyd(1, getOrdem());
+    //caminhoMinimoFloyd(1, getOrdem());
 }
 
 // >>
@@ -1316,7 +1320,8 @@ bool Grafo::BipartidoFB(){
         for (int j = 0; j < n; ++j) {
             cores[j] = (i & (1 << j)) != 0;
         }
-        for(int k =1; k <= n; k++){
+        for(int k =1; k <= n; k++)
+        {
             int *vizinhos =  vizinhosVertice(k);
             int grau = grauVertice(k);
             
@@ -1327,6 +1332,7 @@ bool Grafo::BipartidoFB(){
                     break; 
                 }
             }
+            delete[] vizinhos;
             if (!bipartido) {
                 break;  
             }
@@ -1353,6 +1359,7 @@ void Grafo::auxBPConexos(int v, bool* visitado) {
             auxBPConexos(w, visitado);  // Realiza DFS recursivamente nos vizinhos não visitados
         }
     }
+    delete[] vizinhos;
 }
 
 // Função para contar componentes conexos

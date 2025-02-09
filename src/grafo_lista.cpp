@@ -11,7 +11,7 @@ grafo_lista::~grafo_lista()
     vertice *p = inicio;
     while (p != NULL)
     {
-        edge *e = p->getAresta();
+        edge *e = p->get_init_aresta();
         while (e != NULL)
         {
             edge *aux = e;
@@ -44,6 +44,87 @@ void grafo_lista::insere_vertice(int id, int peso)
     }
 }
 
+void grafo_lista::novo_no(int peso)
+{
+    setOrdem(getOrdem() + 1);
+    insere_vertice(getOrdem(), peso);
+}
+
+void grafo_lista::deleta_no(int id)
+{
+    vertice *p = inicio;
+    vertice *ant = NULL;
+    int *vizinhos = new int;
+    while (p != NULL)
+    {
+        if(getDirecionado()) // Remoção para arcos dos vertices antecessores; 
+        {
+            vizinhos = vizinhosVertice(p->ID());
+            for(int i = 0; i < grauVertice(p->ID()); i++)
+            {
+                if(vizinhos[i] == id)
+                {
+                    deleta_aresta(p->ID(), id);
+                }
+            }
+        }
+        if (p->ID() == id) // Remoção para arcos dos vertices sucessores;
+        {
+            vizinhos = vizinhosVertice(id);
+            for (int i = 0; i < grauVertice(id); i++)
+            {
+                deleta_aresta(id, vizinhos[i]);
+                if(getDirecionado())
+                {
+                    deleta_aresta(vizinhos[i], id);
+                }
+            }
+            break;
+        }
+        ant = p;
+        p = p->getProx();
+        
+    }
+    
+    // --------- Atualização dos indices ------ //
+
+    p = inicio;
+    while (p != NULL)
+    {   
+        if(p->ID() == id)
+        {
+            if(ant == NULL)
+            {
+                inicio = p->getProx();
+            }
+            else
+            {
+                ant->setProx(p->getProx());
+            }
+            delete p;
+        }
+        else
+        {
+            if(p->ID() > id)
+            {
+                p->ID()--;
+            }
+            edge *e = p->get_init_aresta();
+            while(e != NULL)
+            {
+                if(e->W() > id)
+                {
+                    e->W()--;
+                }
+                e = e->getProx();
+            }
+        }
+        ant = p;
+        p = p->getProx();
+    }
+    setOrdem(getOrdem() - 1);
+}
+
 void grafo_lista::insere_aresta(int v, int w, int peso)
 {
     if (buscaAresta(v, w))
@@ -74,6 +155,71 @@ void grafo_lista::insere_aresta(int v, int w, int peso)
     }
 }
 
+void grafo_lista::nova_aresta(int v, int w, int peso)
+{
+    insere_aresta(v, w, peso);
+}
+
+void grafo_lista::deleta_aresta(int v, int w)
+{
+    if(!buscaAresta(v,w))
+    {
+        return;
+    }
+    vertice *p = inicio;
+    while (p != NULL)
+    {
+        if (p->ID() == v)
+        {
+            edge *e = p->get_init_aresta();
+            edge *ant = NULL;
+            while (e != NULL)
+            {
+                if (e->W ()== w)
+                {
+                    if (ant == NULL)
+                    {
+                        p->set_init_aresta(e->getProx());
+                    }
+                    else
+                    {
+                        ant->setProx(e->getProx());
+                    }
+                    delete e;
+                    p->Grau()--;
+                    if(getDirecionado())break;
+                }
+                ant = e;
+                e = e->getProx();
+            }
+        }
+        if (p->ID() == w && !getDirecionado())
+        {
+            edge *e = p->get_init_aresta();
+            edge *ant = NULL;
+            while (e != NULL)
+            {
+                if (e->W() == v)
+                {
+                    if (ant == NULL)
+                    {
+                        p->set_init_aresta(e->getProx());
+                    }
+                    else
+                    {
+                        ant->setProx(e->getProx());
+                    }
+                    delete e;
+                }
+                ant = e;
+                e = e->getProx();
+            }
+        }
+        
+        p = p->getProx();
+    }
+}
+
 int grafo_lista::pesoVertice(int id)
 {
     vertice *p = inicio;
@@ -96,7 +242,7 @@ int grafo_lista::pesoAresta(int v, int w)
     {
         if (p->ID() == v)
         {
-            edge *ep = p->getAresta();
+            edge *ep = p->get_init_aresta();
             while (ep != NULL)
             {
                 if (ep->W() == w)
@@ -139,7 +285,7 @@ edge *grafo_lista::getAresta(int v, int w)
     {
         if (p->ID() == v)
         {
-            e = p->getAresta();
+            e = p->get_init_aresta();
             while (e != NULL)
             {
                 if (e->W() == w)
@@ -175,7 +321,7 @@ bool grafo_lista::buscaAresta(int v, int w)
     {
         if (p->ID() == v)
         {
-            edge *e = p->getAresta();
+            edge *e = p->get_init_aresta();
             while (e != NULL)
             {
                 if (e->W() == w)
@@ -203,7 +349,7 @@ int *grafo_lista::vizinhosVertice(int id)
                 return NULL;
             }
             int *vizinhos = new int[p->Grau()];
-            edge *e = p->getAresta();
+            edge *e = p->get_init_aresta();
             for (int i = 0; e != NULL; i++)
             {
                 vizinhos[i] = e->W();
@@ -227,24 +373,20 @@ int grafo_lista::grauVertice(int id)
         }
         p = p->getProx();
     }
-    //cout << "Vertice nao encontrado" << endl;
     return 0;
 }
 
 void grafo_lista::inicializa()
 {
-    // eu sei como evitar essa função mas é mais fácil deixar por enquanto
 }
 
 void grafo_lista::imprime()
 {
-    // cout << endl << "Imprimindo lista" << endl;
-    // cout << "vertice(peso do vertice) -> vizinho(peso da aresta) - vizinho(peso da aresta)..." << endl;
     vertice *v = getInicio();
     while (v != NULL)
     {
         cout << v->ID() << "(" << v->Peso() << ") -> ";
-        edge *e = v->getAresta();
+        edge *e = v->get_init_aresta();
         while (e != NULL)
         {
             cout << e->W() << "(" << e->Peso() << ") - ";

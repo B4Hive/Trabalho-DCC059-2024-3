@@ -13,34 +13,39 @@ using namespace std;
 class Grafo
 {
 public:
+
     Grafo() {}
-    ~Grafo() {}
+    virtual ~Grafo() {}
 
     void carrega_grafo(char *tipo, string dataFileName);
     void novo_grafo(string descFileName, string outFileName);
     void exportInfo();
     void exportDesc();
-
+    
     virtual void inicializa() = 0;
     virtual void imprime() = 0;
-
+    
     virtual void insere_vertice(int id, int peso) = 0;
-    // virtual void remove_vertice(int id) = 0; calma que vamos impelementar aindaa
+    virtual void novo_no(int peso) = 0;
+    virtual void deleta_no(int id) = 0;
 
     virtual void insere_aresta(int v, int w, int peso) = 0;
-    // virtual void remove_aresta(int v, int w) = 0; esse tambem, talvez....
-
+    virtual void nova_aresta(int v, int w, int peso) = 0;
+    virtual void deleta_aresta(int v, int w) = 0; 
+    
     virtual int pesoVertice(int id) = 0;
     virtual bool buscaVertice(int id) = 0;
-    virtual int grauVertice(int id) = 0;      // retorna o grau de um vertice
-    virtual int *vizinhosVertice(int id) = 0; // retorna um vetor com os ídices dos vertices vizinhos
-
+    virtual int grauVertice(int id) = 0;      
+    virtual int *vizinhosVertice(int id) = 0; 
+    
     virtual int pesoAresta(int v, int w) = 0;
-    virtual edge *getAresta(int v, int w) = 0; // alterar funcao
+    virtual edge *getAresta(int v, int w) = 0; 
     virtual bool buscaAresta(int v, int w) = 0;
-    // retono dos vizinho;
-    // Metodos pra acesso externo;
 
+    //virtual void nova_aresta(int v, int w, int peso) = 0;
+   
+    
+    
     int getGrau();
     int getOrdem();
     int getComponentes_conexas();
@@ -57,8 +62,10 @@ public:
     // B4Hive
     void caminhoMinimoFloyd(int u, int v);
 
+    bool &Debug() { return debug; }
+    
 protected:
-    // Metodos pra acesso interno;
+    
     void setGrau(int);
     void setOrdem(int);
     void setDirecionado(bool);
@@ -71,7 +78,6 @@ protected:
     void setAresta_Ponte(bool);
     void setVertice_de_Articulacao(bool);
     void setTamanho(int);
-
     int &Tamanho() { return info[3]; } // Quantidade de arestas que o grafo tem
 
     // Rodrigo
@@ -93,7 +99,7 @@ protected:
     // Variaveis internas
     string filename;
     string outFile;
-    int info[4]{0, 0, 0, 0}; //[Grau, Ordem, Componentes_conexas, Tamanho]
+    int info[4]{0, 10, 0, 0}; //[Grau, Ordem, Componentes_conexas, Tamanho]
     bool dpp[8] = {0, 0, 0, 0, 0, 0, 0, 0};
     // direcionado             [0]
     // vertices ponderados     [1]
@@ -103,6 +109,8 @@ protected:
     // Arvore                  [5]
     // Aresta Ponte            [6]
     // Vertice de Articulação  [7]
+
+    bool debug = 0;
 };
 
 #endif
