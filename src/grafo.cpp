@@ -1295,7 +1295,7 @@ void Grafo::exportDesc(){
 
     // Temp test
 
-    caminhoMinimoFloyd(1, getOrdem());
+    //caminhoMinimoFloyd(1, getOrdem());
 }
 
 // >>

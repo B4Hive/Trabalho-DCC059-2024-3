@@ -153,6 +153,7 @@ void grafo_matriz::novo_no(int peso)
     ordem_grafo ++;
     if(ordem_grafo > ordem_matriz)
     {
+        cout << "Matriz Cheia!" << endl;
         realoca();
     }
     insere_vertice(ordem_grafo, peso);
