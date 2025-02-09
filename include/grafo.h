@@ -58,6 +58,10 @@ public:
     bool getArvore();
     bool getAresta_Ponte();
     bool getVertice_de_Articulacao();
+
+    // B4Hive
+    void caminhoMinimoFloyd(int u, int v);
+
     bool &Debug() { return debug; }
     
 protected:

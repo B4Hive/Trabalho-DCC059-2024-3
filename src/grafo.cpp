@@ -2,6 +2,7 @@
 #include "grafo_lista.h"
 #include "grafo_matriz.h"
 using namespace std;
+
 // << Getters and Setters >>
 
 void Grafo::setGrau(int grau)
@@ -339,6 +340,91 @@ void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], i
     }
 }
 
+void Grafo::caminhoMinimoFloyd(int u, int v){
+    //inicializando variáveis
+    const double INF = INFINITY;
+    int lower = 0;
+    int n = getOrdem();
+    double** dist = new double*[n];
+    int** next = new int*[n];
+    for (int i = 0; i < n; i++) {
+        dist[i] = new double[n];
+        next[i] = new int[n];
+    }
+    //inicializando matriz de distâncias e matriz de próximos
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            if (i == j) {
+                dist[i-1][j-1] = 0;
+                next[i-1][j-1] = 0;
+            } else if (buscaAresta(i, j)) {
+                int peso = pesoAresta(i, j);
+                if(peso < lower){ //tratamento pra ciclos negativos parte 1
+                    lower = peso;
+                }
+                dist[i-1][j-1] = peso;
+                next[i-1][j-1] = j;
+            } else {
+                dist[i-1][j-1] = INF;
+                next[i-1][j-1] = -1;
+            }
+        }
+    }
+    //tratamento pra ciclos negativos parte 2
+    if(lower < 0){
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                if(dist[i-1][j-1] != INF){
+                    dist[i-1][j-1] += abs(lower) + 1;
+                }
+            }
+        }
+    }
+    //algoritmo de Floyd-Warshall
+    for (int k = 1; k <= n; k++) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (dist[i-1][k-1] < INF && dist[k-1][j-1] < INF) {
+                    if (dist[i-1][j-1] > dist[i-1][k-1] + dist[k-1][j-1]) {
+                        dist[i-1][j-1] = dist[i-1][k-1] + dist[k-1][j-1];
+                        next[i-1][j-1] = next[i-1][k-1];
+                    }
+                }
+            }
+        }
+    }
+    //tratamento pra ciclos negativos parte 3
+    if(lower < 0){
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                if(dist[i-1][j-1] != INF){
+                    dist[i-1][j-1] -= (abs(lower) + 1);
+                }
+            }
+        }
+    }
+    //imprimindo caminho
+    cout << "Caminho de " << u << " para " << v << ": ";
+    if (next[u][v] == -1) {
+        cout << "Nao ha caminho de " << u << " para " << v << endl;
+    } else {
+        cout << "Distancia: " << dist[u-1][v-1] << endl;
+        cout << u;
+        while (u != v) {
+            u = next[u-1][v-1];
+            cout << " -> " << u;
+        }
+        cout << endl;
+    }
+    //liberando memória
+    for (int i = 0; i < n; i++) {
+        delete[] dist[i];
+        delete[] next[i];
+    }
+    delete[] dist;
+    delete[] next;
+}
+
 // >>
 
 // << Rodrigo >>
@@ -435,7 +521,6 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName){
 
     inicializa();
 
-
     for (int i = 1; i <= getOrdem(); i++)
     {
         int peso = 1;
@@ -461,7 +546,7 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName){
         }
         Tamanho()++;
         insere_aresta(v, w, peso);
-
+        
         getline(file, line);
     }
 
@@ -472,7 +557,6 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName){
            setGrau(grauVertice(i));
        }
     }
-
 
     file.close();
 }
@@ -1208,6 +1292,10 @@ void Grafo::exportDesc(){
     }else{
         cout << "Nao" << endl;
     }
+
+    // Temp test
+
+    caminhoMinimoFloyd(1, getOrdem());
 }
 
 // >>
