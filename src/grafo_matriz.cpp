@@ -10,7 +10,7 @@ grafo_matriz::grafo_matriz()
 
 grafo_matriz::~grafo_matriz()
 {
-    delete m;
+    delete[] m;
 }
 
 void grafo_matriz::inicializa()
@@ -67,6 +67,7 @@ void grafo_matriz::realoca()
                 arestas[cont].Peso() = pesoAresta(i+1, vizinhos[j]);
                 cont++;
             }
+            delete[] vizinhos;
         }
     }
     if(Debug())
@@ -78,7 +79,7 @@ void grafo_matriz::realoca()
     }
 
     // Realocando a matriz
-    //delete m;
+    delete[] m;
     exp_ordem++;
     ordem_matriz = 10 * (pow(2,exp_ordem));
     int tamanho_vetor = 0;
@@ -117,6 +118,8 @@ void grafo_matriz::realoca()
     }
     
     if(Debug())cout << " END DEBUG Realoca" << endl;
+
+    delete[] arestas;
 
 }
 
