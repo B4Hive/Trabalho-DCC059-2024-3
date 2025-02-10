@@ -228,9 +228,7 @@ void grafo_lista::nova_aresta(int v, int w, int peso)
  * @details Essa função remove a aresta entre dois vértices `v` e `w` do grafo. Se o grafo for não direcionado, a aresta (v, w) é removida de ambos os vértices. Caso contrário, apenas a aresta (v, w) é removida do vértice `v`.
  * @param v O vértice de origem da aresta.
  * @param w O vértice de destino da aresta.
- * @note Se a aresta não existir, a função não faz nada.
- * @warning Em grafos direcionados, a aresta (v, w) será removida, mas a aresta (w, v) não será, a menos que seja chamada explicitamente.
- */
+*/
 void grafo_lista::deleta_aresta(int v, int w)
 {
     if (!buscaAresta(v, w))
