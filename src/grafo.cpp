@@ -56,6 +56,15 @@ void Grafo::setOrdem(int ordem)
     }
 }
 
+
+/**
+ * @brief Altera se o grafo é direcionado
+ * 
+ * @details Esta função realiza uma breve verifiação se o valor do parametro "direcionado" é valido. 
+ * Caso não seja, uma mensagem é exibida indicando que o valor é invalido e que o programa será encerrado. 
+ * Caso seja válido, o valor é atribuido a dpp[0].
+ * @param direcionado Variável que com o valor esperado de 0 ou 1.
+ */
 void Grafo::setDirecionado(bool direcionado)
 {
     if(direcionado != 0 && direcionado != 1)
