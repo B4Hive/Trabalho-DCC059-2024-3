@@ -1,3 +1,11 @@
+/**
+ * @file grafo.cpp
+ * 
+ * @brief Arquivo de implementação da classe Grafo que é pai das classes grafo_matriz e grafo_lista
+ * @version 1.1.0
+ * @date 2025-02-10
+ */
+
 #include "grafo.h"
 #include "grafo_lista.h"
 #include "grafo_matriz.h"
@@ -245,7 +253,7 @@ int Grafo::getTamanho()
 /**
  * @brief Verifica se o grafo possui alguma aresta de ponte.
  * 
- * Esta função utiliza uma busca em profundidade (DFS) para determinar se o grafo
+ * @details Esta função utiliza uma busca em profundidade (DFS) para determinar se o grafo
  * possui alguma aresta de ponte. Uma aresta de ponte é uma aresta que, se removida,
  * aumenta o número de componentes conectados do grafo.
  * 
@@ -277,7 +285,7 @@ bool Grafo::auxArestaPonte() {
 /**
  * @brief Função recursiva que encontra e conta as pontes em um grafo.
  * 
- * Esta função utiliza a busca em profundidade (BP) para encontrar todas as pontes em um grafo.
+ * @details  Esta função utiliza a busca em profundidade (BP) para encontrar todas as pontes em um grafo.
  * Uma ponte é uma aresta que, se removida, aumenta o número de componentes conectados do grafo.
  * 
  * @param v O vértice atual sendo visitado.
@@ -313,7 +321,7 @@ void Grafo::BPPonte(int v, bool visitado[], int *tempo, int disc[], int low[], i
 /**
  * @brief Verifica se o grafo possui vértices de articulação.
  *
- * Esta função verifica se o grafo possui vértices de articulação utilizando uma 
+ * @details Essa função verifica se o grafo possui vértices de articulação utilizando uma 
  * busca em profundidade modificada. Um vértice de articulação é um vértice que, 
  * se removido, aumenta o número de componentes conectados do grafo.
  *
@@ -345,7 +353,7 @@ bool Grafo::auxVerticeArticulacao() {
 /**
  * @brief Realiza a busca em profundidade para encontrar pontos de articulação em um grafo.
  *
- * Esta função implementa o algoritmo de busca em profundidade (BP) para identificar pontos de articulação
+ * @details Esta função implementa o algoritmo de busca em profundidade (BP) para identificar pontos de articulação
  * em um grafo. Um ponto de articulação é um vértice que, se removido, aumenta o número de componentes
  * conectados do grafo.
  *
@@ -392,7 +400,7 @@ void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], i
 /**
  * @brief Calcula o caminho mínimo entre dois vértices usando o algoritmo de Floyd-Warshall.
  * 
- * Esta função calcula o caminho mínimo entre dois vértices em um grafo, utilizando o algoritmo de Floyd-Warshall.
+ * @details Esta função calcula o caminho mínimo entre dois vértices em um grafo, utilizando o algoritmo de Floyd-Warshall.
  * Ela também trata ciclos negativos no grafo, ajustando os pesos das arestas conforme necessário.
  * 
  * @param u Vértice de origem.
@@ -489,7 +497,11 @@ void Grafo::caminhoMinimoFloyd(int u, int v){
 // >>
 
 // << Rodrigo >>
-
+/**
+ * @brief Função para verificar se o grafo é Completo
+ * @details A função verifica se o grafo é completo percorrendo todos os vértices e validando o número de arestas ligados a cada um. 
+ * @return Retorna um booleano False, caso o grau de algum vértice seja diferente da ordem do grafo -1, ou True, caso a repetição chegue ao fim e garanta que todos os vértices atendem à exigência.
+ */
 bool Grafo::eh_completo() 
 {
     //para um grafo ser completo, cada vértice deve ter V-1 arestas. Então, se um deles não tiver v-1 arestas, o grafo não é completo
@@ -502,6 +514,15 @@ bool Grafo::eh_completo()
     return true;
 }
 
+
+/**
+ * @brief Função auxiliar para verificar se o grafo é uma Árvore 
+ * @details A verificação dos ciclos consiste em armazenar quais vértices foram visitados em um vetor e retorna true caso ele encontre um vértice que já tenha sido visitado.
+ * @param v Vértice inicial de onde começa a busca.
+ * @param visitado Vetor de booleanos que mantém um controle de quais vértices já foram visitados ou não.
+ * @param pai Armazena o ID do vértice pai do vértice atual.
+ * @param resultado Ponteiro pra variável que armazena se foi detectado algum ciclo.
+ */
 void Grafo::temCiclo(int v, bool visitado[], int pai, bool *resultado)
 {
     int *vizinhos = vizinhosVertice(v);
@@ -522,6 +543,15 @@ void Grafo::temCiclo(int v, bool visitado[], int pai, bool *resultado)
     delete[] vizinhos;
 }
 
+
+/**
+ * @brief Função para verificar se o grafo é uma Árvore 
+ * @details A função verifica se o grafo é uma árvore ao validar três condições específicas: se o grafo é conexo, se o total de arestas é igual ao total de vértices -1 e não tem ciclos.
+A verificação dos ciclos é feita por uma função auxiliar temCiclo()
+O total de arestas é verificado por uma repetição que soma os graus de cada vértice em uma variável.
+E, por fim, a verificação da conexidade é feita a partir da função BPConexo, que retorna 1, caso seja conexo.
+ * @return Retorna um booleano True, caso as três condições sejam atendidas e retorna False, caso a função chegue ao final.
+ */
 bool Grafo::eh_arvore() 
 {
 	int arestas = 0;
@@ -552,7 +582,12 @@ bool Grafo::eh_arvore()
 // >>
 
 // << Abner >>
-
+/**
+ * @brief Função para verificar se o grafo é uma Árvore 
+ * @details 
+ * @param tipo Define o tipo da estrutura de armazenamento do grafo
+ * @param dataFileName Nome do arquivo a ser lindo
+ */
 void Grafo::carrega_grafo(char *tipo, string dataFileName){
     ifstream file;
     string line;
@@ -1364,7 +1399,11 @@ void Grafo::exportDesc(){
 // >>
 
 // << ufjoao-init >>
-
+/**
+ * @brief Função para verificar se o grafo é Bipartido
+ * @details Usa um algorítimo de força bruta baseado em designar uma cor para cada vértice e garantir ao menos uma solução onde nenhum vértice tenha arestas em vértices de mesma cor.
+ * @return Retorna um Booleano True ou False referente ao grafo ser ou não Bipartido
+ */
 bool Grafo::BipartidoFB(){
     int n = getOrdem(); 
     if (n <= 1) {
@@ -1406,6 +1445,13 @@ bool Grafo::BipartidoFB(){
 
 }
 
+
+/**
+ * @brief Função auxiliar para realizar a Busca em profundidade para a função BPConexo()
+ * @details Usa um algorítimo de Busca em profundidade para percorrer as arestas de cada vértice e marcar um vetor de booleanos que representam cada vértice alcançado pela busca na atual chamada da função.
+ * @param v O vértice de início da Busca em profundidade
+ * @param visitado Vetor de booleanos que representam os vértices que já foram visitados ou não
+ */
 // Função auxiliar para realizar a busca em profundidade
 void Grafo::auxBPConexos(int v, bool* visitado) {
     visitado[v] = true;
@@ -1421,6 +1467,12 @@ void Grafo::auxBPConexos(int v, bool* visitado) {
     delete[] vizinhos;
 }
 
+
+/**
+ * @brief Função usada para calcular e retornar a quantidade de componentes conexas de um grafo
+ * @details Usa um loop que passa em todos os vértices para verificar se todas as posições do vetor visitados[n] já foi preenchida aumentando em 1 a quantidade toda vez que a função itera após a chamada da função auxiliar auxBPConexos().
+ * @return Número de componentes conexas que esse grafo possui 
+ */
 // Função para contar componentes conexos
 unsigned int Grafo::BPConexo() {
     int n = getOrdem();  // Ordem do grafo (número de vértices)

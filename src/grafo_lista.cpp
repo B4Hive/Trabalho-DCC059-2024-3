@@ -1,3 +1,11 @@
+/**
+ * @file grafo_lista.cpp
+ * 
+ * @brief Arquivo de implementação da classe grafo_lista que é filha da classe Grafo.
+ * @version 1.1.0
+ * @date 2025-02-10
+ */
+
 #include "grafo_lista.h"
 using namespace std;
 

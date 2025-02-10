@@ -1,3 +1,10 @@
+/**
+ * @file data_strc.cpp
+ * @brief Arquivo de implementação das classes egde e vertice
+ * @version 1.1.0
+ * @date 2025-02-10
+ */
+
 #include "data_strc.h"
 
 /*-------------------------- Vertice -----------------------------*/

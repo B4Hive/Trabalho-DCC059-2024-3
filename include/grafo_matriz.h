@@ -1,3 +1,11 @@
+/**
+ * @file grafo_matriz.h
+ * 
+ * @brief Arquivo de cabeçalho da classe grafo_matriz que é filha da classe Grafo.
+ * @version 1.1.0
+ * @date 2025-02-10
+ */
+
 #ifndef GRAFO_MATRIZ_H
 #define GRAFO_MATRIZ_H
 #include "grafo.h"

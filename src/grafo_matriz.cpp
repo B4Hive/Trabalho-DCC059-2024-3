@@ -1,3 +1,11 @@
+/**
+ * @file grafo_matriz.cpp
+ * 
+ * @brief Arquivo de implementação da classe grafo_matriz que é filha da classe Grafo.
+ * @version 1.1.0
+ * @date 2025-02-10
+ */
+
 #include "grafo_matriz.h"
 using namespace std;
 

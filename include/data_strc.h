@@ -1,3 +1,10 @@
+/**
+ * @file data_strc.h
+ * @brief Arquivo de cabeçalho das classes egde e vertice
+ * @version 1.1.0
+ * @date 2025-02-10
+ */
+
 #ifndef DATA_STRC_H
 #define DATA_STRC_H
 
