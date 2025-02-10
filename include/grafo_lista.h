@@ -1,15 +1,29 @@
+/**
+ * @file grafo_lista.h
+ *
+ * @brief Arquivo de cabeçalho da classe grafo_lista que é filha da classe Grafo.
+ * @version 1.1.0
+ * @date 2025-02-10
+ */
+
 #ifndef GRAFO_LISTA_H
 #define GRAFO_LISTA_H
 
 #include "grafo.h"
 
+/**
+ * @class grafo_lista
+ * @brief Implementação de um grafo utilizando lista de adjacência.
+ *
+ * A classe `grafo_lista` herda da classe base `Grafo` e armazena os vértices e arestas
+ * utilizando uma lista encadeada de vértices, onde cada vértice mantém uma lista de suas arestas.
+ */
 class grafo_lista : public Grafo
 {
 public:
     grafo_lista();
     ~grafo_lista();
 
-    
     void insere_vertice(int id, int peso);
     void novo_no(int peso);
     void deleta_no(int id);
@@ -32,7 +46,7 @@ public:
     void imprime();
 
 private:
-    vertice *inicio;
+    vertice *inicio; ///< Ponteiro para o primeiro vértice da lista de adjacência.
     vertice *getInicio();
     vertice *getVertice(int v);
 };
