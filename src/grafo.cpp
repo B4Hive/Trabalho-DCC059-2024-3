@@ -244,6 +244,14 @@ bool Grafo::getArestas_ponderadas()
     return dpp[2];
 }
 
+
+/**
+ * @brief Retorna se o grafo é completo
+ * 
+ * @details Esta função retorna um valor booleano indicando se o grafo é completo ou não.
+ * 
+ * @return Retorna um valor booleano;
+ */
 bool Grafo::getCompleto()
 {
     return eh_completo();
