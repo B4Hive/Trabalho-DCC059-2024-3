@@ -125,6 +125,15 @@ void Grafo::setVertices_ponderados(bool vertices_ponderados)
     }
 }
 
+
+/**
+ * @brief Altera se as arestas do grafo são ponderadas
+ * 
+ * @details Esta função realiza uma breve verificação para confirmar se o parametro arestas_ponderadas é valido.
+ * Caso não seja, imprime uma mensagem de que o valor é invalido e que o programa será encerrado. Caso o valor seja
+ * válido, atribui o valor ao dpp[2].
+ * @param arestas_ponderadas
+ */
 void Grafo::setArestas_ponderadas(bool arestas_ponderadas)
 {
     if(arestas_ponderadas != 0 && arestas_ponderadas != 1)
