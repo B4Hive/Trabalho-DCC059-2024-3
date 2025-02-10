@@ -9,11 +9,27 @@
 #include "grafo_lista.h"
 using namespace std;
 
+
+/**
+ * @brief Construtor da classe grafo_lista.
+ * @details Este construtor inicializa a lista de vértices do grafo como uma lista vazia, ou seja, o ponteiro `inicio` é definido como `NULL`.
+ * Isso prepara a estrutura de dados para a inserção de vértices e arestas subsequentes.
+ */
 grafo_lista::grafo_lista()
 {
     this->inicio = NULL;
 }
 
+
+/**
+ * @brief Destruidor da classe grafo_lista.
+ * @details Este destruidor percorre todos os vértices do grafo, removendo cada aresta associada a cada vértice e, em seguida, deleta o vértice.
+ * A memória alocada para os vértices e arestas é liberada, evitando vazamentos de memória.
+ * O processo ocorre da seguinte forma:
+ * 1. Para cada vértice na lista, as arestas associadas a ele são removidas.
+ * 2. Cada aresta é deletada antes de deletar o vértice em si.
+ * 3. Ao final, o vértice é deletado e o próximo vértice na lista é processado.
+ */
 grafo_lista::~grafo_lista()
 {
     vertice *p = inicio;
@@ -214,7 +230,14 @@ void grafo_lista::nova_aresta(int v, int w, int peso)
     insere_aresta(v, w, peso);
 }
 
-
+/**
+ * @brief Remove uma aresta do grafo.
+ * @details Essa função remove a aresta entre dois vértices `v` e `w` do grafo. Se o grafo for não direcionado, a aresta (v, w) é removida de ambos os vértices. Caso contrário, apenas a aresta (v, w) é removida do vértice `v`.
+ * @param v O vértice de origem da aresta.
+ * @param w O vértice de destino da aresta.
+ * @note Se a aresta não existir, a função não faz nada.
+ * @warning Em grafos direcionados, a aresta (v, w) será removida, mas a aresta (w, v) não será, a menos que seja chamada explicitamente.
+ */
 void grafo_lista::deleta_aresta(int v, int w)
 {
     if(!buscaAresta(v,w))
