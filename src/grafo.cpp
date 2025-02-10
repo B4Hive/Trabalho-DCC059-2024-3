@@ -79,6 +79,15 @@ void Grafo::setDirecionado(bool direcionado)
     }
 }
 
+
+/**
+ * @brief Altera a quantidade de componentes conexas do grafo
+ * 
+ * @details Esta função realiza uma breve verificação para confirmar se o parametro componentes_conexas é valido.
+ * Caso não seja, imprime uma mensagem de que o valor é invalido e que o programa será encerrado. Caso o valor seja
+ * válido, atribui o valor ao info[2].
+ * @param componentes_conexas variável inteira com valor esperado maior ou igual zero
+ */
 void Grafo::setComponentes_conexas(int componentes_conexas)
 {
     if(componentes_conexas < 0)
@@ -93,6 +102,15 @@ void Grafo::setComponentes_conexas(int componentes_conexas)
     }
 }
 
+
+/**
+ * @brief Altera se os vertices do grafo são ponderados.
+ * 
+ * @details Esta função realiza uma breve verificação para confirmar se o parametro vertices_ponderados é valido.
+ * Caso não seja, imprime uma mensagem de que o valor é invalido e que o programa será encerrado. Caso o valor seja
+ * válido, atribui o valor ao dpp[1].
+ * @param vertices_ponderados variável booleana de valor 0 ou 1
+ */
 void Grafo::setVertices_ponderados(bool vertices_ponderados)
 {
     if(vertices_ponderados != 0 && vertices_ponderados != 1)
@@ -107,6 +125,15 @@ void Grafo::setVertices_ponderados(bool vertices_ponderados)
     }
 }
 
+
+/**
+ * @brief Altera se as arestas do grafo são ponderadas
+ * 
+ * @details Esta função realiza uma breve verificação para confirmar se o parametro arestas_ponderadas é valido.
+ * Caso não seja, imprime uma mensagem de que o valor é invalido e que o programa será encerrado. Caso o valor seja
+ * válido, atribui o valor ao dpp[2].
+ * @param arestas_ponderadas variável booleana de valor 0 ou 1
+ */
 void Grafo::setArestas_ponderadas(bool arestas_ponderadas)
 {
     if(arestas_ponderadas != 0 && arestas_ponderadas != 1)
@@ -121,6 +148,15 @@ void Grafo::setArestas_ponderadas(bool arestas_ponderadas)
     }
 }
 
+
+/**
+ * @brief Altera se o grafo é completo
+ * 
+ * @details Esta função realiza uma breve verificação para confirmar se o parametro completo é valido (0 ou 1).
+ * Caso não seja, imprime uma mensagem de que o valor é invalido e que o programa será encerrado. Caso o valor seja
+ * válido, atribui o dpp[3].
+ * @param completo variável booleana de valor 0 ou 1
+ */
 void Grafo::setCompleto(bool completo)
 {
     if(completo != 0 && completo != 1)
@@ -135,6 +171,15 @@ void Grafo::setCompleto(bool completo)
     }
 }
 
+
+/**
+ * @brief Altera se o grafo é bipartido
+ * 
+ * @details Esta função realiza uma breve verificação para confirmar se o parametro bipartido é valido (0 ou 1).
+ * Caso não seja, imprime uma mensagem de que o valor é invalido e que o programa será encerrado. Caso o valor seja
+ * válido, atribui o valor ao dpp[4].
+ * @param bipartido variável booleana de valor 0 ou 1
+ */
 void Grafo::setBipartido(bool bipartido)
 {
     if(bipartido != 0 && bipartido != 1)
@@ -149,6 +194,15 @@ void Grafo::setBipartido(bool bipartido)
     }
 }
 
+
+/**
+ * @brief Altera se o grafo é uma arvore
+ * 
+ * @details Esta função realiza uma breve verificação para confirmar se o parametro arvore é valido (0 ou 1).
+ * Caso não seja, imprime uma mensagem de que o valor é invalido e que o programa será encerrado e sai da função. Caso o valor seja
+ * válido, atribui o valor ao dpp[5].
+ * @param arvore variavel booleana contendo 0 ou 1
+ */
 void Grafo::setArvore(bool arvore)
 {
     if(arvore != 0 && arvore != 1)
@@ -163,6 +217,15 @@ void Grafo::setArvore(bool arvore)
     }
 }
 
+
+/**
+ * @brief Altera se o grafo possúi aresta ponte.
+ * 
+ * @details Esta função realiza uma breve verificação para confirmar se o parametro aresta_ponte é valido (0 ou 1).
+ * Caso não seja, imprime uma mensagem de que o valor é invalido e que o programa será encerrado e sai da função. Caso o valor seja
+ * válido, atribui o valor ao dpp[6].
+ * @param aresta_ponte variável booleana de valor 0 ou 1
+ */
 void Grafo::setAresta_Ponte(bool aresta_ponte)
 {
     if(aresta_ponte != 0 && aresta_ponte != 1)
@@ -177,6 +240,15 @@ void Grafo::setAresta_Ponte(bool aresta_ponte)
     }
 }
 
+
+/**
+ * @brief Altera se o grafo possui vertice de articulação
+ * 
+ * @details Esta função realiza uma breve verificação para confirmar se o parametro vertice_de_articulacao é valido.
+ * Caso não seja, imprime uma mensagem de que o valor é invalido e que o programa será encerrado e sai da função. 
+ * Caso o valor seja válido, atribui o valor ao dpp[7].
+ * @param componentes_conexas variável booleana de valor 0 ou 1
+ */
 void Grafo::setVertice_de_Articulacao(bool vertice_de_articulacao)
 {
     if(vertice_de_articulacao != 0 && vertice_de_articulacao != 1)
@@ -191,6 +263,15 @@ void Grafo::setVertice_de_Articulacao(bool vertice_de_articulacao)
     }
 }
 
+
+/**
+ * @brief Altera a quantidade de arestas do grafo
+ * 
+ * @details Esta função realiza uma breve verificação para confirmar se o parametro tamanho é valido (maior ou igual a 0).
+ * Caso não seja, imprime uma mensagem de que o valor é invalido e que o programa será encerrado. Caso o valor seja
+ * válido, atribui o valor ao info[3].
+ * @param componentes_conexas
+ */
 void Grafo::setTamanho(int tamanho)
 {
     if(tamanho < 0)
