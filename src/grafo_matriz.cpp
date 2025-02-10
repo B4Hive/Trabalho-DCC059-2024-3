@@ -9,6 +9,12 @@
 #include "grafo_matriz.h"
 using namespace std;
 
+
+/**
+ * @brief Construtor da classe
+ * 
+ * @details Inicia as variáveis m, ordem_matriz e exp_ordem.
+ */
 grafo_matriz::grafo_matriz()
 {
     m = NULL;
@@ -16,6 +22,12 @@ grafo_matriz::grafo_matriz()
     exp_ordem = 0;
 }
 
+
+/**
+ * @brief Destrutor da classe
+ * 
+ * @details deleta m, que é o ponteiro para a matriz de adjacência representada em um array unidimensional
+ */
 grafo_matriz::~grafo_matriz()
 {
     delete[] m;
@@ -194,6 +206,14 @@ void grafo_matriz::insere_vertice(int id, int peso)
     this->operator()(id - 1, id - 1) = peso;
 }
 
+
+/**
+ * @brief Insere um novo nó na estrutura;
+ * @details tem como objetivo adicionar um novo vértice ao grafo, representado por uma matriz de adjacência.
+ * Ela realiza uma série de etapas para garantir que o novo vértice seja inseridoincluindo 
+ * a verificação de capacidade da matriz de adjacência e a realocação, caso necessário.
+ * @param peso Peso do novo nó;
+ */
 void grafo_matriz::novo_no(int peso)
 {
     int ordem_grafo = getOrdem();
@@ -284,6 +304,16 @@ void grafo_matriz::insere_aresta(int v, int w, int peso)
     
 }
 
+
+/**
+ * @brief Insere uma nova aresta.
+ * @details 
+ *A função nova_aresta(int v, int w, int peso) tem como objetivo adicionar uma aresta entre os vértices v e w de um grafo 
+ *representado por uma matriz de adjacência. Essa função também associa um peso a aresta.
+ * @param v id do vértice de origem;
+ * @param w id do vértice de destino;
+ * @param peso Peso da aresta
+ */
 void grafo_matriz::nova_aresta(int v, int w, int peso)
 {
     if(v != w)
@@ -292,6 +322,15 @@ void grafo_matriz::nova_aresta(int v, int w, int peso)
     }
 }
 
+
+/**
+ * @brief Remove uma aresta.
+ * @details 
+ *A função tem como objetivo remover uma aresta entre os vértices v e w 
+ *em um grafo representado por uma matriz de adjacência.
+ * @param v id do vértice de origem;
+ * @param w id do vértice de destino;
+ */
 void grafo_matriz::deleta_aresta(int v, int w)
 {
     if (v != w)
