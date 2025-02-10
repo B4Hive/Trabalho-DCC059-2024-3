@@ -254,6 +254,18 @@ void grafo_matriz::deleta_no(int id)
     
 }
 
+
+/**
+ * @brief Insere uma aresta entre dois Nós passados por parâmetro e seu respectivo peso.
+ * @details 
+ * Insere uma aresta entre os vértices `v` e `w` na matriz de adjacência do grafo. Se a posição correspondente na matriz de adjacência
+ * já estiver ocupada (valor diferente de 0), a função não faz nenhuma alteração. Caso contrário, o peso da aresta é atribuído à posição
+ * correspondente na matriz. A matriz de adjacência é baseada em índices 0-base, então os índices `v` e `w` são ajustados para refletir
+ * isso.
+ * @param v id do vértice de origem;
+ * @param w id do vértice de destino;
+ * @param peso Peso da aresta
+ */
 void grafo_matriz::insere_aresta(int v, int w, int peso)
 {
     if(this->operator()(v-1,w-1) == 0)
@@ -279,16 +291,36 @@ void grafo_matriz::deleta_aresta(int v, int w)
     }
 }
 
+
+/**
+ * @brief Retorna o peso da Aresta;
+ * @param v id do vértice de início.
+ * @param w id do vértice de chegada.
+ * @return Retorna o peso da aresta entre os vértices passados como parâmetro.
+ */
 int grafo_matriz::pesoAresta(int v, int w)
 {
     return this->operator()(v - 1, w - 1);
 }
 
+
+/**
+ * @brief Retorna o peso do vértice;
+ * @param id id do vértice que queremos saber o peso
+ * @return Retorna o peso de um vértice passado como parâmetro
+ */
 int grafo_matriz::pesoVertice(int id)
 {
     return this->operator()(id - 1, id - 1);
 }
 
+
+/**
+ * @brief  Busca se um vértice está na Matriz de adjacências.
+ * @param id id do vértice que queremos saber se está na Matriz.
+ * @return true caso exista um vértice de mesmo id que o passado por parâmetro na Matriz de adjacência.
+ * @return false caso não.
+ */
 bool grafo_matriz::buscaVertice(int id)
 {
     if (this->operator()(id - 1, id - 1) != 0)
@@ -301,6 +333,14 @@ bool grafo_matriz::buscaVertice(int id)
     }
 }
 
+
+/**
+ * @brief Busca uma aresta no grafo entre dois vértices passados como parâmetro;
+ * @param v id do vértice de origem;
+ * @param w id do vértice de destino;
+ * @return true caso encontre uma aresta entre os dois vértices.
+ * @return false, caso não.
+ */
 bool grafo_matriz::buscaAresta(int v, int w)
 {
     if (this->operator()(v - 1, w - 1) != 0 && v != w)
@@ -313,6 +353,17 @@ bool grafo_matriz::buscaAresta(int v, int w)
     }
 }
 
+
+/**
+ * @brief Retorna uma aresta entre os vértices passados como parâmetro
+ * @details
+ * Retorna um ponteiro para um objeto `edge` representando a aresta entre os vértices `v` e `w` se existir.
+ * A função verifica se há uma conexão entre os vértices na matriz de adjacência e, se encontrada, cria e retorna
+ * um novo objeto `edge` com os dados da aresta. Caso contrário, imprime uma mensagem e retorna um ponteiro nulo.
+ * @param v id do vértice de origem;
+ * @param w id do vértice de destino;
+ * @return Retorna uma aresta do Tipo edge, caso não encontre, retorna 0.
+ */
 edge *grafo_matriz::getAresta(int v, int w)
 {
     if (this->operator()(v - 1, w - 1) != 0 && v != w)
@@ -332,6 +383,17 @@ edge *grafo_matriz::getAresta(int v, int w)
     return 0;
 }
 
+
+/**
+ * @brief Função que retorna um vetor contendo os Id's dos Vértices Vizinhos. 
+ * @details
+ * Retorna um vetor com os IDs dos vizinhos do vértice de índice `id`. A função percorre a matriz de adjacência do grafo e
+ * identifica os vértices que têm uma aresta conectando-se ao vértice `id`. O vetor contém os IDs dos vizinhos, e o tamanho do
+ * vetor é determinado pelo grau do vértice. A matriz de adjacência é baseada em índices 0-base, portanto, o índice `id` é ajustado
+ * para refletir isso. 
+ * @return Vetor contendo os ids dos vértices vizinhos ao vértice passado como parâmetro.
+ * @return 0, caso o vértice passado como parâmetro não tenha vizinhos.
+ */
 int *grafo_matriz::vizinhosVertice(int id)
 {
     int grau = grauVertice(id);
@@ -354,6 +416,17 @@ int *grafo_matriz::vizinhosVertice(int id)
     return vizinhos;
 }
 
+
+/**
+ * @brief Retorna o grau do vertice;
+ * @details
+ * Calcula e retorna o grau do vértice com o ID `id`. A função percorre a matriz de adjacência do grafo e conta o número de
+ * conexões (arestas) do vértice especificado com outros vértices, desconsiderando a diagonal da matriz (o próprio vértice).
+ * O grau é incrementado sempre que uma aresta (valor diferente de zero) é encontrada entre o vértice `id` e outro vértice.
+ * O índice do vértice é ajustado para a base 0 da matriz de adjacência.
+ * @param id id do vértice que queremos saber o grau.
+ * @return O valor do grau do vértice.
+ */
 int grafo_matriz::grauVertice(int id)
 {
     int grau = 0;
