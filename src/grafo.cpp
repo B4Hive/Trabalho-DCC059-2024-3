@@ -27,6 +27,14 @@ void Grafo::setGrau(int grau)
     }
 }
 
+
+/**
+ * @brief Altera o valor da propriedade Ordem
+ * 
+ * @details Esta função faz uma breve verificação se a ordem passada por parâmetro é valida, checando se ela é maior que zero, e em seguida sobrescreve o campo Ordem com o parâmetro passado.
+ * 
+ * @param ordem Número que será salvo como a Ordem do Grafo.
+ */
 void Grafo::setOrdem(int ordem)
 {
     if(ordem < 0)
