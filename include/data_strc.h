@@ -10,6 +10,13 @@
 
 #include <iostream>
 
+/**
+ * @class edge
+ * @brief Representa uma aresta de um grafo.
+ *
+ * A classe `edge` contém informações sobre uma aresta, incluindo os vértices que conecta,
+ * seu peso e um ponteiro para a próxima aresta na lista de adjacência.
+ */
 class edge
 {
 public:
@@ -43,7 +50,7 @@ public:
     int &Grau();
     int &Peso();
     edge *get_init_aresta() { return init_aresta; }
-    void  set_init_aresta(edge *e) { init_aresta = e; }
+    void set_init_aresta(edge *e) { init_aresta = e; }
     vertice *getProx();
     void setProx(vertice *p);
     void insereAresta(edge *e);

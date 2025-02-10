@@ -1,6 +1,6 @@
 /**
  * @file grafo_matriz.h
- * 
+ *
  * @brief Arquivo de cabeçalho da classe grafo_matriz que é filha da classe Grafo.
  * @version 1.1.0
  * @date 2025-02-10
@@ -10,20 +10,24 @@
 #define GRAFO_MATRIZ_H
 #include "grafo.h"
 
-
-
+/**
+ * @class grafo_matriz
+ * @brief Implementação de um grafo utilizando matriz de adjacência.
+ *
+ * A classe `grafo_matriz` herda da classe base `Grafo` e implementa seus métodos
+ * usando uma matriz para armazenar as arestas e os vértices do grafo.
+ */
 class grafo_matriz : public Grafo
 {
 public:
     grafo_matriz();
     ~grafo_matriz();
 
-    
     void insere_vertice(int id, int peso);
     void novo_no(int peso);
     void deleta_no(int id);
     void realoca();
-    
+
     void insere_aresta(int v, int w, int peso);
     void nova_aresta(int v, int w, int peso);
     void deleta_aresta(int v, int w);
