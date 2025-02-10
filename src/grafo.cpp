@@ -242,6 +242,16 @@ int Grafo::getTamanho()
 
 // << BHive >>
 
+/**
+ * @brief Verifica se o grafo possui alguma aresta de ponte.
+ * 
+ * Esta função utiliza uma busca em profundidade (DFS) para determinar se o grafo
+ * possui alguma aresta de ponte. Uma aresta de ponte é uma aresta que, se removida,
+ * aumenta o número de componentes conectados do grafo.
+ * 
+ * @return true Se o grafo possui pelo menos uma aresta de ponte.
+ * @return false Se o grafo não possui nenhuma aresta de ponte.
+ */
 bool Grafo::auxArestaPonte() {
     int disc[getOrdem()];
     int low[getOrdem()];
@@ -264,6 +274,20 @@ bool Grafo::auxArestaPonte() {
     return qtdPonte > 0;
 }
 
+/**
+ * @brief Função recursiva que encontra e conta as pontes em um grafo.
+ * 
+ * Esta função utiliza a busca em profundidade (BP) para encontrar todas as pontes em um grafo.
+ * Uma ponte é uma aresta que, se removida, aumenta o número de componentes conectados do grafo.
+ * 
+ * @param v O vértice atual sendo visitado.
+ * @param visitado Array booleano que indica se um vértice foi visitado.
+ * @param tempo Ponteiro para o tempo de descoberta dos vértices.
+ * @param disc Array que armazena o tempo de descoberta de cada vértice.
+ * @param low Array que armazena o menor tempo de descoberta acessível a partir de cada vértice.
+ * @param pai O vértice pai do vértice atual na árvore de busca em profundidade.
+ * @param qtdPonte Ponteiro para a quantidade de pontes encontradas.
+ */
 void Grafo::BPPonte(int v, bool visitado[], int *tempo, int disc[], int low[], int pai, int *qtdPonte) {
     (*tempo)++;
     disc[v-1] = *tempo;
@@ -286,6 +310,15 @@ void Grafo::BPPonte(int v, bool visitado[], int *tempo, int disc[], int low[], i
     delete[] vizinhos;
 }
 
+/**
+ * @brief Verifica se o grafo possui vértices de articulação.
+ *
+ * Esta função verifica se o grafo possui vértices de articulação utilizando uma 
+ * busca em profundidade modificada. Um vértice de articulação é um vértice que, 
+ * se removido, aumenta o número de componentes conectados do grafo.
+ *
+ * @return true se o grafo possui vértices de articulação, false caso contrário.
+ */
 bool Grafo::auxVerticeArticulacao() {
     int ordem = getOrdem();
     int disc[ordem];
@@ -309,6 +342,20 @@ bool Grafo::auxVerticeArticulacao() {
     return qtdArticulacao > 0;
 }
 
+/**
+ * @brief Realiza a busca em profundidade para encontrar pontos de articulação em um grafo.
+ *
+ * Esta função implementa o algoritmo de busca em profundidade (BP) para identificar pontos de articulação
+ * em um grafo. Um ponto de articulação é um vértice que, se removido, aumenta o número de componentes
+ * conectados do grafo.
+ *
+ * @param v O vértice atual sendo visitado.
+ * @param tempo Ponteiro para o tempo atual da busca em profundidade.
+ * @param disc Vetor que armazena o tempo de descoberta de cada vértice.
+ * @param low Vetor que armazena o menor tempo de descoberta acessível a partir do vértice.
+ * @param pai Vetor que armazena o pai de cada vértice na árvore de busca em profundidade.
+ * @param qtdArticulacao Ponteiro para a quantidade de pontos de articulação encontrados.
+ */
 void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], int *qtdArticulacao) {
     (*tempo)++;
     disc[v-1] = *tempo;
@@ -342,6 +389,18 @@ void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], i
     delete[] vizinhos;
 }
 
+/**
+ * @brief Calcula o caminho mínimo entre dois vértices usando o algoritmo de Floyd-Warshall.
+ * 
+ * Esta função calcula o caminho mínimo entre dois vértices em um grafo, utilizando o algoritmo de Floyd-Warshall.
+ * Ela também trata ciclos negativos no grafo, ajustando os pesos das arestas conforme necessário.
+ * 
+ * @param u Vértice de origem.
+ * @param v Vértice de destino.
+ * 
+ * @note A função imprime o caminho mínimo e a distância entre os vértices u e v.
+ *       Se não houver caminho entre os vértices, uma mensagem apropriada será exibida.
+ */
 void Grafo::caminhoMinimoFloyd(int u, int v){
     //inicializando variáveis
     const double INF = INFINITY;
