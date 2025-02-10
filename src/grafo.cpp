@@ -79,6 +79,15 @@ void Grafo::setDirecionado(bool direcionado)
     }
 }
 
+
+/**
+ * @brief Altera a quantidade de componentes conexas do grafo
+ * 
+ * @details Esta função realiza uma breve verificação para confirmar se o parametro componentes_conexas é valido.
+ * Caso não seja, imprime uma mensagem de que o valor é invalido e que o programa será encerrado. Caso o valor seja
+ * válido, atribui o valor ao info[2].
+ * @param componentes_conexas
+ */
 void Grafo::setComponentes_conexas(int componentes_conexas)
 {
     if(componentes_conexas < 0)
@@ -93,6 +102,15 @@ void Grafo::setComponentes_conexas(int componentes_conexas)
     }
 }
 
+
+/**
+ * @brief Altera se os vertices do grafo são ponderados.
+ * 
+ * @details Esta função realiza uma breve verificação para confirmar se o parametro vertices_ponderados é valido.
+ * Caso não seja, imprime uma mensagem de que o valor é invalido e que o programa será encerrado. Caso o valor seja
+ * válido, atribui o valor ao dpp[1].
+ * @param vertices_ponderados
+ */
 void Grafo::setVertices_ponderados(bool vertices_ponderados)
 {
     if(vertices_ponderados != 0 && vertices_ponderados != 1)
