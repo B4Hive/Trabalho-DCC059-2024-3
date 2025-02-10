@@ -139,6 +139,15 @@ void grafo_matriz::realoca()
 
 }
 
+
+/**
+ * @brief Retorna o valor contido na matriz
+ * 
+ * @details Esta função realiza uma breve verificação para confirmar se o parametro componentes_conexas é valido.
+ * Caso não seja, imprime uma mensagem de que o valor é invalido e que o programa será encerrado. Caso o valor seja
+ * válido, atribui o valor ao info[2].
+ * @param componentes_conexas
+ */
 int &grafo_matriz::operator()(int v, int w)
 {
     int i = v;
