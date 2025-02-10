@@ -671,10 +671,10 @@ bool Grafo::eh_arvore()
 
 // << Abner >>
 /**
- * @brief Função para verificar se o grafo é uma Árvore 
+ * @brief Carrega as informações de um grafo a partir de um arquivo .txt
  * @details 
- * @param tipo Define o tipo da estrutura de armazenamento do grafo
- * @param dataFileName Nome do arquivo a ser lindo
+ * @param tipo Define o tipo da estrutura de armazenamento do grafo.
+ * @param dataFileName Nome do arquivo a ser lido.
  */
 void Grafo::carrega_grafo(char *tipo, string dataFileName){
     ifstream file;
@@ -746,6 +746,11 @@ void Grafo::carrega_grafo(char *tipo, string dataFileName){
     file.close();
 }
 
+
+/**
+ * @brief Imprime as informaçãoes do grafo na tela
+ * @details Esta função através de verificações básicas e de uso de funções get, como getOrdem(), getVertices_ponderados(), getDirecionado(), etc. Recebe e imprime as informações do Grafo na tela.
+ */
 void Grafo::exportInfo()
 {
     cout << "Exportando Info" << endl;
@@ -780,6 +785,16 @@ void Grafo::exportInfo()
 
 }
 
+
+/**
+ * @brief Cria um novo grafo a partir das informações lidas
+ * @details Cria um grafo com base nas especificações fornecidas em um arquivo de entrada. O grafo pode ser de diferentes tipos, incluindo completo, bipartido, árvore, ou um grafo genérico. 
+ * O código lê as propriedades do grafo, como grau, ordem, direção, ponderação de vértices e arestas, e valida as condições para cada tipo de grafo.
+ * Dependendo das propriedades, o código gera o grafo correspondente, inserindo vértices e arestas no arquivo de saída. 
+ * Se as condições para a criação do grafo não forem atendidas, o programa encerra com mensagens de erro apropriadas.
+ * @param descFileName Arquivo contendo a descrição do grafo
+ * @param outFileName arquivo de saída para as informações do grafo
+ */
 void Grafo::novo_grafo(string descFileName, string outFileName)
 {
     ifstream file;
@@ -1425,6 +1440,11 @@ void Grafo::novo_grafo(string descFileName, string outFileName)
 
 }
 
+
+/**
+ * @brief Cria um arquivo com a informações do grafo;
+ * @details Através de verificação de funções booleanas e inteiras de retorno preenche as informações do Grafo na tela.
+ */
 void Grafo::exportDesc(){
     cout << "Grau: " << getGrau() << endl;
     cout << "Ordem: " << getOrdem() << endl;

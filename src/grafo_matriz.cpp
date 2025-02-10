@@ -21,6 +21,14 @@ grafo_matriz::~grafo_matriz()
     delete[] m;
 }
 
+
+/**
+ * @brief Inicializa a estrutura de armazenamento;
+ * @details Inicializa a matriz de adjacências para o grafo, calculando a ordem da matriz com base na ordem do grafo e configurando o tamanho adequado para o vetor de representação. 
+ * A ordem da matriz é determinada pela potência de 2 mais próxima do valor da ordem do grafo. 
+ * Se o grafo não for direcionado, é alocada uma matriz triangular inferior, caso contrário, uma matriz quadrada é alocada.
+ * O vetor é inicializado com zeros, representando a ausência de arestas entre os vértices do grafo.
+ */
 void grafo_matriz::inicializa()
 {
     for(int i = 0; ordem_matriz <= getOrdem(); i++)
@@ -153,6 +161,16 @@ int &grafo_matriz::operator()(int v, int w)
     return m[0];
 }
 
+
+/**
+ * @brief Insere um novo vértice na estrutura;
+ * @details
+ * Insere um novo vértice na matriz de adjacência do grafo. A função utiliza a operação de acesso da matriz para atribuir o peso do vértice
+ * à posição correspondente na matriz, com base no identificador do vértice (id).
+ * O índice na matriz é ajustado para começar em zero, subtraindo 1 do id fornecido.
+ * @param id Indice do novo vértice;
+ * @param peso Peso do novo vertice;
+ */
 void grafo_matriz::insere_vertice(int id, int peso)
 {
     this->operator()(id - 1, id - 1) = peso;
@@ -171,6 +189,16 @@ void grafo_matriz::novo_no(int peso)
     setOrdem(ordem_grafo);
 }
 
+
+/**
+ * @brief Função que recebe um Nó, o deleta e ajusta a Matriz de adjacências.
+ * @details
+ * Remove um vértice do grafo, incluindo as arestas associadas a ele. Se o grafo for direcionado, a função também remove
+ * as arestas direcionadas de outros vértices para o vértice a ser deletado. Após a remoção, a ordem do grafo é atualizada,
+ * ajustando os índices dos vértices restantes. Além disso, a função lida com a exclusão de arestas entre vértices sucessores
+ * e antecessores, garantindo a integridade da estrutura de dados do grafo.
+ *  @param id Id para identificação do Nó a ser deletado.
+ */
 void grafo_matriz::deleta_no(int id)
 {
     if(getDirecionado())
@@ -330,6 +358,10 @@ int grafo_matriz::grauVertice(int id)
     return grau;
 }
 
+
+/**
+ * @brief Imprime a estrutura do grafo;
+ */
 void grafo_matriz::imprime()
 {
     if (!getDirecionado())
