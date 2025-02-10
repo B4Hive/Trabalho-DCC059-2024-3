@@ -218,11 +218,27 @@ int Grafo::getComponentes_conexas()
     return info[2];
 }
 
+
+/**
+ * @brief Retorna se os vertices do grafo são ponderados
+ * 
+ * @details A função retorna uma variável booleana que indica se o vértice é ponderado ou não.
+ * 
+ * @return Retorna valor booleano da dpp[1]
+ */
 bool Grafo::getVertices_ponderados()
 {
     return dpp[1];
 }
 
+
+/**
+ * @brief Retorna se as arestas do grafo são ponderadas
+ * 
+ * @details Esta função retorna uma variável booleana que indica se a aresta é ponderada ou não.
+ * 
+ * @return Retorna valor booleano da dpp[2]
+ */
 bool Grafo::getArestas_ponderadas()
 {
     return dpp[2];
