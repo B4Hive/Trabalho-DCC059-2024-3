@@ -206,21 +206,40 @@ void Grafo::setTamanho(int tamanho)
 }
 
 
+/**
+ * @brief Retorna o grau do grafo;
+ * @return Retorna a informação na posição referente ao grau do Grafo.
+ */
 int Grafo::getGrau()
 {
     return info[0];
 }
 
+
+/**
+ * @brief Retorna a ordem do grafo;
+ * @return Retorna a informação na posição referente à ordem do Grafo.
+ */
 int Grafo::getOrdem()
 {
     return info[1];
 }
 
+
+/**
+ * @brief Retorna se o grafo é direcionado;
+ * @return Retorna a informação na posição referente se o Grafo é direcionado.
+ */
 bool Grafo::getDirecionado()
 {
     return dpp[0];
 }
 
+
+/**
+ * @brief Retorna quantas componentes conexas possui grafo
+ * @return Retorna a informação na posição referente às componentes conexas do Grafo.
+ */
 int Grafo::getComponentes_conexas()
 {
     info[2] = BPConexo();
@@ -324,9 +343,7 @@ bool Grafo::getVertice_de_Articulacao()
 
 /**
  * @brief Retorna quantas arestas possui o grafo
- * 
  * @details Esta função retorna uma variavel inteira que indica o tamanho do grafo.
- * 
  * @return Retorna um valor inteiro.
  */
 int Grafo::getTamanho()

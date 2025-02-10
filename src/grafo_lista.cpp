@@ -214,6 +214,7 @@ void grafo_lista::nova_aresta(int v, int w, int peso)
     insere_aresta(v, w, peso);
 }
 
+
 void grafo_lista::deleta_aresta(int v, int w)
 {
     if(!buscaAresta(v,w))
@@ -274,6 +275,13 @@ void grafo_lista::deleta_aresta(int v, int w)
     }
 }
 
+
+/**
+ * @brief Retorna o peso do vértice;
+ * @details Percorre a lista de adjacências a procura de um vértice com o mesmo id que o passado como parâmetro, caso encontre, retorna seu respectivo peso, caso não ache, retorna 0.
+ * @param id id do vértice que queremos saber o peso
+ * @return Retorna o peso de um vértice passado como parâmetro
+ */
 int grafo_lista::pesoVertice(int id)
 {
     vertice *p = inicio;
@@ -289,6 +297,17 @@ int grafo_lista::pesoVertice(int id)
     return 0;
 }
 
+
+/**
+ * @brief Retorna o peso da Aresta;
+ * @details
+ * Retorna o peso da aresta entre os vértices `v` e `w`. A função percorre a lista de vértices até encontrar `v`
+ * e então busca na lista de arestas associadas a esse vértice. Se a aresta for encontrada, retorna seu peso.
+ * Caso contrário, retorna 0, indicando que a aresta não existe no grafo.
+ * @param v id do vértice de início.
+ * @param w id do vértice de chegada.
+ * @return Retorna o peso da aresta entre os vértices passados como parâmetro.
+ */
 int grafo_lista::pesoAresta(int v, int w)
 {
     vertice *p = inicio;
@@ -331,6 +350,17 @@ vertice *grafo_lista::getVertice(int v)
     return NULL;
 }
 
+
+/**
+ * @brief Retorna uma aresta entre os vértices passados como parâmetro
+ * @details
+ * Busca e retorna um ponteiro para a aresta que conecta os vértices `v` e `w` na lista de adjacência.
+ * A função percorre a lista de vértices até encontrar `v` e, em seguida, percorre suas arestas para localizar `w`.
+ * Se a aresta for encontrada, retorna um ponteiro para ela; caso contrário, retorna NULL.
+ * @param v id do vértice de origem;
+ * @param w id do vértice de destino;
+ * @return Retorna uma aresta do Tipo edge, e caso não encontre, retorna NULL.
+ */
 edge *grafo_lista::getAresta(int v, int w)
 {
     vertice *p = inicio;
@@ -354,6 +384,14 @@ edge *grafo_lista::getAresta(int v, int w)
     return NULL;
 }
 
+
+/**
+ * @brief  Busca se um vértice está na lista de adjacência.
+ * @details Percorre a lista de adjacências a procura de um vértice com o mesmo id que o passado como parâmetro, caso encontre, retorna true, caso não ache, retorna false.
+ * @param id id do vértice que queremos saber se está na lista.
+ * @return true caso exista um vértice de mesmo id que o passado por parâmetro na lista de adjacência.
+ * @return false caso não.
+ */
 bool grafo_lista::buscaVertice(int id)
 {
     vertice *p = inicio;
@@ -368,6 +406,18 @@ bool grafo_lista::buscaVertice(int id)
     return false;
 }
 
+
+/**
+ * @brief Busca uma aresta no grafo entre dois vértices passados como parâmetro;
+ * @details
+ * Verifica se existe uma aresta entre os vértices `v` e `w` na lista de adjacência.
+ * Percorre a lista de vértices até encontrar `v` e, em seguida, percorre suas arestas buscando `w`.
+ * Retorna `true` se a aresta existir e `false` caso contrário.
+ * @param v id do vértice de origem;
+ * @param w id do vértice de destino;
+ * @return true caso encontre uma aresta entre os dois vértices.
+ * @return false, caso não.
+ */
 bool grafo_lista::buscaAresta(int v, int w)
 {
     vertice *p = inicio;
@@ -390,6 +440,17 @@ bool grafo_lista::buscaAresta(int v, int w)
     return false;
 }
 
+
+/**
+ * @brief Função que retorna um vetor contendo os Id's dos Vértices Vizinhos.
+ * @details
+ * Retorna um vetor contendo os IDs dos vizinhos do vértice com o ID especificado. A função percorre a lista de vértices do grafo
+ * e, ao encontrar o vértice correspondente ao `id`, aloca um vetor e preenche com os IDs dos vértices adjacentes. Se o vértice não
+ * tiver vizinhos (grau 0) ou não for encontrado no grafo, a função retorna `NULL`. Caso contrário, retorna o vetor com os vizinhos.
+ * @param id id do vértice que queremos saber o grau.
+ * @return Vetor contendo os ids dos vértices vizinhos ao vértice passado como parâmetro.
+ * @return Null, caso o vértice passado como parâmetro não tenha vizinhos.
+ */
 int *grafo_lista::vizinhosVertice(int id)
 {
     vertice *p = inicio;
@@ -416,6 +477,16 @@ int *grafo_lista::vizinhosVertice(int id)
     return NULL;
 }
 
+
+/**
+ * @brief Retorna o grau do vertice;
+ * @details
+ * Retorna o grau do vértice com o ID especificado. A função percorre a lista de vértices do grafo e, ao encontrar o vértice
+ * correspondente ao `id`, retorna o seu grau (número de arestas conectadas a ele). Caso o vértice não seja encontrado, a função
+ * retorna 0, indicando que o vértice não existe no grafo.
+ * @param id id do vértice que queremos saber o grau.
+ * @return O valor do grau do vértice.
+ */
 int grafo_lista::grauVertice(int id)
 {
     vertice *p = inicio;
