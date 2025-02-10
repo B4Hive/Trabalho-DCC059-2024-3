@@ -32,6 +32,14 @@ grafo_lista::~grafo_lista()
     }
 }
 
+/**
+ * @brief Insere um novo vértice na estrutura;
+* @details Insere um novo vértice na lista de vértices do grafo. O vértice é criado com um identificador único (id) e um peso associado.
+ * Se a lista estiver vazia, o novo vértice se torna o primeiro da lista.
+ * Caso contrário, o vértice é inserido no final da lista, mantendo a ordem de inserção.
+ * @param id Indice do novo vértice;
+ * @param peso Peso do novo vertice;
+ */
 void grafo_lista::insere_vertice(int id, int peso)
 {
     vertice *v = new vertice();
@@ -52,12 +60,30 @@ void grafo_lista::insere_vertice(int id, int peso)
     }
 }
 
+
+/**
+ * @brief Insere um novo vértice na estrutura e se necessário aumenta o espaço de armazenamento reservado
+ * @details Cria um novo nó (vértice) no grafo, incrementando a ordem do grafo e inserindo o vértice com o peso especificado.
+ * A ordem do grafo é atualizada antes da inserção do vértice, garantindo que o novo vértice seja inserido corretamente
+ * na estrutura de dados do grafo, com o peso fornecido.
+ * @param peso Peso do novo Nó / Vértice;
+ */
 void grafo_lista::novo_no(int peso)
 {
     setOrdem(getOrdem() + 1);
     insere_vertice(getOrdem(), peso);
 }
 
+
+/**
+ * @brief Função que recebe um Nó, o deleta e ajusta a lista de adjacências.
+ * @details
+ * Remove um vértice do grafo, incluindo as arestas associadas a ele. Se o grafo for direcionado, a função também remove
+ * as arestas direcionadas de outros vértices para o vértice a ser deletado. Após a remoção, a ordem do grafo é atualizada,
+ * ajustando os índices dos vértices restantes. Além disso, a função lida com a exclusão de arestas entre vértices sucessores
+ * e antecessores, garantindo a integridade da estrutura de dados do grafo.
+ * @param id Id para identificação do Nó a ser deletado.
+ */
 void grafo_lista::deleta_no(int id)
 {
     vertice *p = inicio;
@@ -133,6 +159,18 @@ void grafo_lista::deleta_no(int id)
     setOrdem(getOrdem() - 1);
 }
 
+
+/**
+ * @brief Insere uma aresta entre dois nós enviados por parâmetro.
+ * @details
+ * Insere uma aresta entre os vértices `v` e `w` no grafo. Se a aresta já existir, a função retorna sem realizar nenhuma alteração.
+ * Caso contrário, uma nova aresta é criada e associada ao vértice `v`. Se o grafo não for direcionado, uma aresta adicional é
+ * criada entre `w` e `v`. Para cada vértice afetado pela inserção, o grau do vértice é incrementado. A aresta recebe um identificador
+ * único, que é gerado com base no tamanho atual do grafo.
+ * @param v id do vértice de origem;
+ * @param w id do vértice de destino;
+ * @param peso Peso da aresta
+ */
 void grafo_lista::insere_aresta(int v, int w, int peso)
 {
     if (buscaAresta(v, w))
@@ -163,6 +201,14 @@ void grafo_lista::insere_aresta(int v, int w, int peso)
     }
 }
 
+
+/**
+ * @brief Cria uma nova aresta entre dois nós com parâmetros enviados pelo usuário;
+ * @details Utiliza a função insere_aresta() para fazer a inserção
+ * @param v id do vértice de origem;
+ * @param w id do vértice de destino;
+ * @param peso Peso da aresta
+ */
 void grafo_lista::nova_aresta(int v, int w, int peso)
 {
     insere_aresta(v, w, peso);
@@ -388,6 +434,9 @@ void grafo_lista::inicializa()
 {
 }
 
+/**
+ * @brief Imprime a estrutura do grafo;
+ */
 void grafo_lista::imprime()
 {
     vertice *v = getInicio();
