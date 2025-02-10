@@ -1,6 +1,6 @@
 /**
  * @file grafo_lista.cpp
- * 
+ *
  * @brief Arquivo de implementação da classe grafo_lista que é filha da classe Grafo.
  * @version 1.1.0
  * @date 2025-02-10
@@ -8,7 +8,6 @@
 
 #include "grafo_lista.h"
 using namespace std;
-
 
 /**
  * @brief Construtor da classe grafo_lista.
@@ -19,7 +18,6 @@ grafo_lista::grafo_lista()
 {
     this->inicio = NULL;
 }
-
 
 /**
  * @brief Destruidor da classe grafo_lista.
@@ -50,7 +48,7 @@ grafo_lista::~grafo_lista()
 
 /**
  * @brief Insere um novo vértice na estrutura;
-* @details Insere um novo vértice na lista de vértices do grafo. O vértice é criado com um identificador único (id) e um peso associado.
+ * @details Insere um novo vértice na lista de vértices do grafo. O vértice é criado com um identificador único (id) e um peso associado.
  * Se a lista estiver vazia, o novo vértice se torna o primeiro da lista.
  * Caso contrário, o vértice é inserido no final da lista, mantendo a ordem de inserção.
  * @param id Indice do novo vértice;
@@ -76,7 +74,6 @@ void grafo_lista::insere_vertice(int id, int peso)
     }
 }
 
-
 /**
  * @brief Insere um novo vértice na estrutura e se necessário aumenta o espaço de armazenamento reservado
  * @details Cria um novo nó (vértice) no grafo, incrementando a ordem do grafo e inserindo o vértice com o peso especificado.
@@ -89,7 +86,6 @@ void grafo_lista::novo_no(int peso)
     setOrdem(getOrdem() + 1);
     insere_vertice(getOrdem(), peso);
 }
-
 
 /**
  * @brief Função que recebe um Nó, o deleta e ajusta a lista de adjacências.
@@ -107,12 +103,12 @@ void grafo_lista::deleta_no(int id)
     int *vizinhos = new int;
     while (p != NULL)
     {
-        if(getDirecionado()) // Remoção para arcos dos vertices antecessores; 
+        if (getDirecionado()) // Remoção para arcos dos vertices antecessores;
         {
             vizinhos = vizinhosVertice(p->ID());
-            for(int i = 0; i < grauVertice(p->ID()); i++)
+            for (int i = 0; i < grauVertice(p->ID()); i++)
             {
-                if(vizinhos[i] == id)
+                if (vizinhos[i] == id)
                 {
                     deleta_aresta(p->ID(), id);
                 }
@@ -124,7 +120,7 @@ void grafo_lista::deleta_no(int id)
             for (int i = 0; i < grauVertice(id); i++)
             {
                 deleta_aresta(id, vizinhos[i]);
-                if(getDirecionado())
+                if (getDirecionado())
                 {
                     deleta_aresta(vizinhos[i], id);
                 }
@@ -133,17 +129,16 @@ void grafo_lista::deleta_no(int id)
         }
         ant = p;
         p = p->getProx();
-        
     }
-    
+
     // --------- Atualização dos indices ------ //
 
     p = inicio;
     while (p != NULL)
-    {   
-        if(p->ID() == id)
+    {
+        if (p->ID() == id)
         {
-            if(ant == NULL)
+            if (ant == NULL)
             {
                 inicio = p->getProx();
             }
@@ -155,14 +150,14 @@ void grafo_lista::deleta_no(int id)
         }
         else
         {
-            if(p->ID() > id)
+            if (p->ID() > id)
             {
                 p->ID()--;
             }
             edge *e = p->get_init_aresta();
-            while(e != NULL)
+            while (e != NULL)
             {
-                if(e->W() > id)
+                if (e->W() > id)
                 {
                     e->W()--;
                 }
@@ -174,7 +169,6 @@ void grafo_lista::deleta_no(int id)
     }
     setOrdem(getOrdem() - 1);
 }
-
 
 /**
  * @brief Insere uma aresta entre dois nós enviados por parâmetro.
@@ -217,7 +211,6 @@ void grafo_lista::insere_aresta(int v, int w, int peso)
     }
 }
 
-
 /**
  * @brief Cria uma nova aresta entre dois nós com parâmetros enviados pelo usuário;
  * @details Utiliza a função insere_aresta() para fazer a inserção
@@ -240,7 +233,7 @@ void grafo_lista::nova_aresta(int v, int w, int peso)
  */
 void grafo_lista::deleta_aresta(int v, int w)
 {
-    if(!buscaAresta(v,w))
+    if (!buscaAresta(v, w))
     {
         return;
     }
@@ -253,7 +246,7 @@ void grafo_lista::deleta_aresta(int v, int w)
             edge *ant = NULL;
             while (e != NULL)
             {
-                if (e->W ()== w)
+                if (e->W() == w)
                 {
                     if (ant == NULL)
                     {
@@ -265,7 +258,8 @@ void grafo_lista::deleta_aresta(int v, int w)
                     }
                     delete e;
                     p->Grau()--;
-                    if(getDirecionado())break;
+                    if (getDirecionado())
+                        break;
                 }
                 ant = e;
                 e = e->getProx();
@@ -293,11 +287,10 @@ void grafo_lista::deleta_aresta(int v, int w)
                 e = e->getProx();
             }
         }
-        
+
         p = p->getProx();
     }
 }
-
 
 /**
  * @brief Retorna o peso do vértice;
@@ -316,10 +309,9 @@ int grafo_lista::pesoVertice(int id)
         }
         p = p->getProx();
     }
-    //cout << "Vertice nao encontrado" << endl;
+    // cout << "Vertice nao encontrado" << endl;
     return 0;
 }
-
 
 /**
  * @brief Retorna o peso da Aresta;
@@ -350,14 +342,13 @@ int grafo_lista::pesoAresta(int v, int w)
         }
         p = p->getProx();
     }
-    //cout << "Aresta nao encontrada" << endl;
+    // cout << "Aresta nao encontrada" << endl;
     return 0;
 }
 
-
 /**
  * @brief Retorna o inicio da lista.
- * 
+ *
  * @details Esta função retorna um vertice *grafo_lista que é o inicio da lista.
  * @return Retorna vertice *grafo_lista que é o inicio da lista.
  */
@@ -366,11 +357,10 @@ vertice *grafo_lista::getInicio()
     return inicio;
 }
 
-
 /**
  * @brief Retorna um ponteiro com o id do vétice;
- * 
- * @details Esta função recebe como parâmetro um valor inteiro v, caso o valor do id seja igual ao valor de v, 
+ *
+ * @details Esta função recebe como parâmetro um valor inteiro v, caso o valor do id seja igual ao valor de v,
  * a função retorna um *p que contem o id do vértice.
  * @param v Uma variável de valor inteiro
  * @return Retorna vertice *grafo_lista que é o inicio da lista.
@@ -388,7 +378,6 @@ vertice *grafo_lista::getVertice(int v)
     }
     return NULL;
 }
-
 
 /**
  * @brief Retorna uma aresta entre os vértices passados como parâmetro
@@ -419,10 +408,9 @@ edge *grafo_lista::getAresta(int v, int w)
             }
         }
     }
-    //cout << "Aresta nao encontrada" << endl;
+    // cout << "Aresta nao encontrada" << endl;
     return NULL;
 }
-
 
 /**
  * @brief  Busca se um vértice está na lista de adjacência.
@@ -444,7 +432,6 @@ bool grafo_lista::buscaVertice(int id)
     }
     return false;
 }
-
 
 /**
  * @brief Busca uma aresta no grafo entre dois vértices passados como parâmetro;
@@ -478,7 +465,6 @@ bool grafo_lista::buscaAresta(int v, int w)
     }
     return false;
 }
-
 
 /**
  * @brief Função que retorna um vetor contendo os Id's dos Vértices Vizinhos.
@@ -515,7 +501,6 @@ int *grafo_lista::vizinhosVertice(int id)
     }
     return NULL;
 }
-
 
 /**
  * @brief Retorna o grau do vertice;

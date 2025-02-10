@@ -39,6 +39,10 @@ private:
     edge *prox; ///< Ponteiro para a próxima aresta na lista de adjacência.
 };
 
+/**
+ * @class vertice
+ * @brief Representa um vértice em um grafo.
+ */
 class vertice
 {
 public:

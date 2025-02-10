@@ -64,47 +64,51 @@ int main(int argc, char *argv[])
         g->exportDesc();
         cout << "--------------------------------------------------" << endl;
         cout << "Imprimindo grafo" << endl;
-        cout << "--------------------------------------------------" << endl<<endl;
+        cout << "--------------------------------------------------" << endl
+             << endl;
         g->novo_no(60);
         g->novo_no(66);
         g->novo_no(70);
         g->novo_no(80);
         g->novo_no(90);
-        
+
         g->imprime();
-        
+
         while (true)
         {
-            cout << "--------------------------------------------------" << endl<<endl;
-            cout << "SELECIONE UMA OPCAO:" << endl<<endl;
+            cout << "--------------------------------------------------" << endl
+                 << endl;
+            cout << "SELECIONE UMA OPCAO:" << endl
+                 << endl;
             cout << " 1 - Novo No" << endl;
             cout << " 2 - Nova Aresta" << endl;
             cout << " 3 - Deletar No" << endl;
             cout << " 4 - Deletar Aresta" << endl;
-            cout << " 5 - Caminho Minimo" << endl<<endl;
-            cout << " 6 - Sair" << endl<<endl;
-    
+            cout << " 5 - Caminho Minimo" << endl
+                 << endl;
+            cout << " 6 - Sair" << endl
+                 << endl;
+
             cout << "OPCAO: ";
-    
+
             int opcao = 0;
             cin >> opcao;
 
-            
             if (opcao == 1) // Novo No
             {
                 cout << "Digite o peso do novo no: ";
                 int peso;
                 cin >> peso;
                 g->novo_no(peso);
-                cout<<endl;
+                cout << endl;
                 g->imprime();
-                cout<<endl;
+                cout << endl;
             }
             else if (opcao == 2) // Nova Aresta
             {
-                cout << "Indices dos nos disponiveis: 1 a "<< g->getOrdem()<<endl;
+                cout << "Indices dos nos disponiveis: 1 a " << g->getOrdem() << endl;
                 cout << "Digite o No de origem: ";
-                int v=0;
+                int v = 0;
                 cin >> v;
                 cout << "Digite o No de destino: ";
                 int w = 0;
@@ -112,22 +116,22 @@ int main(int argc, char *argv[])
                 cout << "Digite o peso da aresta: ";
                 int peso = 0;
                 cin >> peso;
-                if(v < 1 || v > g->getOrdem() || w < 1 || w > g->getOrdem() || v == w)
+                if (v < 1 || v > g->getOrdem() || w < 1 || w > g->getOrdem() || v == w)
                 {
                     cout << "Par invalido!" << endl;
                     continue;
                 }
                 g->nova_aresta(v, w, peso);
-                cout<<endl;
+                cout << endl;
                 g->imprime();
-                cout<<endl;
+                cout << endl;
             }
-            else if (opcao == 3) // Deleta no 
+            else if (opcao == 3) // Deleta no
             {
-                cout << "Digite o ID do no (1 a " << g->getOrdem()<<"): "<<endl;
+                cout << "Digite o ID do no (1 a " << g->getOrdem() << "): " << endl;
                 int no;
                 cin >> no;
-                if(no < 1 || no > g->getOrdem())
+                if (no < 1 || no > g->getOrdem())
                 {
                     cout << "No invalido" << endl;
                     continue;
@@ -139,45 +143,45 @@ int main(int argc, char *argv[])
             }
             else if (opcao == 4) // Deleta Aresta
             {
-                cout << "Indices dos nos disponiveis: 1 a "<< g->getOrdem()<<endl;
+                cout << "Indices dos nos disponiveis: 1 a " << g->getOrdem() << endl;
                 cout << "Digite o No de origem: ";
-                int v=0;
+                int v = 0;
                 cin >> v;
                 cout << "Digite o No de destino: ";
                 int w = 0;
                 cin >> w;
-                if(v < 1 || v > g->getOrdem() || w < 1 || w > g->getOrdem() || v == w)
+                if (v < 1 || v > g->getOrdem() || w < 1 || w > g->getOrdem() || v == w)
                 {
                     cout << "Par invalido!" << endl;
                     continue;
                 }
-                if(!g->buscaAresta(v, w))
+                if (!g->buscaAresta(v, w))
                 {
                     cout << "Aresta nao encontrada" << endl;
                     continue;
                 }
                 g->deleta_aresta(v, w);
-                cout<<endl;
+                cout << endl;
                 g->imprime();
-                cout<<endl;
+                cout << endl;
             }
             else if (opcao == 5) // Caminho Mínimo
             {
-                cout << "Indices dos nos disponiveis: 1 a "<< g->getOrdem()<<endl;
+                cout << "Indices dos nos disponiveis: 1 a " << g->getOrdem() << endl;
                 cout << "Digite o No de origem: ";
-                int v=0;
+                int v = 0;
                 cin >> v;
                 cout << "Digite o No de destino: ";
                 int w = 0;
                 cin >> w;
-                if(v < 1 || v > g->getOrdem() || w < 1 || w > g->getOrdem() || v == w)
+                if (v < 1 || v > g->getOrdem() || w < 1 || w > g->getOrdem() || v == w)
                 {
                     cout << "Par invalido!" << endl;
                     continue;
                 }
                 g->caminhoMinimoFloyd(v, w);
             }
-            else if(opcao == 6) // Sair
+            else if (opcao == 6) // Sair
             {
                 break;
             }
@@ -186,14 +190,11 @@ int main(int argc, char *argv[])
                 cout << "Opcao invalida" << endl;
                 continue;
             }
-            
         }
-        
 
-
-
-
-        cout << "Fim do programa" << endl<<endl<<endl;
+        cout << "Fim do programa" << endl
+             << endl
+             << endl;
 
         /*  //DEBUG
 

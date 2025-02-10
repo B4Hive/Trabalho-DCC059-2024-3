@@ -9,7 +9,6 @@
 
 /*-------------------------- Vertice -----------------------------*/
 
-
 /**
  * @brief Construtor padrão da classe vertice.
  * Inicializa um vértice com ID, grau e peso iguais a zero,
@@ -24,12 +23,10 @@ vertice::vertice()
     this->init_aresta = NULL;
 }
 
-
 /**
  * @brief Destrutor da classe vertice.
  */
 vertice::~vertice() {};
-
 
 /**
  * @brief Retorna uma referência ao ID do vértice.
@@ -40,7 +37,6 @@ int &vertice::ID()
     return id;
 }
 
-
 /**
  * @brief Retorna uma referência ao grau do vértice.
  * @return Referência para o grau do vértice.
@@ -49,7 +45,6 @@ int &vertice::Grau()
 {
     return grau;
 }
-
 
 /**
  * @brief Retorna uma referência ao peso do vértice.
@@ -60,8 +55,6 @@ int &vertice::Peso()
     return peso;
 }
 
-
-
 /**
  * @brief Retorna um ponteiro para o próximo vértice na lista.
  * @return Ponteiro para o próximo vértice.
@@ -71,7 +64,6 @@ vertice *vertice::getProx()
     return prox;
 }
 
-
 /**
  * @brief Define o próximo vértice na lista.
  * @param p Ponteiro para o próximo vértice.
@@ -80,7 +72,6 @@ void vertice::setProx(vertice *p)
 {
     prox = p;
 }
-
 
 /**
  * @brief Insere uma aresta na lista de arestas do vértice.
@@ -105,7 +96,6 @@ void vertice::insereAresta(edge *e)
 
 /*-------------------------- Aresta -----------------------------*/
 
-
 /**
  * @brief Construtor da classe edge.
  * @param v Vértice de origem.
@@ -119,12 +109,10 @@ edge::edge(int v, int w)
     this->prox = NULL;
 }
 
-
 /**
  * @brief Destrutor da classe edge.
  */
 edge::~edge() {};
-
 
 /**
  * @brief Construtor padrão da classe edge.
@@ -138,7 +126,6 @@ edge::edge()
     peso = 0;
     prox = NULL;
 }
-
 
 /**
  * @brief Retorna um ponteiro para a próxima aresta na lista.
