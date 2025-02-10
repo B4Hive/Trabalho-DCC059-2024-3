@@ -13,6 +13,13 @@ using namespace std;
 
 // << Getters and Setters >>
 
+
+/**
+ * @brief Altera o grau do grafo.
+ * @details Esta função verifica se o grau inserido atende às condições. Caso seja maior ou igual a 0, altera o valor do grau. Senão, imprime uma mensagem informando que o valor é inválido.
+ * @param grau é a variável com o valor que pretendemos inserir. 
+ */
+// Função auxiliar para realizar a busca em profundidade
 void Grafo::setGrau(int grau)
 {
     if(grau < 0)
