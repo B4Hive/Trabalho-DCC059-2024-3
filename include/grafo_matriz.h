@@ -48,9 +48,9 @@ public:
     void imprime();
 
 private:
-    int *m;
-    int ordem_matriz;
-    unsigned int exp_ordem = 0;
+    int *m;                     ///< Ponteiro para a matriz de adjacência representada em um array unidimensional.
+    int ordem_matriz;           ///< Número de vértices no grafo.
+    unsigned int exp_ordem = 0; ///< Variável auxiliar para realocação da matriz.
 };
 
 #endif

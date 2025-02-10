@@ -46,7 +46,7 @@ public:
     void imprime();
 
 private:
-    vertice *inicio;
+    vertice *inicio; ///< Ponteiro para o primeiro vértice da lista de adjacência.
     vertice *getInicio();
     vertice *getVertice(int v);
 };

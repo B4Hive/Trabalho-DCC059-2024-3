@@ -107,9 +107,33 @@ protected:
     bool BipartidoFB();
 
     // Variaveis internas
-    string filename;
-    string outFile;
-    int info[4]{0, 10, 0, 0}; //[Grau, Ordem, Componentes_conexas, Tamanho]
+    string filename; ///< Variável que armazena o nome do arquivo utilizado para carregar o grafo.
+    string outFile;  ///< Variável que armazena o nome do arquivo onde os resultados ou informações do grafo serão exportados.
+
+    /**
+     * @brief Array de informações do grafo.
+     *
+     * Variável que mantém algumas propriedades importantes do grafo:
+     * - info[0] -> Grau do grafo.
+     * - info[1] -> Ordem do grafo.
+     * - info[2] -> Componentes conexos do grafo.
+     * - info[3] -> Tamanho (número de arestas) do grafo.
+     */
+    int info[4]{0, 10, 0, 0}; ///<[Grau, Ordem, Componentes_conexas, Tamanho]
+
+    /**
+     * @brief Array de flags para propriedades do grafo.
+     *
+     * Variável que mantém flags (booleanos) para indicar características do grafo:
+     * - dpp[0] -> Grafo direcionado.
+     * - dpp[1] -> Vértices ponderados.
+     * - dpp[2] -> Arestas ponderadas.
+     * - dpp[3] -> Grafo completo.
+     * - dpp[4] -> Grafo bipartido.
+     * - dpp[5] -> Grafo é uma árvore.
+     * - dpp[6] -> Aresta ponte.
+     * - dpp[7] -> Vértice de articulação.
+     */
     bool dpp[8] = {0, 0, 0, 0, 0, 0, 0, 0};
     // direcionado             [0]
     // vertices ponderados     [1]
@@ -120,7 +144,7 @@ protected:
     // Aresta Ponte            [6]
     // Vertice de Articulação  [7]
 
-    bool debug = 0;
+    bool debug = 0; ///< Variável booleana que ativa ou desativa a depuração de processos do grafo.
 };
 
 #endif

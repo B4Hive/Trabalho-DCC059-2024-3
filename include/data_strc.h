@@ -33,11 +33,10 @@ public:
     void setProx(edge *ep) { prox = ep; }
 
 private:
-    int id;
-    int v, w;
-    int peso;
-
-    edge *prox;
+    int id;     ///< Identificador da aresta.
+    int v, w;   ///< Vértices conectados pela aresta.
+    int peso;   ///< Peso da aresta.
+    edge *prox; ///< Ponteiro para a próxima aresta na lista de adjacência.
 };
 
 class vertice
@@ -56,11 +55,11 @@ public:
     void insereAresta(edge *e);
 
 private:
-    int id;
-    int grau;
-    int peso;
-    vertice *prox;
-    edge *init_aresta;
+    int id;            ///< Identificador do vértice.
+    int grau;          ///< Grau do vértice.
+    int peso;          ///< Peso do vértice.
+    vertice *prox;     ///< Ponteiro para o próximo vértice na lista encadeada.
+    edge *init_aresta; ///< Ponteiro para a primeira aresta do vértice.
 };
 
 #endif
