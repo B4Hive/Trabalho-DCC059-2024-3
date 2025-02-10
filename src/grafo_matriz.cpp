@@ -58,6 +58,15 @@ void grafo_matriz::inicializa()
 
 }
 
+
+/**
+ * @brief Realoca a matriz de adjacência para o dobro do tamanho
+ * 
+ * @details Esta função tem como objetivo realocar a matriz de adjacência de um grafo, que é armazenada no vetor m. 
+ * Ela faz isso ao expandir a ordem da matriz, armazenar novamente as arestas e pesos do grafo, e reconfigurar os 
+ * dados da estrutura interna de maneira eficiente.
+ *
+ */
 void grafo_matriz::realoca()
 {
     cout << "Realocando" << endl;
@@ -143,10 +152,10 @@ void grafo_matriz::realoca()
 /**
  * @brief Retorna o valor contido na matriz
  * 
- * @details Esta função realiza uma breve verificação para confirmar se o parametro componentes_conexas é valido.
- * Caso não seja, imprime uma mensagem de que o valor é invalido e que o programa será encerrado. Caso o valor seja
- * válido, atribui o valor ao info[2].
- * @param componentes_conexas
+ * @details Esta função realiza uma breve verificação para confirmar se o grafo é direcionado.
+ * Em seguida faz algumas verificações nos if e else e retorna o valor da matriz.
+ * @param v, w
+ * @return retorna uma referência ao valor armazenado na matriz m para o par de vértices.
  */
 int &grafo_matriz::operator()(int v, int w)
 {
