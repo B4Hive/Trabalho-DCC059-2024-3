@@ -272,22 +272,54 @@ bool Grafo::getBipartido()
     return dpp[4];
 }
 
+
+/**
+ * @brief Retorna se o grafo é uma arvore
+ * 
+ * @details Esta função chama a função eh_arvore e retorna um valor booleano.
+ * 
+ * @return Retorna um valor booleano.
+ */
 bool Grafo::getArvore()
 {
     return eh_arvore();
     //return dpp[5];
 }
 
+
+/**
+ * @brief Retorna se o grafo possui aresta ponte.
+ * 
+ * @details Esta função chama a função auxArestaPonte e retorna um valor booleano que indica se o grafo possui ou não uma aresta ponte.
+ * 
+ * @return Retorna um valor booleano.
+ */
 bool Grafo::getAresta_Ponte()
 {
     return auxArestaPonte();
 }
 
+
+/**
+ * @brief Retorna se o grafo possui vertice de articulação
+ * 
+ * @details Esta função chama a auxVerticeArticulacao e retorna um valor booleano que indica se o grafo possui ou não um vértice de articulação.
+ * 
+ * @return Retorna um valor booleano.
+ */
 bool Grafo::getVertice_de_Articulacao()
 {
     return auxVerticeArticulacao();
 }
 
+
+/**
+ * @brief Retorna quantas arestas possui o grafo
+ * 
+ * @details Esta função retorna uma variavel inteira que indica o tamanho do grafo.
+ * 
+ * @return Retorna um valor inteiro.
+ */
 int Grafo::getTamanho()
 {
     return info[3];
