@@ -258,6 +258,14 @@ bool Grafo::getCompleto()
     //return dpp[3];
 }
 
+
+/**
+ * @brief Retorna se o grafo é bipartido
+ * 
+ * @details Esta função retorna um valor booleano que indica se o grafo é ou não bipartido.
+ * 
+ * @return Retorna um valor booleano
+ */
 bool Grafo::getBipartido()
 {
     dpp[4] = BipartidoFB();
