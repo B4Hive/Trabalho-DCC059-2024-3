@@ -449,6 +449,22 @@ void Grafo::caminhoMinimoFloyd(int u, int v){
                     if (dist[i-1][j-1] > dist[i-1][k-1] + dist[k-1][j-1]) {
                         dist[i-1][j-1] = dist[i-1][k-1] + dist[k-1][j-1];
                         next[i-1][j-1] = next[i-1][k-1];
+                        cout << "Debug" << endl;
+                        cout << "Dist" << endl;
+                        for (int a = 0; a < n; a++){
+                            for (int b = 0; b < n; b++) {
+                                cout << dist[a][b] << " ";
+                            }
+                            cout << endl;
+                        }
+                        cout << "Next" << endl;
+                        for (int a = 0; a < n; a++){
+                            for (int b = 0; b < n; b++) {
+                                cout << next[a][b] << " ";
+                            }
+                            cout << endl;
+                        }
+                        cout << "End" << endl;
                     }
                 }
             }
@@ -466,7 +482,8 @@ void Grafo::caminhoMinimoFloyd(int u, int v){
     }
     //imprimindo caminho
     cout << "Caminho de " << u << " para " << v << ": ";
-    if (next[u][v] == -1) {
+    cout << "Debug " << next[u-1][v-1] << endl;
+    if (next[u-1][v-1] == -1) {
         cout << "Nao ha caminho de " << u << " para " << v << endl;
     } else {
         cout << "Distancia: " << dist[u-1][v-1] << endl;
