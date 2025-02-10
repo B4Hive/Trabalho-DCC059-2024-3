@@ -38,8 +38,8 @@ void Grafo::setGrau(int grau)
 /**
  * @brief Altera o valor da propriedade Ordem
  * 
- * @details Esta função faz uma breve verificação se a ordem passada por parâmetro é valida, checando se ela é maior que zero, e em seguida sobrescreve o campo Ordem com o parâmetro passado.
- * 
+ * @details Esta função faz uma breve verificação se a ordem passada por parâmetro é valida, 
+ * checando se ela é maior que zero, e em seguida sobrescreve o campo Ordem com o parâmetro passado.
  * @param ordem Número que será salvo como a Ordem do Grafo.
  */
 void Grafo::setOrdem(int ordem)
@@ -432,6 +432,7 @@ int Grafo::getTamanho()
     return info[3];
 }
 
+
 // >>
 
 // << BHive >>
@@ -467,6 +468,7 @@ bool Grafo::auxArestaPonte() {
 
     return qtdPonte > 0;
 }
+
 
 /**
  * @brief Função recursiva que encontra e conta as pontes em um grafo.
@@ -504,6 +506,7 @@ void Grafo::BPPonte(int v, bool visitado[], int *tempo, int disc[], int low[], i
     delete[] vizinhos;
 }
 
+
 /**
  * @brief Verifica se o grafo possui vértices de articulação.
  *
@@ -535,6 +538,7 @@ bool Grafo::auxVerticeArticulacao() {
 
     return qtdArticulacao > 0;
 }
+
 
 /**
  * @brief Realiza a busca em profundidade para encontrar pontos de articulação em um grafo.
@@ -582,6 +586,7 @@ void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], i
     }
     delete[] vizinhos;
 }
+
 
 /**
  * @brief Calcula o caminho mínimo entre dois vértices usando o algoritmo de Floyd-Warshall.
