@@ -1,6 +1,6 @@
 /**
  * @file grafo.h
- * 
+ *
  * @brief Arquivo de cabeçalho da classe Grafo que é pai das classes grafo_matriz e grafo_lista
  * @version 1.1.0
  * @date 2025-02-10
@@ -18,10 +18,15 @@
 #include "data_strc.h"
 using namespace std;
 
+/**
+ * @class Grafo
+ * @brief Classe base para implementação de grafos.
+ * Essa classe fornece uma estrutura genérica para representação de grafos,
+ * sendo estendida pelas classes `grafo_matriz` e `grafo_lista`.
+ */
 class Grafo
 {
 public:
-
     Grafo() {}
     virtual ~Grafo() {}
 
@@ -29,31 +34,29 @@ public:
     void novo_grafo(string descFileName, string outFileName);
     void exportInfo();
     void exportDesc();
-    
+
     virtual void inicializa() = 0;
     virtual void imprime() = 0;
-    
+
     virtual void insere_vertice(int id, int peso) = 0;
     virtual void novo_no(int peso) = 0;
     virtual void deleta_no(int id) = 0;
 
     virtual void insere_aresta(int v, int w, int peso) = 0;
     virtual void nova_aresta(int v, int w, int peso) = 0;
-    virtual void deleta_aresta(int v, int w) = 0; 
-    
+    virtual void deleta_aresta(int v, int w) = 0;
+
     virtual int pesoVertice(int id) = 0;
     virtual bool buscaVertice(int id) = 0;
-    virtual int grauVertice(int id) = 0;      
-    virtual int *vizinhosVertice(int id) = 0; 
-    
+    virtual int grauVertice(int id) = 0;
+    virtual int *vizinhosVertice(int id) = 0;
+
     virtual int pesoAresta(int v, int w) = 0;
-    virtual edge *getAresta(int v, int w) = 0; 
+    virtual edge *getAresta(int v, int w) = 0;
     virtual bool buscaAresta(int v, int w) = 0;
 
-    //virtual void nova_aresta(int v, int w, int peso) = 0;
-   
-    
-    
+    // virtual void nova_aresta(int v, int w, int peso) = 0;
+
     int getGrau();
     int getOrdem();
     int getComponentes_conexas();
@@ -71,9 +74,8 @@ public:
     void caminhoMinimoFloyd(int u, int v);
 
     bool &Debug() { return debug; }
-    
+
 protected:
-    
     void setGrau(int);
     void setOrdem(int);
     void setDirecionado(bool);
