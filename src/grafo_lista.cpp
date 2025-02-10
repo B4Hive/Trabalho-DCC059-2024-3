@@ -312,11 +312,27 @@ int grafo_lista::pesoAresta(int v, int w)
     return 0;
 }
 
+
+/**
+ * @brief Retorna o inicio da lista.
+ * 
+ * @details Esta função retorna um vertice *grafo_lista que é o inicio da lista.
+ * @return Retorna vertice *grafo_lista que é o inicio da lista.
+ */
 vertice *grafo_lista::getInicio()
 {
     return inicio;
 }
 
+
+/**
+ * @brief Retorna um ponteiro com o id do vétice;
+ * 
+ * @details Esta função recebe como parâmetro um valor inteiro v, caso o valor do id seja igual ao valor de v, 
+ * a função retorna um *p que contem o id do vértice.
+ * @param v Uma variável de valor inteiro
+ * @return Retorna vertice *grafo_lista que é o inicio da lista.
+ */
 vertice *grafo_lista::getVertice(int v)
 {
     vertice *p = inicio;
