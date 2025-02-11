@@ -182,11 +182,11 @@ int main(int argc, char *argv[])
                 cout << "Digite o No de destino: ";
                 int w = 0;
                 cin >> w;
-                if (v < 1 || v > g->getOrdem() || w < 1 || w > g->getOrdem() || v == w)
-                {
-                    cout << "Par invalido!" << endl;
-                    continue;
-                }
+                // if (v < 1 || v > g->getOrdem() || w < 1 || w > g->getOrdem() || v == w)
+                // {
+                //     cout << "Par invalido!" << endl;
+                //     continue;
+                // }
                 g->caminhoMinimoFloyd(v, w);
             }
             else if (opcao == 6) // Sair
