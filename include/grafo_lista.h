@@ -14,8 +14,8 @@ public:
     void novo_no(int peso);
     void deleta_no(int id);
 
-    void insere_aresta(int v, int w, int peso);
-    void nova_aresta(int v, int w, int peso);
+    void insere_aresta(int v, int w, float peso);
+    void nova_aresta(int v, int w, float peso);
     void deleta_aresta(int v, int w);
 
     int pesoVertice(int id);
@@ -23,7 +23,7 @@ public:
     int grauVertice(int id);
     int *vizinhosVertice(int id);
 
-    int pesoAresta(int v, int w);
+    float pesoAresta(int v, int w);
     bool buscaAresta(int v, int w);
 
     edge *getAresta(int v, int w);

@@ -13,17 +13,16 @@ public:
     int &V() { return v; }
     int &W() { return w; }
     int &ID() { return id; }
-    int &Peso() { return peso; }
+    float &Peso() { return peso; }
 
     edge *getProx();
     void setProx(edge *ep) { prox = ep; }
 
 private:
-    int id;
-    int v, w;
-    int peso;
-
-    edge *prox;
+    int id;     ///< Identificador da aresta.
+    int v, w;   ///< Vértices conectados pela aresta.
+    float peso;   ///< Peso da aresta.
+    edge *prox; ///< Ponteiro para a próxima aresta na lista de adjacência.
 };
 
 class vertice

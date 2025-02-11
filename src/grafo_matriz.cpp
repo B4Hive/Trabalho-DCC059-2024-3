@@ -33,8 +33,8 @@ void grafo_matriz::inicializa()
         tamanho_vetor = ordem_matriz * ordem_matriz;    
     }
 
-    cout << "Tamanho do vetor: " << tamanho_vetor << endl;
-    m = new int[tamanho_vetor];
+    //cout << "Tamanho do vetor: " << tamanho_vetor << endl;
+    m = new float[tamanho_vetor];
     for (int i = 0; i < tamanho_vetor; i++)
     {
         m[i] = 0;
@@ -47,8 +47,14 @@ void grafo_matriz::realoca()
     cout << "Realocando" << endl;
     if(Debug())cout << "DEBUG Realoca" << endl;
     // Armazenamento das arestas e do pesos dos vertices;
-    int cont = 0; 
-    edge *arestas = new edge[Tamanho()];
+    int cont = 0;
+    int qtd_arestas;;
+    if(!getDirecionado())    
+        qtd_arestas = Tamanho()*2;
+    else
+        qtd_arestas = Tamanho();
+
+    edge *arestas = new edge[qtd_arestas];
     int peso_vertices[getOrdem()];
     if(Debug())cout << "Tamnho: " << Tamanho() << endl;
     for(int i = 0; i < ordem_matriz; i++)
@@ -96,8 +102,9 @@ void grafo_matriz::realoca()
     cout << "Tamanho do vetor: " << tamanho_vetor << endl;
     cout << "Ordem da matriz: " << ordem_matriz << endl;
     this->m = NULL;
-    if(Debug()) cout<< "DEBUG " << endl;
-    this->m = new int[tamanho_vetor];
+    //if (Debug())
+        //cout << "DEBUG " << endl;
+    this->m = new float[tamanho_vetor];
 
     for(int i = 0; i < tamanho_vetor; i++)
     {
@@ -123,7 +130,15 @@ void grafo_matriz::realoca()
 
 }
 
-int &grafo_matriz::operator()(int v, int w)
+/**
+ * @brief Retorna o valor contido na matriz
+ *
+ * @details Esta função realiza uma breve verificação para confirmar se o grafo é direcionado.
+ * Em seguida faz algumas verificações nos if e else e retorna o valor da matriz.
+ * @param v, w
+ * @return retorna uma referência ao valor armazenado na matriz m para o par de vértices.
+ */
+float &grafo_matriz::operator()(int v, int w)
 {
     int i = v;
     int j = w;
@@ -206,19 +221,37 @@ void grafo_matriz::deleta_no(int id)
     }
     
     setOrdem(getOrdem() - 1);
-    
 }
 
-void grafo_matriz::insere_aresta(int v, int w, int peso)
+/**
+ * @brief Insere uma aresta entre dois Nós passados por parâmetro e seu respectivo peso.
+ * @details
+ * Insere uma aresta entre os vértices `v` e `w` na matriz de adjacência do grafo. Se a posição correspondente na matriz de adjacência
+ * já estiver ocupada (valor diferente de 0), a função não faz nenhuma alteração. Caso contrário, o peso da aresta é atribuído à posição
+ * correspondente na matriz. A matriz de adjacência é baseada em índices 0-base, então os índices `v` e `w` são ajustados para refletir
+ * isso.
+ * @param v id do vértice de origem;
+ * @param w id do vértice de destino;
+ * @param peso Peso da aresta
+ */
+void grafo_matriz::insere_aresta(int v, int w, float peso)
 {
     if(this->operator()(v-1,w-1) == 0)
     {
         this->operator()(v-1,w-1) = peso;
     }
-    
 }
 
-void grafo_matriz::nova_aresta(int v, int w, int peso)
+/**
+ * @brief Insere uma nova aresta.
+ * @details
+ *A função nova_aresta(int v, int w, int peso) tem como objetivo adicionar uma aresta entre os vértices v e w de um grafo
+ *representado por uma matriz de adjacência. Essa função também associa um peso a aresta.
+ * @param v id do vértice de origem;
+ * @param w id do vértice de destino;
+ * @param peso Peso da aresta
+ */
+void grafo_matriz::nova_aresta(int v, int w, float peso)
 {
     if(v != w)
     {
@@ -234,7 +267,13 @@ void grafo_matriz::deleta_aresta(int v, int w)
     }
 }
 
-int grafo_matriz::pesoAresta(int v, int w)
+/**
+ * @brief Retorna o peso da Aresta;
+ * @param v id do vértice de início.
+ * @param w id do vértice de chegada.
+ * @return Retorna o peso da aresta entre os vértices passados como parâmetro.
+ */
+float grafo_matriz::pesoAresta(int v, int w)
 {
     return this->operator()(v - 1, w - 1);
 }

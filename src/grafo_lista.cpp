@@ -125,7 +125,18 @@ void grafo_lista::deleta_no(int id)
     setOrdem(getOrdem() - 1);
 }
 
-void grafo_lista::insere_aresta(int v, int w, int peso)
+/**
+ * @brief Insere uma aresta entre dois nós enviados por parâmetro.
+ * @details
+ * Insere uma aresta entre os vértices `v` e `w` no grafo. Se a aresta já existir, a função retorna sem realizar nenhuma alteração.
+ * Caso contrário, uma nova aresta é criada e associada ao vértice `v`. Se o grafo não for direcionado, uma aresta adicional é
+ * criada entre `w` e `v`. Para cada vértice afetado pela inserção, o grau do vértice é incrementado. A aresta recebe um identificador
+ * único, que é gerado com base no tamanho atual do grafo.
+ * @param v id do vértice de origem;
+ * @param w id do vértice de destino;
+ * @param peso Peso da aresta
+ */
+void grafo_lista::insere_aresta(int v, int w, float peso)
 {
     if (buscaAresta(v, w))
     {
@@ -155,7 +166,14 @@ void grafo_lista::insere_aresta(int v, int w, int peso)
     }
 }
 
-void grafo_lista::nova_aresta(int v, int w, int peso)
+/**
+ * @brief Cria uma nova aresta entre dois nós com parâmetros enviados pelo usuário;
+ * @details Utiliza a função insere_aresta() para fazer a inserção
+ * @param v id do vértice de origem;
+ * @param w id do vértice de destino;
+ * @param peso Peso da aresta
+ */
+void grafo_lista::nova_aresta(int v, int w, float peso)
 {
     insere_aresta(v, w, peso);
 }
@@ -235,7 +253,17 @@ int grafo_lista::pesoVertice(int id)
     return 0;
 }
 
-int grafo_lista::pesoAresta(int v, int w)
+/**
+ * @brief Retorna o peso da Aresta;
+ * @details
+ * Retorna o peso da aresta entre os vértices `v` e `w`. A função percorre a lista de vértices até encontrar `v`
+ * e então busca na lista de arestas associadas a esse vértice. Se a aresta for encontrada, retorna seu peso.
+ * Caso contrário, retorna 0, indicando que a aresta não existe no grafo.
+ * @param v id do vértice de início.
+ * @param w id do vértice de chegada.
+ * @return Retorna o peso da aresta entre os vértices passados como parâmetro.
+ */
+float grafo_lista::pesoAresta(int v, int w)
 {
     vertice *p = inicio;
     while (p != NULL)
