@@ -661,10 +661,15 @@ void Grafo::caminhoMinimoFloyd(int u, int v)
     }
     // imprimindo caminho
     if (u <= 0 || v <= 0 || u > n || v > n){
-        // coloca a impressao do maior menor caminho
-    }
-    else {
-        //passa pra cá a impressao do caminho
+        double higher = 0;
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++){
+                if (dist[i][j] > higher && dist[i][j] < INF){
+                    higher = dist[i][j];
+                    u = i + 1;
+                    v = j + 1;
+                }
+            }
     }
     cout << "Caminho de " << u << " para " << v << ": ";
     if (next[u-1][v-1] == -1) {
