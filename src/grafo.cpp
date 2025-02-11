@@ -586,6 +586,7 @@ void Grafo::BPArticulacao(int v, int *tempo, int disc[], int low[], int pai[], i
  *
  * @details Esta função calcula o caminho mínimo entre dois vértices em um grafo, utilizando o algoritmo de Floyd-Warshall.
  * Ela também trata ciclos negativos no grafo, ajustando os pesos das arestas conforme necessário.
+ * Caso os parâmetros sejam invalidos ela imprime qual par de vértices mais distante e sua distância.
  *
  * @param u Vértice de origem.
  * @param v Vértice de destino.
@@ -670,7 +671,7 @@ void Grafo::caminhoMinimoFloyd(int u, int v)
                     v = j + 1;
                 }
             }
-        cout << "Maior menor caminho: (" << u << ", " << v << ") = " << higher << endl;
+        cout << "Maior menor caminho: (" << u << ", " << v << ") " << higher << endl;
     }
     else {
         cout << "Caminho de " << u << " para " << v << ": ";
