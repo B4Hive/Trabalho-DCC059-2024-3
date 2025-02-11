@@ -613,7 +613,7 @@ void Grafo::caminhoMinimoFloyd(int u, int v)
                 next[i - 1][j - 1] = 0;
             }
             else if (buscaAresta(i, j)) {
-                int peso = pesoAresta(i, j);
+                double peso = pesoAresta(i, j);
                 if (peso < lower) { // tratamento pra ciclos negativos parte 1
                     lower = peso;
                 }
@@ -660,19 +660,34 @@ void Grafo::caminhoMinimoFloyd(int u, int v)
         }
     }
     // imprimindo caminho
-    cout << "Caminho de " << u << " para " << v << ": ";
-    if (next[u-1][v-1] == -1) {
-        cout << "Nao ha caminho de " << u << " para " << v << endl;
+    if (u <= 0 || v <= 0 || u > n || v > n){
+        double higher = 0;
+        for (int i = 0; i < n; i++)
+            for (int j = 0; j < n; j++){
+                if (dist[i][j] > higher && dist[i][j] < INF){
+                    higher = dist[i][j];
+                    u = i + 1;
+                    v = j + 1;
+                }
+            }
+        cout << "Maior menor caminho: (" << u << ", " << v << ") = " << higher << endl;
     }
     else {
-        cout << "Distancia: " << dist[u - 1][v - 1] << endl;
-        cout << u;
-        while (u != v) {
-            u = next[u - 1][v - 1];
-            cout << " -> " << u;
+        cout << "Caminho de " << u << " para " << v << ": ";
+        if (next[u-1][v-1] == -1) {
+            cout << "Nao ha caminho de " << u << " para " << v << endl;
         }
-        cout << endl;
+        else {
+            cout << "Distancia: " << dist[u - 1][v - 1] << endl;
+            cout << u;
+            while (u != v) {
+                u = next[u - 1][v - 1];
+                cout << " -> " << u;
+            }
+            cout << endl;
+        }
     }
+    
     // liberando memória
     for (int i = 0; i < n; i++) {
         delete[] dist[i];
