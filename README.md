@@ -2,9 +2,6 @@
 
 ## Compilando
 
-### Requisitos
-- **CMake** instalado.
-
 ### Usando CMake
 Compile o programa rodando os seguintes comandos:
 
@@ -16,10 +13,15 @@ $ make         # Linux
 $ mingw32-make # Windows
 ```
 
+### Sem CMake
+
+Compile o programa rodando o seguinte comando:
+
+```bash
+$ g++ src/*.cpp main.cpp -o main
+```
 
 ## Executando
-
-Retorne a pasta raiz onde o executável do programa foi criado.
 
 O programa é executado a partir do terminal com os seguintes parâmetros:
 
@@ -42,10 +44,10 @@ $ ./main.exe <operacao> <tipo_armazenamento> <arquivoIn> <arquivoOut>
 ### Exemplos de Uso
 1. Para carregar e descrever um grafo de um arquivo chamado `grafo.txt`:
    ```bash
-   $ ./main.exe -d -l grafo.txt
+   $ ./main -d -l grafo.txt
    ```
 
 2. Para criar um grafo com as condições especificadas em `entrada.txt` e salvar em `saida.txt`:
    ```bash
-   $ ./main.exe -c -m entrada.txt saida.txt
+   $ ./main -c -m entrada.txt saida.txt
    ```

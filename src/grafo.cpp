@@ -6,9 +6,9 @@
  * @date 2025-02-10
  */
 
-#include "grafo.h"
-#include "grafo_lista.h"
-#include "grafo_matriz.h"
+#include "../include/grafo.h"
+#include "../include/grafo_lista.h"
+#include "../include/grafo_matriz.h"
 using namespace std;
 
 // << Getters and Setters >>
@@ -661,7 +661,6 @@ void Grafo::caminhoMinimoFloyd(int u, int v)
     }
     // imprimindo caminho
     cout << "Caminho de " << u << " para " << v << ": ";
-    cout << "Debug " << next[u-1][v-1] << endl;
     if (next[u-1][v-1] == -1) {
         cout << "Nao ha caminho de " << u << " para " << v << endl;
     }
