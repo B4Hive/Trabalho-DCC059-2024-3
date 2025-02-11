@@ -4,6 +4,12 @@
 #include "./include/grafo_lista.h"
 #include "./include/grafo_matriz.h"
 
+#ifdef _WIN32
+    #define PATH ".\\entradas\\"
+#else
+    #define PATH "./entradas/"
+#endif
+
 using namespace std;
 
 int main(int argc, char *argv[])
@@ -39,7 +45,9 @@ int main(int argc, char *argv[])
     cout << "Parametro 1: " << parametro1 << endl;
     cout << "Parametro 2: " << parametro2 << endl;
     filename = argv[3];
-    filename = ".\\entradas\\" + filename;
+
+    filename = PATH + filename;
+
     cout << "Arquivo de entrada: " << filename << endl;
 
     if (argc == 5)
