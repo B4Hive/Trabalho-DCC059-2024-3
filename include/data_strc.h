@@ -27,7 +27,7 @@ public:
     int &V() { return v; }
     int &W() { return w; }
     int &ID() { return id; }
-    int &Peso() { return peso; }
+    float &Peso() { return peso; }
 
     edge *getProx();
     void setProx(edge *ep) { prox = ep; }
@@ -35,7 +35,9 @@ public:
 private:
     int id;     ///< Identificador da aresta.
     int v, w;   ///< Vértices conectados pela aresta.
-    int peso;   ///< Peso da aresta.
+
+    float peso;   ///< Peso da aresta.
+
     edge *prox; ///< Ponteiro para a próxima aresta na lista de adjacência.
 };
 

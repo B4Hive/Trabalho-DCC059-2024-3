@@ -59,7 +59,9 @@ void grafo_matriz::inicializa()
     }
 
     //cout << "Tamanho do vetor: " << tamanho_vetor << endl;
-    m = new int[tamanho_vetor];
+
+    m = new float[tamanho_vetor];
+
     for (int i = 0; i < tamanho_vetor; i++)
     {
         m[i] = 0;
@@ -81,7 +83,15 @@ void grafo_matriz::realoca()
         //cout << "DEBUG Realoca" << endl;
     // Armazenamento das arestas e do pesos dos vertices;
     int cont = 0;
-    edge *arestas = new edge[Tamanho()*2];
+
+    int qtd_arestas;;
+    if(!getDirecionado())    
+        qtd_arestas = Tamanho()*2;
+    else
+        qtd_arestas = Tamanho();
+
+    edge *arestas = new edge[qtd_arestas];
+
     int peso_vertices[getOrdem()];
     //if (Debug())
         //cout << "Tamnho: " << Tamanho() << endl;
@@ -133,7 +143,9 @@ void grafo_matriz::realoca()
     this->m = NULL;
     //if (Debug())
         //cout << "DEBUG " << endl;
-    this->m = new int[tamanho_vetor];
+
+    this->m = new float[tamanho_vetor];
+
 
     for (int i = 0; i < tamanho_vetor; i++)
     {
@@ -167,7 +179,9 @@ void grafo_matriz::realoca()
  * @param v, w
  * @return retorna uma referência ao valor armazenado na matriz m para o par de vértices.
  */
-int &grafo_matriz::operator()(int v, int w)
+
+float &grafo_matriz::operator()(int v, int w)
+
 {
     int i = v;
     int j = w;
@@ -288,7 +302,9 @@ void grafo_matriz::deleta_no(int id)
  * @param w id do vértice de destino;
  * @param peso Peso da aresta
  */
-void grafo_matriz::insere_aresta(int v, int w, int peso)
+
+void grafo_matriz::insere_aresta(int v, int w, float peso)
+
 {
     if (this->operator()(v - 1, w - 1) == 0)
     {
@@ -305,7 +321,9 @@ void grafo_matriz::insere_aresta(int v, int w, int peso)
  * @param w id do vértice de destino;
  * @param peso Peso da aresta
  */
-void grafo_matriz::nova_aresta(int v, int w, int peso)
+
+void grafo_matriz::nova_aresta(int v, int w, float peso)
+
 {
     if (v != w)
     {
@@ -335,7 +353,9 @@ void grafo_matriz::deleta_aresta(int v, int w)
  * @param w id do vértice de chegada.
  * @return Retorna o peso da aresta entre os vértices passados como parâmetro.
  */
-int grafo_matriz::pesoAresta(int v, int w)
+
+float grafo_matriz::pesoAresta(int v, int w)
+
 {
     return this->operator()(v - 1, w - 1);
 }

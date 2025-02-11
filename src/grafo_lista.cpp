@@ -181,7 +181,9 @@ void grafo_lista::deleta_no(int id)
  * @param w id do vértice de destino;
  * @param peso Peso da aresta
  */
-void grafo_lista::insere_aresta(int v, int w, int peso)
+
+void grafo_lista::insere_aresta(int v, int w, float peso)
+
 {
     if (buscaAresta(v, w))
     {
@@ -218,7 +220,8 @@ void grafo_lista::insere_aresta(int v, int w, int peso)
  * @param w id do vértice de destino;
  * @param peso Peso da aresta
  */
-void grafo_lista::nova_aresta(int v, int w, int peso)
+
+void grafo_lista::nova_aresta(int v, int w, float peso)
 {
     insere_aresta(v, w, peso);
 }
@@ -321,7 +324,8 @@ int grafo_lista::pesoVertice(int id)
  * @param w id do vértice de chegada.
  * @return Retorna o peso da aresta entre os vértices passados como parâmetro.
  */
-int grafo_lista::pesoAresta(int v, int w)
+
+float grafo_lista::pesoAresta(int v, int w)
 {
     vertice *p = inicio;
     while (p != NULL)

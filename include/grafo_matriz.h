@@ -28,8 +28,9 @@ public:
     void deleta_no(int id);
     void realoca();
 
-    void insere_aresta(int v, int w, int peso);
-    void nova_aresta(int v, int w, int peso);
+    void insere_aresta(int v, int w, float peso);
+    void nova_aresta(int v, int w, float peso);
+
     void deleta_aresta(int v, int w);
 
     int pesoVertice(int idV);
@@ -37,18 +38,20 @@ public:
     int *vizinhosVertice(int id);
     int grauVertice(int id);
 
-    int pesoAresta(int v, int w);
+    float pesoAresta(int v, int w);
     bool buscaAresta(int v, int w);
 
     edge *getAresta(int v, int w);
-    int &operator()(int v, int w);
+    float &operator()(int v, int w);
 
     // B4Hive
     void inicializa();
     void imprime();
 
 private:
-    int *m;                     ///< Ponteiro para a matriz de adjacência representada em um array unidimensional.
+
+    float *m;                     ///< Ponteiro para a matriz de adjacência representada em um array unidimensional.
+
     int ordem_matriz;           ///< Número de vértices no grafo.
     unsigned int exp_ordem = 0; ///< Variável auxiliar para realocação da matriz.
 };

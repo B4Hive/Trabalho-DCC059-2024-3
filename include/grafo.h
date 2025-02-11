@@ -42,8 +42,9 @@ public:
     virtual void novo_no(int peso) = 0;
     virtual void deleta_no(int id) = 0;
 
-    virtual void insere_aresta(int v, int w, int peso) = 0;
-    virtual void nova_aresta(int v, int w, int peso) = 0;
+    virtual void insere_aresta(int v, int w, float peso) = 0;
+    virtual void nova_aresta(int v, int w, float peso) = 0;
+
     virtual void deleta_aresta(int v, int w) = 0;
 
     virtual int pesoVertice(int id) = 0;
@@ -51,7 +52,8 @@ public:
     virtual int grauVertice(int id) = 0;
     virtual int *vizinhosVertice(int id) = 0;
 
-    virtual int pesoAresta(int v, int w) = 0;
+    virtual float pesoAresta(int v, int w) = 0;
+
     virtual edge *getAresta(int v, int w) = 0;
     virtual bool buscaAresta(int v, int w) = 0;
 
