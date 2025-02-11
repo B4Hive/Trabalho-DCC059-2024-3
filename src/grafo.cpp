@@ -670,20 +670,24 @@ void Grafo::caminhoMinimoFloyd(int u, int v)
                     v = j + 1;
                 }
             }
-    }
-    cout << "Caminho de " << u << " para " << v << ": ";
-    if (next[u-1][v-1] == -1) {
-        cout << "Nao ha caminho de " << u << " para " << v << endl;
+        cout << "Maior menor caminho: (" << u << ", " << v << ") = " << higher << endl;
     }
     else {
-        cout << "Distancia: " << dist[u - 1][v - 1] << endl;
-        cout << u;
-        while (u != v) {
-            u = next[u - 1][v - 1];
-            cout << " -> " << u;
+        cout << "Caminho de " << u << " para " << v << ": ";
+        if (next[u-1][v-1] == -1) {
+            cout << "Nao ha caminho de " << u << " para " << v << endl;
         }
-        cout << endl;
+        else {
+            cout << "Distancia: " << dist[u - 1][v - 1] << endl;
+            cout << u;
+            while (u != v) {
+                u = next[u - 1][v - 1];
+                cout << " -> " << u;
+            }
+            cout << endl;
+        }
     }
+    
     // liberando memória
     for (int i = 0; i < n; i++) {
         delete[] dist[i];
