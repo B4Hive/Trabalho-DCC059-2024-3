@@ -601,48 +601,37 @@ void Grafo::caminhoMinimoFloyd(int u, int v)
     int n = getOrdem();
     double **dist = new double *[n];
     int **next = new int *[n];
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         dist[i] = new double[n];
         next[i] = new int[n];
     }
     // inicializando matriz de distâncias e matriz de próximos
-    for (int i = 1; i <= n; i++)
-    {
-        for (int j = 1; j <= n; j++)
-        {
-            if (i == j)
-            {
+    for (int i = 1; i <= n; i++) {
+        for (int j = 1; j <= n; j++) {
+            if (i == j) {
                 dist[i - 1][j - 1] = 0;
                 next[i - 1][j - 1] = 0;
             }
-            else if (buscaAresta(i, j))
-            {
+            else if (buscaAresta(i, j)) {
                 int peso = pesoAresta(i, j);
-                if (peso < lower)
-                { // tratamento pra ciclos negativos parte 1
+                if (peso < lower) { // tratamento pra ciclos negativos parte 1
                     lower = peso;
                 }
                 dist[i - 1][j - 1] = peso;
                 next[i - 1][j - 1] = j;
             }
-            else
-            {
+            else {
                 dist[i - 1][j - 1] = INF;
                 next[i - 1][j - 1] = -1;
             }
         }
     }
     // tratamento pra ciclos negativos parte 2
-    if (lower < 0)
-    {
-        for (int i = 1; i <= n; i++)
-        {
-            for (int j = 1; j <= n; j++)
-            {
-                if (dist[i - 1][j - 1] != INF)
-                {
-                    dist[i - 1][j - 1] += abs(lower) + 1;
+    if (lower < 0) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (dist[i - 1][j - 1] != INF) {
+                    dist[i - 1][j - 1] += (abs(lower) + 1);
                 }
             }
         }
@@ -655,36 +644,16 @@ void Grafo::caminhoMinimoFloyd(int u, int v)
                     if (dist[i-1][j-1] > dist[i-1][k-1] + dist[k-1][j-1]) {
                         dist[i-1][j-1] = dist[i-1][k-1] + dist[k-1][j-1];
                         next[i-1][j-1] = next[i-1][k-1];
-                        cout << "Debug" << endl;
-                        cout << "Dist" << endl;
-                        for (int a = 0; a < n; a++){
-                            for (int b = 0; b < n; b++) {
-                                cout << dist[a][b] << " ";
-                            }
-                            cout << endl;
-                        }
-                        cout << "Next" << endl;
-                        for (int a = 0; a < n; a++){
-                            for (int b = 0; b < n; b++) {
-                                cout << next[a][b] << " ";
-                            }
-                            cout << endl;
-                        }
-                        cout << "End" << endl;
                     }
                 }
             }
         }
     }
     // tratamento pra ciclos negativos parte 3
-    if (lower < 0)
-    {
-        for (int i = 1; i <= n; i++)
-        {
-            for (int j = 1; j <= n; j++)
-            {
-                if (dist[i - 1][j - 1] != INF)
-                {
+    if (lower < 0) {
+        for (int i = 1; i <= n; i++) {
+            for (int j = 1; j <= n; j++) {
+                if (dist[i - 1][j - 1] != INF) {
                     dist[i - 1][j - 1] -= (abs(lower) + 1);
                 }
             }
@@ -696,20 +665,17 @@ void Grafo::caminhoMinimoFloyd(int u, int v)
     if (next[u-1][v-1] == -1) {
         cout << "Nao ha caminho de " << u << " para " << v << endl;
     }
-    else
-    {
+    else {
         cout << "Distancia: " << dist[u - 1][v - 1] << endl;
         cout << u;
-        while (u != v)
-        {
+        while (u != v) {
             u = next[u - 1][v - 1];
             cout << " -> " << u;
         }
         cout << endl;
     }
     // liberando memória
-    for (int i = 0; i < n; i++)
-    {
+    for (int i = 0; i < n; i++) {
         delete[] dist[i];
         delete[] next[i];
     }
@@ -720,6 +686,7 @@ void Grafo::caminhoMinimoFloyd(int u, int v)
 // >>
 
 // << Rodrigo >>
+
 /**
  * @brief Função para verificar se o grafo é Completo
  * @details A função verifica se o grafo é completo percorrendo todos os vértices e validando o número de arestas ligados a cada um.
@@ -805,6 +772,7 @@ bool Grafo::eh_arvore()
 // >>
 
 // << Abner >>
+
 /**
  * @brief Carrega as informações de um grafo a partir de um arquivo .txt
  * @details
@@ -1665,6 +1633,7 @@ void Grafo::exportDesc()
 // >>
 
 // << ufjoao-init >>
+
 /**
  * @brief Função para verificar se o grafo é Bipartido
  * @details Usa um algorítimo de força bruta baseado em designar uma cor para cada vértice e garantir ao menos uma solução onde nenhum vértice tenha arestas em vértices de mesma cor.
