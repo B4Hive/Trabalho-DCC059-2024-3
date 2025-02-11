@@ -1,3 +1,11 @@
+/**
+ * @file grafo.h
+ *
+ * @brief Arquivo de cabeçalho da classe Grafo que é pai das classes grafo_matriz e grafo_lista
+ * @version 1.1.0
+ * @date 2025-02-10
+ */
+
 #ifndef GRAFO_H
 #define GRAFO_H
 #include <iostream>
@@ -10,10 +18,15 @@
 #include "data_strc.h"
 using namespace std;
 
+/**
+ * @class Grafo
+ * @brief Classe base para implementação de grafos.
+ * Essa classe fornece uma estrutura genérica para representação de grafos,
+ * sendo estendida pelas classes `grafo_matriz` e `grafo_lista`.
+ */
 class Grafo
 {
 public:
-
     Grafo() {}
     virtual ~Grafo() {}
 
@@ -21,16 +34,17 @@ public:
     void novo_grafo(string descFileName, string outFileName);
     void exportInfo();
     void exportDesc();
-    
+
     virtual void inicializa() = 0;
     virtual void imprime() = 0;
-    
+
     virtual void insere_vertice(int id, int peso) = 0;
     virtual void novo_no(int peso) = 0;
     virtual void deleta_no(int id) = 0;
 
     virtual void insere_aresta(int v, int w, float peso) = 0;
     virtual void nova_aresta(int v, int w, float peso) = 0;
+
     virtual void deleta_aresta(int v, int w) = 0;
 
     virtual int pesoVertice(int id) = 0;
@@ -39,13 +53,12 @@ public:
     virtual int *vizinhosVertice(int id) = 0;
 
     virtual float pesoAresta(int v, int w) = 0;
+
     virtual edge *getAresta(int v, int w) = 0;
     virtual bool buscaAresta(int v, int w) = 0;
 
-    //virtual void nova_aresta(int v, int w, int peso) = 0;
-   
-    
-    
+    // virtual void nova_aresta(int v, int w, int peso) = 0;
+
     int getGrau();
     int getOrdem();
     int getComponentes_conexas();
@@ -63,9 +76,8 @@ public:
     void caminhoMinimoFloyd(int u, int v);
 
     bool &Debug() { return debug; }
-    
+
 protected:
-    
     void setGrau(int);
     void setOrdem(int);
     void setDirecionado(bool);
@@ -97,9 +109,33 @@ protected:
     bool BipartidoFB();
 
     // Variaveis internas
-    string filename;
-    string outFile;
-    int info[4]{0, 10, 0, 0}; //[Grau, Ordem, Componentes_conexas, Tamanho]
+    string filename; ///< Variável que armazena o nome do arquivo utilizado para carregar o grafo.
+    string outFile;  ///< Variável que armazena o nome do arquivo onde os resultados ou informações do grafo serão exportados.
+
+    /**
+     * @brief Array de informações do grafo.
+     *
+     * Variável que mantém algumas propriedades importantes do grafo:
+     * - info[0] -> Grau do grafo.
+     * - info[1] -> Ordem do grafo.
+     * - info[2] -> Componentes conexos do grafo.
+     * - info[3] -> Tamanho (número de arestas) do grafo.
+     */
+    int info[4]{0, 10, 0, 0}; ///<[Grau, Ordem, Componentes_conexas, Tamanho]
+
+    /**
+     * @brief Array de flags para propriedades do grafo.
+     *
+     * Variável que mantém flags (booleanos) para indicar características do grafo:
+     * - dpp[0] -> Grafo direcionado.
+     * - dpp[1] -> Vértices ponderados.
+     * - dpp[2] -> Arestas ponderadas.
+     * - dpp[3] -> Grafo completo.
+     * - dpp[4] -> Grafo bipartido.
+     * - dpp[5] -> Grafo é uma árvore.
+     * - dpp[6] -> Aresta ponte.
+     * - dpp[7] -> Vértice de articulação.
+     */
     bool dpp[8] = {0, 0, 0, 0, 0, 0, 0, 0};
     // direcionado             [0]
     // vertices ponderados     [1]
@@ -110,7 +146,7 @@ protected:
     // Aresta Ponte            [6]
     // Vertice de Articulação  [7]
 
-    bool debug = 0;
+    bool debug = 0; ///< Variável booleana que ativa ou desativa a depuração de processos do grafo.
 };
 
 #endif
