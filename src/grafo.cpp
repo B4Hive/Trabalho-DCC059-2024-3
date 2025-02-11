@@ -613,7 +613,7 @@ void Grafo::caminhoMinimoFloyd(int u, int v)
                 next[i - 1][j - 1] = 0;
             }
             else if (buscaAresta(i, j)) {
-                int peso = pesoAresta(i, j);
+                double peso = pesoAresta(i, j);
                 if (peso < lower) { // tratamento pra ciclos negativos parte 1
                     lower = peso;
                 }
@@ -660,6 +660,12 @@ void Grafo::caminhoMinimoFloyd(int u, int v)
         }
     }
     // imprimindo caminho
+    if (u <= 0 || v <= 0 || u > n || v > n){
+        // coloca a impressao do maior menor caminho
+    }
+    else {
+        //passa pra cá a impressao do caminho
+    }
     cout << "Caminho de " << u << " para " << v << ": ";
     if (next[u-1][v-1] == -1) {
         cout << "Nao ha caminho de " << u << " para " << v << endl;
