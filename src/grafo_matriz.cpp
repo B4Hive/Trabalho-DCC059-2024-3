@@ -6,7 +6,7 @@
  * @date 2025-02-10
  */
 
-#include "grafo_matriz.h"
+#include "../include/grafo_matriz.h"
 using namespace std;
 
 /**
@@ -45,8 +45,8 @@ void grafo_matriz::inicializa()
         exp_ordem = i;
         ordem_matriz = 10 * (pow(2, exp_ordem));
     }
-    cout << "Ordem da matriz: " << ordem_matriz << endl;
-    cout << "Ordem do grafo: " << getOrdem() << endl;
+    //cout << "Ordem da matriz: " << ordem_matriz << endl;
+    //cout << "Ordem do grafo: " << getOrdem() << endl;
     int tamanho_vetor = 0;
     if (!getDirecionado()) // matriz  triangular infeiror
     {
@@ -58,7 +58,7 @@ void grafo_matriz::inicializa()
         tamanho_vetor = ordem_matriz * ordem_matriz;
     }
 
-    cout << "Tamanho do vetor: " << tamanho_vetor << endl;
+    //cout << "Tamanho do vetor: " << tamanho_vetor << endl;
     m = new int[tamanho_vetor];
     for (int i = 0; i < tamanho_vetor; i++)
     {
@@ -77,21 +77,21 @@ void grafo_matriz::inicializa()
 void grafo_matriz::realoca()
 {
     cout << "Realocando" << endl;
-    if (Debug())
-        cout << "DEBUG Realoca" << endl;
+    //if (Debug())
+        //cout << "DEBUG Realoca" << endl;
     // Armazenamento das arestas e do pesos dos vertices;
     int cont = 0;
-    edge *arestas = new edge[Tamanho()];
+    edge *arestas = new edge[Tamanho()*2];
     int peso_vertices[getOrdem()];
-    if (Debug())
-        cout << "Tamnho: " << Tamanho() << endl;
+    //if (Debug())
+        //cout << "Tamnho: " << Tamanho() << endl;
     for (int i = 0; i < ordem_matriz; i++)
     {
         peso_vertices[i] = pesoVertice(i + 1);
 
         int grau = grauVertice(i + 1);
-        if (Debug())
-            cout << "Grau do vertice " << i + 1 << ": " << grau << endl;
+        //if (Debug())
+            //cout << "Grau do vertice " << i + 1 << ": " << grau << endl;
         if (grau > 0)
         {
             int *vizinhos = vizinhosVertice(i + 1);
@@ -105,13 +105,13 @@ void grafo_matriz::realoca()
             delete[] vizinhos;
         }
     }
-    if (Debug())
-    {
-        for (int i = 0; i < Tamanho(); i++)
-        {
-            cout << arestas[i].V() << " " << arestas[i].W() << " " << arestas[i].Peso() << endl;
-        }
-    }
+    //if (Debug())
+    //{
+        //for (int i = 0; i < Tamanho()*2; i++)
+        //{
+            //cout << arestas[i].V() << " " << arestas[i].W() << " " << arestas[i].Peso() << endl;
+        //}
+    //}
 
     // Realocando a matriz
     delete[] m;
@@ -128,11 +128,11 @@ void grafo_matriz::realoca()
         tamanho_vetor = ordem_matriz * ordem_matriz;
     }
 
-    cout << "Tamanho do vetor: " << tamanho_vetor << endl;
-    cout << "Ordem da matriz: " << ordem_matriz << endl;
+    //cout << "Tamanho do vetor: " << tamanho_vetor << endl;
+    //cout << "Ordem da matriz: " << ordem_matriz << endl;
     this->m = NULL;
-    if (Debug())
-        cout << "DEBUG " << endl;
+    //if (Debug())
+        //cout << "DEBUG " << endl;
     this->m = new int[tamanho_vetor];
 
     for (int i = 0; i < tamanho_vetor; i++)
@@ -148,13 +148,13 @@ void grafo_matriz::realoca()
         insere_vertice(i + 1, peso_vertices[i]);
     }
 
-    for (int i = 0; i < Tamanho(); i++)
+    for (int i = 0; i < Tamanho()*2; i++)
     {
         insere_aresta(arestas[i].V(), arestas[i].W(), arestas[i].Peso());
     }
 
-    if (Debug())
-        cout << " END DEBUG Realoca" << endl;
+    //if (Debug())
+        //cout << " END DEBUG Realoca" << endl;
 
     delete[] arestas;
 }

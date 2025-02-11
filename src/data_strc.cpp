@@ -5,7 +5,7 @@
  * @date 2025-02-10
  */
 
-#include "data_strc.h"
+#include "../include/data_strc.h"
 
 /*-------------------------- Vertice -----------------------------*/
 
