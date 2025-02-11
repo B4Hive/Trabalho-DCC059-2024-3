@@ -1603,42 +1603,44 @@ void Grafo::exportDesc()
     {
         cout << "Nao" << endl;
     }
-    cout << "Bipartido: ";
-    if (getBipartido())
-    {
-        cout << "Sim" << endl;
-    }
-    else
-    {
-        cout << "Nao" << endl;
-    }
-    cout << "Arvore: ";
-    if (getArvore())
-    {
-        cout << "Sim" << endl;
-    }
-    else
-    {
-        cout << "Nao" << endl;
-    }
-    cout << "Aresta Ponte: ";
-    if (getAresta_Ponte())
-    {
-        cout << "Sim" << endl;
-    }
-    else
-    {
-        cout << "Nao" << endl;
-    }
-    cout << "Vertice de Articulacao: ";
-    if (getVertice_de_Articulacao())
-    {
-        cout << "Sim" << endl;
-    }
-    else
-    {
-        cout << "Nao" << endl;
-    }
+    // cout << "Bipartido: ";
+    // if (getBipartido())
+    // {
+    //     cout << "Sim" << endl;
+    // }
+    // else
+    // {
+    //     cout << "Nao" << endl;
+    // }
+    // cout << "Arvore: ";
+    // if (getArvore())
+    // {
+    //     cout << "Sim" << endl;
+    // }
+    // else
+    // {
+    //     cout << "Nao" << endl;
+    // }
+    // cout << "Aresta Ponte: ";
+    // if (getAresta_Ponte())
+    // {
+    //     cout << "Sim" << endl;
+    // }
+    // else
+    // {
+    //     cout << "Nao" << endl;
+    // }
+    // cout << "Vertice de Articulacao: ";
+    // if (getVertice_de_Articulacao())
+    // {
+    //     cout << "Sim" << endl;
+    // }
+    // else
+    // {
+    //     cout << "Nao" << endl;
+    // }
+
+    caminhoMinimoFloyd(-1,-1);
 
     // Temp test
 
