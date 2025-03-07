@@ -29,6 +29,7 @@ grafo_matriz::grafo_matriz()
 grafo_matriz::~grafo_matriz()
 {
     delete[] m;
+    delete[] cores;
 }
 
 /**
@@ -65,6 +66,11 @@ void grafo_matriz::inicializa()
     for (int i = 0; i < tamanho_vetor; i++)
     {
         m[i] = 0;
+    }
+    cores = new int[getOrdem()];
+    for (int i = 0; i < getOrdem(); i++)
+    {
+        cores[i] = 0;
     }
 }
 
@@ -490,6 +496,17 @@ int grafo_matriz::grauVertice(int id)
     }
     return grau;
 }
+
+void grafo_matriz::setCor(int id, int cor)
+{
+    cores[id] = cor;
+}
+
+int grafo_matriz::getCor(int id)
+{
+    return cores[id];
+}
+
 
 /**
  * @brief Imprime a estrutura do grafo;

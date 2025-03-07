@@ -19,6 +19,7 @@ vertice::vertice()
     this->id = 0;
     this->grau = 0;
     this->peso = 0;
+    this->cor = 0;
     this->prox = NULL;
     this->init_aresta = NULL;
 }

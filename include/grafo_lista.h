@@ -42,6 +42,9 @@ public:
 
     edge *getAresta(int v, int w);
 
+    void setCor(int id, int cor);
+    int  getCor(int id);
+
     void inicializa();
     void imprime();
 
