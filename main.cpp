@@ -271,7 +271,13 @@ int main(int argc, char *argv[])
             g = new grafo_matriz;
         }
         g->carrega_grafo(argv[2], filename);
+        cout<<"Coloracao Guloso"<<endl;
         g->coloracaoGuloso();
+        cout<<endl;
+
+        cout<<"Coloracao Randomizado"<<endl;
+        g->coloracaoRandomizado();
+        cout<<endl;
     }
 
     delete g;

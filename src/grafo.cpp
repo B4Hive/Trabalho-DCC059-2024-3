@@ -1145,3 +1145,53 @@ void Grafo::coloracaoGuloso()
 
     cout<<"Numero de cores: "<<maxCor<<endl;
 }
+
+void Grafo::coloracaoRandomizado()
+{
+    int maxCor = getGrau();
+    int ordem = getOrdem();
+    bool solucao = true;
+    
+    for(int i = 0; i< ordem; i++)
+    {
+        setCor(i, rand()%maxCor + 1);
+    }
+
+    for(int r = 0; r <= 1000; r++)
+    {        
+        // vericiacão
+        for(int i = 0; i< ordem; i++)
+        {
+            if(getCor(i) == 0)
+            {
+                setCor(i, rand()%maxCor + 1);
+                solucao = true;
+            }
+            int *vizinhos = vizinhosVertice(i);
+            int grau = grauVertice(i);
+            for(int j = 0; j < grau; j++)
+            {
+                if(getCor(i) == getCor(vizinhos[j]))
+                {
+                    solucao = false;
+                    setCor(i, 0);
+                    break;
+                }
+            }
+            delete[] vizinhos;
+        }
+    }
+
+    if(solucao)
+    {
+        cout<<"Solucao encontrada!"<<endl;
+        cout<<"Numero de cores: "<<maxCor<<endl;
+    }
+    else
+    {
+        cout<<"Solucao nao encontrada!"<<endl;
+        cout<<"Numero de cores: "<<maxCor<<endl;
+    }
+
+
+}
