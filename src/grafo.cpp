@@ -1762,3 +1762,32 @@ unsigned int Grafo::BPConexo()
 }
 
 // >> ufjoao-final
+
+int Grafo::coloracaoGuloso(){
+    int n = getOrdem();
+    int *cores = new int[n];
+    for (int i = 0; i < n; i++) cores[i] = 0;
+    for (int i = 0; i < n; i++) coloracaoRecursivo(cores, i);
+    int qtdCores = 0;
+    for (int i = 0; i < n; i++) qtdCores = max(qtdCores, cores[i]);
+    delete[] cores;
+    return qtdCores;
+}
+
+void Grafo::coloracaoRecursivo(int *cores, int i) {
+    if(cores[i] != 0){
+        int menor = 1;
+        int *vizinhos = vizinhosVertice(i);
+        int grau = grauVertice(i);
+        for (int c = 0; c < grau; c++){
+            int v = vizinhos[c];
+            if(cores[v] == menor){
+                menor++;
+                c = 0;
+            }
+        }
+        cores[i] = menor;
+        for (int i = 0; i < grau; i++) coloracaoRecursivo(cores, vizinhos[i]);
+        delete[] vizinhos;
+    }
+}

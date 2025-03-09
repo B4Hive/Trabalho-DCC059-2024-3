@@ -75,6 +75,9 @@ public:
     // B4Hive
     void caminhoMinimoFloyd(int u, int v);
 
+    int coloracaoGuloso();
+    void coloracaoRecursivo(int cores[], int i);
+
     bool &Debug() { return debug; }
 
 protected:
