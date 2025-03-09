@@ -1,5 +1,6 @@
 #include <iostream>
 #include <locale.h>
+#include <ctime>
 #include "./include/grafo.h"
 #include "./include/grafo_lista.h"
 #include "./include/grafo_matriz.h"
@@ -272,11 +273,29 @@ int main(int argc, char *argv[])
         }
         g->carrega_grafo(argv[2], filename);
         cout<<"Coloracao Guloso"<<endl;
-        g->coloracaoGuloso();
+
+        clock_t t = clock();
+        //g->coloracaoGuloso();
+        t = clock() - t;
+        cout<<"Tempo de execucao: "<<((float)t)/CLOCKS_PER_SEC<<"s"<<endl;
+        // << b4hive >>
+        
+        cout<<"B4Hive: ";
+        t = clock();
+        cout<<g->coloracaoGulosoAlt()<<endl;
+        t = clock() - t;
+        cout<<"Tempo de execucao: "<<((float)t)/CLOCKS_PER_SEC<<"s"<<endl;
+        // >>
+
         cout<<endl;
 
         cout<<"Coloracao Randomizado"<<endl;
-        g->coloracaoRandomizado();
+        //g->coloracaoRandomizado();
+        t = clock();
+        cout<<"B4Hive: ";
+        cout<<g->coloracaoRandomizadoAlt()<<endl;
+        t = clock() - t;
+        cout<<"Tempo de execucao: "<<((float)t)/CLOCKS_PER_SEC<<"s"<<endl;
         cout<<endl;
     }
 

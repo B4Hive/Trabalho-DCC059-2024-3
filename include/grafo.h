@@ -82,6 +82,11 @@ public:
     void coloracaoRandomizado();
     void coloracaoReativo();
 
+    int coloracaoGulosoAlt();
+    void coloracaoRecursivo(int cores[], int i);
+    int coloracaoRandomizadoAlt();
+    bool colorido(int cores[], int c);
+
     bool &Debug() { return debug; }
 
 protected:

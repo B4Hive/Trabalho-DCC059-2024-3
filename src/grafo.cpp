@@ -1195,33 +1195,55 @@ void Grafo::coloracaoRandomizado()
 
 
 }
-/*
-int Grafo::coloracaoGuloso(){
+
+int Grafo::coloracaoGulosoAlt(){
     int n = getOrdem();
     int *cores = new int[n];
     for (int i = 0; i < n; i++) cores[i] = 0;
     for (int i = 0; i < n; i++) coloracaoRecursivo(cores, i);
     int qtdCores = 0;
-    for (int i = 0; i < n; i++) qtdCores = max(qtdCores, cores[i]);
+    for (int i = 0; i < n; i++) if (cores[i] > qtdCores) qtdCores = cores[i];
     delete[] cores;
     return qtdCores;
 }
 
-void Grafo::coloracaoRecursivo(int *cores, int i) {
-    if(cores[i] != 0){
+void Grafo::coloracaoRecursivo(int cores[], int i) {
+    if(cores[i] == 0){
         int menor = 1;
-        int *vizinhos = vizinhosVertice(i);
-        int grau = grauVertice(i);
+        int *vizinhos = vizinhosVertice(i+1);
+        int grau = grauVertice(i+1);
         for (int c = 0; c < grau; c++){
             int v = vizinhos[c];
-            if(cores[v] == menor){
+            if(cores[v-1] == menor){
                 menor++;
                 c = 0;
             }
         }
         cores[i] = menor;
-        for (int i = 0; i < grau; i++) coloracaoRecursivo(cores, vizinhos[i]);
+        for (int i = 0; i < grau; i++) coloracaoRecursivo(cores, vizinhos[i]-1);
         delete[] vizinhos;
     }
 }
-*/
+
+int Grafo::coloracaoRandomizadoAlt(){
+    int randomizado = coloracaoGulosoAlt();
+    int n = getOrdem();
+    for(int r = 0; r < 1000; r++){
+        int *cores = new int[n];
+        for (int i = 0; i < n; i++) cores[i] = 0;
+        while (!colorido(cores, n)){
+            int i = rand() % (n);
+            coloracaoRecursivo(cores, i);
+        }
+        int result = 1;
+        for (int i = 0; i < n; i++) if (cores[i] > result) result = cores[i];
+        if (result < randomizado) randomizado = result;
+        delete[] cores;
+    }
+    return randomizado;
+  }
+  
+  bool Grafo::colorido(int cores[], int c){
+    for(int i = 0; i < c; i++) if (cores[c] == 0) return false;
+    return true;
+  }
