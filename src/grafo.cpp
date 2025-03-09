@@ -946,48 +946,47 @@ void Grafo::exportDesc()
     {
         cout << "Nao" << endl;
     }
-    // cout << "Bipartido: ";
-    // if (getBipartido())
-    // {
-    //     cout << "Sim" << endl;
-    // }
-    // else
-    // {
-    //     cout << "Nao" << endl;
-    // }
-    // cout << "Arvore: ";
-    // if (getArvore())
-    // {
-    //     cout << "Sim" << endl;
-    // }
-    // else
-    // {
-    //     cout << "Nao" << endl;
-    // }
-    // cout << "Aresta Ponte: ";
-    // if (getAresta_Ponte())
-    // {
-    //     cout << "Sim" << endl;
-    // }
-    // else
-    // {
-    //     cout << "Nao" << endl;
-    // }
-    // cout << "Vertice de Articulacao: ";
-    // if (getVertice_de_Articulacao())
-    // {
-    //     cout << "Sim" << endl;
-    // }
-    // else
-    // {
-    //     cout << "Nao" << endl;
-    // }
-
+/*
+    cout << "Bipartido: ";
+    if (getBipartido())
+    {
+        cout << "Sim" << endl;
+    }
+    else
+    {
+        cout << "Nao" << endl;
+    }
+    cout << "Arvore: ";
+    if (getArvore())
+    {
+        cout << "Sim" << endl;
+    }
+    else
+    {
+        cout << "Nao" << endl;
+    }
+    cout << "Aresta Ponte: ";
+    if (getAresta_Ponte())
+    {
+        cout << "Sim" << endl;
+    }
+    else
+    {
+        cout << "Nao" << endl;
+    }
+    cout << "Vertice de Articulacao: ";
+    if (getVertice_de_Articulacao())
+    {
+        cout << "Sim" << endl;
+    }
+    else
+    {
+        cout << "Nao" << endl;
+    }
+*/
+    
     caminhoMinimoFloyd(-1,-1);
 
-    // Temp test
-
-    // caminhoMinimoFloyd(1, getOrdem());
 }
 
 // >>
@@ -1106,92 +1105,123 @@ unsigned int Grafo::BPConexo()
 
 // >> ufjoao-final
 
-void Grafo::coloracaoGuloso()
-{
-    int maxCor = 0;
-    for(int i = 0; i< getOrdem(); i++)
-    {
-        int *vizinhos = vizinhosVertice(i);
-        int grau = grauVertice(i);
-        int cores[grau];
-        for(int j = 0; j < grau; j++)
-        {
-            cores[j] = getCor(vizinhos[j]);
-        }
-        int cor = 1;
-        while(true)
-        {
-            bool corUsada = false;
-            for(int j = 0; j < grau; j++)
-            {
-                if(cores[j] == cor)
-                {
-                    cor++;
-                    corUsada = true;
-                }
-            }
-            if(!corUsada)
-            {
-                break;
-            }
-        }
-        if(cor > maxCor)
-        {
-            maxCor = cor;
-        }
-        setCor(i, cor);
-        delete[] vizinhos;
-    }
-
-    cout<<"Numero de cores: "<<maxCor<<endl;
+int Grafo::coloracaoGuloso(){
+    int n = getOrdem();
+    int *cores = new int[n];
+    for (int i = 0; i < n; i++) cores[i] = 0;
+    for (int i = 0; i < n; i++) coloracaoRecursivo(cores, i);
+    int qtdCores = 0;
+    for (int i = 0; i < n; i++) if (cores[i] > qtdCores) qtdCores = cores[i];
+    delete[] cores;
+    return qtdCores;
 }
 
-void Grafo::coloracaoRandomizado()
-{
-    int maxCor = getGrau();
-    int ordem = getOrdem();
-    bool solucao = true;
-    
-    for(int i = 0; i< ordem; i++)
-    {
-        setCor(i, rand()%maxCor + 1);
-    }
-
-    for(int r = 0; r <= 1000; r++)
-    {        
-        // vericiacão
-        for(int i = 0; i< ordem; i++)
-        {
-            if(getCor(i) == 0)
-            {
-                setCor(i, rand()%maxCor + 1);
-                solucao = true;
+void Grafo::coloracaoRecursivo(int cores[], int i) {
+    if(cores[i] == 0){
+        int menor = 1;
+        int *vizinhos = vizinhosVertice(i+1);
+        int grau = grauVertice(i+1);
+        for (int c = 0; c < grau; c++) {
+            int v = vizinhos[c];
+            if(cores[v-1] == menor) {
+                menor++;
+                c = 0;
             }
-            int *vizinhos = vizinhosVertice(i);
-            int grau = grauVertice(i);
-            for(int j = 0; j < grau; j++)
-            {
-                if(getCor(i) == getCor(vizinhos[j]))
-                {
-                    solucao = false;
-                    setCor(i, 0);
-                    break;
+        }
+        cores[i] = menor;
+        for (int j = 0; j < grau; j++) coloracaoRecursivo(cores, vizinhos[j]-1);
+        delete[] vizinhos;
+    }
+}
+
+int Grafo::coloracaoRandomizado(){
+    int randomizado = coloracaoGuloso();
+    int n = getOrdem();
+    for(int r = 0; r < 10; r++){
+        int *cores = new int[n];
+        for (int i = 0; i < n; i++) cores[i] = 0;
+        while (!colorido(cores, n)) {
+            int i = rand() % (n);
+            coloracaoRecursivo(cores, i);
+        }
+        int result = 1;
+        for (int i = 0; i < n; i++) if (cores[i] > result) result = cores[i];
+        if (result < randomizado) {
+            randomizado = result;
+            r = 0;
+        }
+        delete[] cores;
+    }
+    return randomizado;
+}
+  
+bool Grafo::colorido(int cores[], int n){
+    for(int i = 0; i < n; i++) if (cores[i] == 0) return false;
+    return true;
+}
+
+int Grafo::coloracaoReativo(){
+    int reativo = coloracaoRandomizado();
+    int n = getOrdem();
+    for(int r = 0; r < 10; r++){
+        int *cores = new int[n];
+        for (int i = 0; i < n; i++) cores[i] = 0;
+        while (!colorido(cores, n)) {
+            int i = rand() % (n);
+            coloracaoReativoRecursivo(cores, i, n);
+        }
+        int result = 1;
+        for (int i = 0; i < n; i++) if (cores[i] > result) result = cores[i];
+        if (result < reativo) {
+            reativo = result;
+            r = 0;
+        }
+        delete[] cores;
+    }
+    return reativo;
+}
+
+void Grafo::coloracaoReativoRecursivo(int cores[], int i, int n) {
+    if(cores[i] == 0){
+        int menor = 1;
+        int *vizinhos = vizinhosVertice(i+1);
+        int grau = grauVertice(i+1);
+        bool trocou = false;
+        for (int c = 0; c < grau; c++){
+            int v = vizinhos[c];
+            if(cores[v-1] == menor){
+                if (menor < maiorCor(cores, n) || trocou){
+                    menor++;
+                    c = 0;
+                } else {
+                    trocaCor(cores, n, &trocou);
+                    c = 0;
                 }
             }
-            delete[] vizinhos;
+        }
+        cores[i] = menor;
+        for (int j = 0; j < grau; j++) coloracaoReativoRecursivo(cores, vizinhos[j]-1, n);
+        delete[] vizinhos;
+    }
+}
+
+int Grafo::maiorCor(int cores[], int n){
+    int maior = 0;
+    for (int i = 0; i < n; i++){
+        if (cores[i] > maior)
+            maior = cores[i];
+    }
+    return maior;
+}
+
+void Grafo::trocaCor(int cores[], int n, bool *trocou){
+    int m = maiorCor(cores, n);
+    for (int i = 0; i < n; i++){
+        if (cores[i] == m){
+            cores[i] = 1;
+        } else if (cores[i] != 0){
+            cores[i]++;
         }
     }
-
-    if(solucao)
-    {
-        cout<<"Solucao encontrada!"<<endl;
-        cout<<"Numero de cores: "<<maxCor<<endl;
-    }
-    else
-    {
-        cout<<"Solucao nao encontrada!"<<endl;
-        cout<<"Numero de cores: "<<maxCor<<endl;
-    }
-
-
+    *trocou = true;
 }

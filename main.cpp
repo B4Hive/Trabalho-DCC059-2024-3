@@ -1,5 +1,6 @@
 #include <iostream>
 #include <locale.h>
+#include <ctime>
 #include "./include/grafo.h"
 #include "./include/grafo_lista.h"
 #include "./include/grafo_matriz.h"
@@ -15,7 +16,7 @@ using namespace std;
 int main(int argc, char *argv[])
 {
     setlocale(LC_ALL, "portuguese");
-
+    srand(time(NULL));
     if (argc < 4 || argc > 5)
     {
         cout << "Numero de argumentos invalido" << endl;
@@ -72,13 +73,7 @@ int main(int argc, char *argv[])
         g->exportDesc();
         cout << "--------------------------------------------------" << endl;
         cout << "Imprimindo grafo" << endl;
-        cout << "--------------------------------------------------" << endl
-             << endl;
-        g->novo_no(60);
-        g->novo_no(66);
-        g->novo_no(70);
-        g->novo_no(80);
-        g->novo_no(90);
+        cout << "--------------------------------------------------" << endl << endl;
 
         g->imprime();
 
@@ -271,12 +266,27 @@ int main(int argc, char *argv[])
             g = new grafo_matriz;
         }
         g->carrega_grafo(argv[2], filename);
+
         cout<<"Coloracao Guloso"<<endl;
-        g->coloracaoGuloso();
+        cout<<"Numero de cores: ";
+        clock_t t = clock();
+        cout<<g->coloracaoGuloso()<<endl;
+        t = clock() - t;
+        cout<<"Tempo de execucao: "<<((float)t)/CLOCKS_PER_SEC<<"s"<<endl;
         cout<<endl;
 
         cout<<"Coloracao Randomizado"<<endl;
-        g->coloracaoRandomizado();
+        t = clock();
+        cout<<endl<<"Numero de cores: "<<g->coloracaoRandomizado()<<endl;
+        t = clock() - t;
+        cout<<"Tempo de execucao: "<<((float)t)/CLOCKS_PER_SEC<<"s"<<endl;
+        cout<<endl;
+
+        cout<<"Coloracao Reativo"<<endl;
+        t = clock();
+        cout<<endl<<"Numero de cores: "<<g->coloracaoReativo()<<endl;
+        t = clock() - t;
+        cout<<"Tempo de execucao: "<<((float)t)/CLOCKS_PER_SEC<<"s"<<endl;
         cout<<endl;
     }
 
