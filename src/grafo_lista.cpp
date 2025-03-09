@@ -527,6 +527,34 @@ int grafo_lista::grauVertice(int id)
     return 0;
 }
 
+void grafo_lista::setCor(int id, int cor)
+{
+    vertice *p = inicio;
+    while (p != NULL)
+    {
+        if (p->ID() == id)
+        {
+            p->Cor() = cor;
+            return;
+        }
+        p = p->getProx();
+    }
+}
+
+int grafo_lista::getCor(int id)
+{
+    vertice *p = inicio;
+    while (p != NULL)
+    {
+        if (p->ID() == id)
+        {
+            return p->Cor();
+        }
+        p = p->getProx();
+    }
+    return -1;
+}
+
 void grafo_lista::inicializa()
 {
 }
