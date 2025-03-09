@@ -260,7 +260,7 @@ int main(int argc, char *argv[])
 
         */
     }
-    else if (parametro1 == "-c")
+    else if (parametro1 == "-p") // Resolução do problema
     {
         if (parametro2 == "-l")
         {
@@ -270,8 +270,14 @@ int main(int argc, char *argv[])
         {
             g = new grafo_matriz;
         }
-        g->novo_grafo(filename, fileOut);
-        // g->imprime();
+        g->carrega_grafo(argv[2], filename);
+        cout<<"Coloracao Guloso"<<endl;
+        g->coloracaoGuloso();
+        cout<<endl;
+
+        cout<<"Coloracao Randomizado"<<endl;
+        g->coloracaoRandomizado();
+        cout<<endl;
     }
 
     delete g;

@@ -44,13 +44,16 @@ public:
     edge *getAresta(int v, int w);
     float &operator()(int v, int w);
 
-    // B4Hive
     void inicializa();
     void imprime();
+
+    void setCor(int id, int cor);
+    int getCor(int id);
 
 private:
 
     float *m;                     ///< Ponteiro para a matriz de adjacência representada em um array unidimensional.
+    int* cores;
 
     int ordem_matriz;           ///< Número de vértices no grafo.
     unsigned int exp_ordem = 0; ///< Variável auxiliar para realocação da matriz.

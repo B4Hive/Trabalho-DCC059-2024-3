@@ -60,10 +60,13 @@ public:
     void setProx(vertice *p);
     void insereAresta(edge *e);
 
+    int &Cor() { return cor; }
+
 private:
     int id;            ///< Identificador do vértice.
     int grau;          ///< Grau do vértice.
     int peso;          ///< Peso do vértice.
+    int cor;           ///< Cor do vértice.
     vertice *prox;     ///< Ponteiro para o próximo vértice na lista encadeada.
     edge *init_aresta; ///< Ponteiro para a primeira aresta do vértice.
 };

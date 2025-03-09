@@ -57,6 +57,9 @@ public:
     virtual edge *getAresta(int v, int w) = 0;
     virtual bool buscaAresta(int v, int w) = 0;
 
+    virtual void setCor(int id, int cor) = 0;
+    virtual int getCor(int id) = 0;
+
     // virtual void nova_aresta(int v, int w, int peso) = 0;
 
     int getGrau();
@@ -75,8 +78,9 @@ public:
     // B4Hive
     void caminhoMinimoFloyd(int u, int v);
 
-    int coloracaoGuloso();
-    void coloracaoRecursivo(int cores[], int i);
+    void coloracaoGuloso();
+    void coloracaoRandomizado();
+    void coloracaoReativo();
 
     bool &Debug() { return debug; }
 
@@ -110,6 +114,8 @@ protected:
     unsigned int BPConexo(); // info[2]
     void auxBPConexos(int v, bool *visitado);
     bool BipartidoFB();
+
+    
 
     // Variaveis internas
     string filename; ///< Variável que armazena o nome do arquivo utilizado para carregar o grafo.
