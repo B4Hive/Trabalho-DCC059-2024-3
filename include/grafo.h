@@ -78,14 +78,14 @@ public:
     // B4Hive
     void caminhoMinimoFloyd(int u, int v);
 
-    void coloracaoGuloso();
-    void coloracaoRandomizado();
+    int coloracaoGuloso();
+    void coloracaoRecursivo(int cores[], int i);
+
+    int coloracaoRandomizado();
+    bool colorido(int cores[], int n);
+    
     void coloracaoReativo();
 
-    int coloracaoGulosoAlt();
-    void coloracaoRecursivo(int cores[], int i);
-    int coloracaoRandomizadoAlt();
-    bool colorido(int cores[], int c);
 
     bool &Debug() { return debug; }
 

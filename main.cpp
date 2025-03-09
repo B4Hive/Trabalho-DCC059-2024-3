@@ -274,26 +274,16 @@ int main(int argc, char *argv[])
         g->carrega_grafo(argv[2], filename);
         cout<<"Coloracao Guloso"<<endl;
 
+        cout<<"Numero de cores: ";
         clock_t t = clock();
-        //g->coloracaoGuloso();
+        cout<<g->coloracaoGuloso()<<endl;
         t = clock() - t;
         cout<<"Tempo de execucao: "<<((float)t)/CLOCKS_PER_SEC<<"s"<<endl;
-        // << b4hive >>
-        
-        cout<<"B4Hive: ";
-        t = clock();
-        cout<<g->coloracaoGulosoAlt()<<endl;
-        t = clock() - t;
-        cout<<"Tempo de execucao: "<<((float)t)/CLOCKS_PER_SEC<<"s"<<endl;
-        // >>
-
         cout<<endl;
 
         cout<<"Coloracao Randomizado"<<endl;
-        //g->coloracaoRandomizado();
         t = clock();
-        cout<<"B4Hive: ";
-        cout<<g->coloracaoRandomizadoAlt()<<endl;
+        cout<<endl<<"Numero de cores: "<<g->coloracaoRandomizado()<<endl;
         t = clock() - t;
         cout<<"Tempo de execucao: "<<((float)t)/CLOCKS_PER_SEC<<"s"<<endl;
         cout<<endl;
