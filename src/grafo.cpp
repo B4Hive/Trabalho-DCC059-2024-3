@@ -9,6 +9,7 @@
 #include "../include/grafo.h"
 #include "../include/grafo_lista.h"
 #include "../include/grafo_matriz.h"
+#include "../include/grafo.h"
 using namespace std;
 
 // << Getters and Setters >>
@@ -1105,6 +1106,16 @@ unsigned int Grafo::BPConexo()
 
 // >> ufjoao-final
 
+/**
+ * @brief Realiza a coloração gulosa do grafo.
+ * 
+ * Este método utiliza um algoritmo guloso para colorir os vértices do grafo.
+ * Inicialmente, todos os vértices são descoloridos (cor 0). Em seguida, 
+ * o método `coloracaoRecursivo` é chamado para cada vértice, atribuindo 
+ * cores de forma a minimizar o número de cores utilizadas.
+ * 
+ * @return int Retorna o número total de cores utilizadas na coloração do grafo.
+ */
 int Grafo::coloracaoGuloso(){
     int n = getOrdem();
     int *cores = new int[n];
@@ -1112,10 +1123,22 @@ int Grafo::coloracaoGuloso(){
     for (int i = 0; i < n; i++) coloracaoRecursivo(cores, i);
     int qtdCores = 0;
     for (int i = 0; i < n; i++) if (cores[i] > qtdCores) qtdCores = cores[i];
+    exportarCores(cores, n, qtdCores, "coresGuloso.txt");
     delete[] cores;
     return qtdCores;
 }
 
+/**
+ * @brief Realiza a coloração recursiva dos vértices de um grafo.
+ *
+ * Este método atribui cores aos vértices de um grafo de forma recursiva, garantindo que
+ * vértices adjacentes tenham cores diferentes. A coloração é feita de forma a minimizar
+ * o número de cores utilizadas.
+ *
+ * @param cores Array de inteiros que representa as cores atribuídas a cada vértice.
+ *              O índice do array corresponde ao vértice, e o valor armazenado é a cor.
+ * @param i Índice do vértice atual a ser colorido.
+ */
 void Grafo::coloracaoRecursivo(int cores[], int i) {
     if(cores[i] == 0){
         int menor = 1;
@@ -1134,11 +1157,23 @@ void Grafo::coloracaoRecursivo(int cores[], int i) {
     }
 }
 
+/**
+ * @brief Realiza a coloração do grafo de forma randomizada.
+ * 
+ * Este método utiliza uma abordagem gulosa inicial para colorir o grafo e, em seguida,
+ * tenta melhorar a coloração através de tentativas randomizadas. A cada tentativa, 
+ * ele reinicializa as cores dos vértices e aplica uma coloração recursiva até que todos 
+ * os vértices estejam coloridos. Se uma tentativa resulta em uma coloração com menos cores 
+ * do que a melhor encontrada até o momento, essa nova coloração é adotada e o processo 
+ * de tentativas é reiniciado.
+ * 
+ * @return int O número mínimo de cores encontradas para colorir o grafo.
+ */
 int Grafo::coloracaoRandomizado(){
     int randomizado = coloracaoGuloso();
     int n = getOrdem();
+    int *cores = new int[n];
     for(int r = 0; r < 10; r++){
-        int *cores = new int[n];
         for (int i = 0; i < n; i++) cores[i] = 0;
         while (!colorido(cores, n)) {
             int i = rand() % (n);
@@ -1150,21 +1185,43 @@ int Grafo::coloracaoRandomizado(){
             randomizado = result;
             r = 0;
         }
-        delete[] cores;
     }
+    exportarCores(cores, n, randomizado, "coresRandomizado.txt");
+    delete[] cores;
     return randomizado;
 }
-  
+
+/**
+ * @brief Verifica se todas as posições do array de cores estão coloridas.
+ *
+ * Esta função percorre um array de inteiros representando cores e verifica
+ * se todas as posições estão coloridas (diferentes de zero).
+ *
+ * @param cores Array de inteiros representando as cores dos vértices.
+ * @param n Tamanho do array de cores.
+ * @return true Se todas as posições do array estão coloridas (diferentes de zero).
+ * @return false Se pelo menos uma posição do array não está colorida (igual a zero).
+ */
 bool Grafo::colorido(int cores[], int n){
     for(int i = 0; i < n; i++) if (cores[i] == 0) return false;
     return true;
 }
 
+/**
+ * @brief Realiza a coloração reativa do grafo.
+ * 
+ * Este método utiliza uma abordagem reativa para colorir o grafo, tentando
+ * minimizar o número de cores utilizadas. A cada iteração, ele tenta
+ * encontrar uma coloração melhor que a anterior, reiniciando o processo
+ * se uma coloração melhor for encontrada.
+ * 
+ * @return int O número mínimo de cores necessárias para colorir o grafo.
+ */
 int Grafo::coloracaoReativo(){
     int reativo = coloracaoRandomizado();
     int n = getOrdem();
+    int *cores = new int[n];
     for(int r = 0; r < 10; r++){
-        int *cores = new int[n];
         for (int i = 0; i < n; i++) cores[i] = 0;
         while (!colorido(cores, n)) {
             int i = rand() % (n);
@@ -1176,11 +1233,23 @@ int Grafo::coloracaoReativo(){
             reativo = result;
             r = 0;
         }
-        delete[] cores;
     }
+    exportarCores(cores, n, reativo, "coresReativo.txt");
+    delete[] cores;
     return reativo;
 }
 
+/**
+ * @brief Realiza a coloração reativa recursiva de um grafo.
+ *
+ * Esta função atribui cores aos vértices de um grafo de forma recursiva, 
+ * garantindo que vértices adjacentes tenham cores diferentes. 
+ * A função utiliza uma abordagem reativa para ajustar as cores conforme necessário.
+ *
+ * @param cores Array de inteiros que representa as cores atribuídas aos vértices.
+ * @param i Índice do vértice atual a ser colorido.
+ * @param n Número total de vértices no grafo.
+ */
 void Grafo::coloracaoReativoRecursivo(int cores[], int i, int n) {
     if(cores[i] == 0){
         int menor = 1;
@@ -1205,6 +1274,15 @@ void Grafo::coloracaoReativoRecursivo(int cores[], int i, int n) {
     }
 }
 
+/**
+ * @brief Encontra a maior cor em um array de cores.
+ *
+ * Esta função percorre um array de inteiros que representam cores e retorna o maior valor encontrado.
+ *
+ * @param cores Array de inteiros representando as cores.
+ * @param n Tamanho do array de cores.
+ * @return int O maior valor de cor encontrado no array.
+ */
 int Grafo::maiorCor(int cores[], int n){
     int maior = 0;
     for (int i = 0; i < n; i++){
@@ -1214,6 +1292,17 @@ int Grafo::maiorCor(int cores[], int n){
     return maior;
 }
 
+/**
+ * @brief Troca as cores dos vértices do grafo.
+ *
+ * Esta função altera as cores dos vértices do grafo de acordo com a maior cor presente.
+ * Se a cor de um vértice for igual à maior cor, ela é alterada para 1. Caso contrário,
+ * se a cor não for 0, ela é incrementada em 1.
+ *
+ * @param cores Array de inteiros representando as cores dos vértices.
+ * @param n Número de vértices no grafo.
+ * @param trocou Ponteiro para um booleano que será definido como true se as cores forem trocadas.
+ */
 void Grafo::trocaCor(int cores[], int n, bool *trocou){
     int m = maiorCor(cores, n);
     for (int i = 0; i < n; i++){
@@ -1224,4 +1313,36 @@ void Grafo::trocaCor(int cores[], int n, bool *trocou){
         }
     }
     *trocou = true;
+}
+
+/**
+ * @brief Exporta as cores dos vértices de um grafo para um arquivo.
+ *
+ * Este método exporta as cores atribuídas aos vértices de um grafo para um arquivo especificado.
+ * O arquivo gerado contém o número total de cores e a lista de vértices para cada cor.
+ *
+ * @param cores Array de inteiros contendo as cores atribuídas a cada vértice.
+ * @param n Número total de vértices no grafo.
+ * @param c Número total de cores utilizadas.
+ * @param filename Nome do arquivo para o qual as informações serão exportadas.
+ */
+void Grafo::exportarCores(int cores[], int n, int c, string filename){
+    ofstream file;
+    file.open(filename, ofstream::out);
+    if (!file.is_open()){
+        cout << "Erro ao abrir arquivo" << endl;
+        return;
+    }
+
+    file << "Número de cores: " << c << endl;
+    for (int i = 0; i < c; i++){
+        file << "Cor " << i+1 << ": ";
+        for (int j = 0; j < n; j++){
+            if (cores[j] == i+1){
+                file << j+1 << " - ";
+            }
+        }
+        file << endl;
+    }
+    file.close();
 }

@@ -89,6 +89,8 @@ public:
     int maiorCor(int cores[], int n);
     void trocaCor(int cores[], int n, bool *trocou);
 
+    void exportarCores(int cores[], int n, int c, string filename);
+
 
     bool &Debug() { return debug; }
 

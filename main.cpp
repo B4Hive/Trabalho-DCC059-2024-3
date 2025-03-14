@@ -268,9 +268,8 @@ int main(int argc, char *argv[])
         g->carrega_grafo(argv[2], filename);
 
         cout<<"Coloracao Guloso"<<endl;
-        cout<<"Numero de cores: ";
         clock_t t = clock();
-        cout<<g->coloracaoGuloso()<<endl;
+        cout<<endl<<"Numero de cores: "<<g->coloracaoGuloso()<<endl;
         t = clock() - t;
         cout<<"Tempo de execucao: "<<((float)t)/CLOCKS_PER_SEC<<"s"<<endl;
         cout<<endl;
